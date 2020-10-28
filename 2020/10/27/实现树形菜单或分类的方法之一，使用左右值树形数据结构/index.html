@@ -19,7 +19,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2Jsb2cvMzQzNjIzLzIwMTQwOS8xODIyMzU0MzkyNTY2MjkuanBn?x-oss-process=image/format,png">
 <meta property="article:published_time" content="2020-10-27T07:37:14.000Z">
-<meta property="article:modified_time" content="2020-10-27T07:40:30.582Z">
+<meta property="article:modified_time" content="2020-10-28T05:45:45.020Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形">
 <meta name="twitter:card" content="summary">
@@ -50,6 +50,22 @@
   
   
 
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
+
 
   
 
@@ -78,23 +94,23 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="https://wc394915432.github.io" target="_blank">主页</a></li>
+				<li><a href="https://wc394915432.github.io" >主页</a></li>
 			
-				<li><a href="https://wc394915432.github.io" target="_blank">技术笔记</a></li>
+				<li><a href="https://wc394915432.github.io" >技术笔记</a></li>
 			
-				<li><a href="/" target="_blank">个人简历</a></li>
+				<li><a href="/" >个人简历</a></li>
 			
-				<li><a href="https://wc394915432.github.io/categories/JAVA/" target="_blank">JAVA</a></li>
+				<li><a href="https://wc394915432.github.io/categories/JAVA/" >JAVA</a></li>
 			
-				<li><a href="https://wc394915432.github.io/categories/ANDROID/" target="_blank">ANDROID</a></li>
+				<li><a href="https://wc394915432.github.io/categories/ANDROID/" >ANDROID</a></li>
 			
-				<li><a href="https://wc394915432.github.io/categories/运维/" target="_blank">运维</a></li>
+				<li><a href="https://wc394915432.github.io/categories/运维/" >运维</a></li>
 			
-				<li><a href="https://wc394915432.github.io/categories/游戏开发/" target="_blank">游戏开发</a></li>
+				<li><a href="https://wc394915432.github.io/categories/游戏开发/" >游戏开发</a></li>
 			
-				<li><a href="https://wc394915432.github.io/categories/数据结构与算法/" target="_blank">数据结构与算法</a></li>
+				<li><a href="https://wc394915432.github.io/categories/数据结构与算法/" >数据结构与算法</a></li>
 			
-				<li><a href="/archives/index.html" target="_blank">归档</a></li>
+				<li><a href="/archives/index.html" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -117,33 +133,33 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/wc394915432" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/wc394915432" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/u012280292" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/u012280292" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="rss" href="#" 
-												title="RSS订阅" target="_blank"><i class="icon-rss"></i></a>
+												title="RSS订阅" ><i class="icon-rss"></i></a>
 					
 				
 					
 						<a class="zhihu" href="#" 
-												title="知乎" target="_blank"><i class="icon-zhihu"></i></a>
+												title="知乎" ><i class="icon-zhihu"></i></a>
 					
 				
 					
 						<a class="qq" href="/MTkyOTY5Njc3MQ==" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="mail" href="/eGlhaHVpXzE5OTJAMTYzLmNvbQ==" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
+												title="邮件联系" ><i class="icon-mail"></i></a>
 					
 				
 			</div>
@@ -330,6 +346,7 @@
 <p>&nbsp;</p> 
 <h3><span id="表字段">表字段</span></h3> 
 <pre><code class="language-sql hljs"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">"public"</span>.<span class="hljs-string">"t_test"</span> (</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"id"</span> int4 <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">nextval</span>(<span class="hljs-string">'"T_TEST_ID_seq"'</span>::regclass),</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"name"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">COLLATE</span> <span class="hljs-string">"pg_catalog"</span>.<span class="hljs-string">"default"</span>,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"l"</span> int4,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"r"</span> int4,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"level"</span> int4,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"other"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">COLLATE</span> <span class="hljs-string">"pg_catalog"</span>.<span class="hljs-string">"default"</span>,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"status"</span> int2 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-string">"id"</span>)</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">)</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<a id="more"></a>
 <h3><span id="查询节点sql">查询节点SQL</span></h3> 
 <p>如下，比如点击一个节点要查询下面所有子节点时的查询方法：</p> 
 <pre><code class="language-sql hljs"><ol class="hljs-ln" style="width:1021px"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--查询节点</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--查询节点下全部子孙菜单不包括自身菜单 (查询“根菜单下的所有子节点”),子查询中id=1表示查询该父节点的left值和right值</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_test <span class="hljs-keyword">WHERE</span> l &gt; (<span class="hljs-keyword">SELECT</span> l  <span class="hljs-keyword">from</span> t_test <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>) <span class="hljs-keyword">AND</span> r &lt; (<span class="hljs-keyword">SELECT</span> r  <span class="hljs-keyword">from</span> t_test <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>);</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--查询子孙总数=(右值-左值-1)/2 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--查询某一节点的全部父祖节点</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_test <span class="hljs-keyword">WHERE</span> l &lt;(<span class="hljs-keyword">SELECT</span> l  <span class="hljs-keyword">from</span> t_test <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">4</span>) <span class="hljs-keyword">AND</span> r &gt; (<span class="hljs-keyword">SELECT</span> r  <span class="hljs-keyword">from</span> t_test <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">4</span>) <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> l;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--判断某一节点是否是指定节点的字节点，判断条件是 子节点的Left &gt;　父节点left , 子节点right &lt; 父节点Right</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--8 &gt; 3 AND 9 &lt;4 = false</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">--判断是否是指定节点的父节点同理，子节点的Left &lt;　父节点left , 子节点right &gt; 父节点Right</span></div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
@@ -965,7 +982,7 @@
   }
 
   
-    var modelName = "haruto";
+    var modelName = "shizuku";
   
 
   var modelJsonPath = "";
