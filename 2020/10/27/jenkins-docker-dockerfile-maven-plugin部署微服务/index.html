@@ -19,7 +19,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2934113293,1921670035&amp;fm=27&amp;gp=0.jpg">
 <meta property="article:published_time" content="2020-10-27T07:27:36.000Z">
-<meta property="article:modified_time" content="2020-10-27T07:28:32.327Z">
+<meta property="article:modified_time" content="2020-10-28T01:04:43.643Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="-- 运维 -- jenkins -- 自动化部署">
 <meta name="twitter:card" content="summary">
@@ -278,6 +278,7 @@
 <pre class="has" name="code"><code class="hljs xml"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-tag">&lt;<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-tag">&lt;<span class="hljs-name">dockerfile.skip</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">dockerfile.skip</span>&gt;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span></div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
 <p>这样打包插件就不会打包parent项目了。</p> 
 <p>&nbsp;</p> 
+<a id="more"></a>)
 <h2><span id="三-编写docker镜像的自动启动shell命令">三、编写docker镜像的自动启动shell命令</span></h2> 
 <p>&nbsp;</p> 
 <p>新建一个run.sh文件（该文件是用于jenkins执行完打包命令后自动运行docker命令时用），添加以下代码：</p> 
@@ -449,6 +450,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.</span> <span class="toc-text">一、配置pom.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">2.</span> <span class="toc-text">二、添加dockerfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">3.</span> <span class="toc-text">三、编写docker镜像的自动启动shell命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">4.</span> <span class="toc-text">四、编写自动删除镜像的shell代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">5.</span> <span class="toc-text">五、配置jenkins</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -476,8 +490,8 @@
       owner: 'wc394915432',
       repo: 'wc394915432.github.io',
       oauth: {
-        client_id: '54835d6f400c6183c982',
-        client_secret: '8997e85ba4a76fd950cb00c8e99ee9281ac4444a',
+        client_id: 'f3849a4d7ee918d7da99',
+        client_secret: 'd2f2e0b00608238f5cfbb62e016fc0be1f4a70fc',
       },
     })
     gitment.render('gitment-ctn')
@@ -622,11 +636,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-- 程序人生 -- 杂谈 -- hexo测试页面</a>
+                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">-- 程序人生 -- 杂谈 -- hexo测试页面</a>
               </li>
              
               <li class="article-tag-list-item">

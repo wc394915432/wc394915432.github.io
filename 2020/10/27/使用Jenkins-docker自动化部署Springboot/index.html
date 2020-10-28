@@ -18,7 +18,7 @@
 <meta property="og:description" content="前言  &amp;nbsp; 之前写过一遍比较粗略的jenkins + docker部署文章，这次有时间，认真的写一遍比较详细完整的jenkins +docker部署文章，由于有时间所以这次就多写一点吧，记录下我自己对docker的看法，以及它的作用，若有不对之处还请指出。  Docker的作用  &amp;nbsp;">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-27T07:34:57.000Z">
-<meta property="article:modified_time" content="2020-10-27T07:35:52.250Z">
+<meta property="article:modified_time" content="2020-10-28T01:04:20.175Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="-- 运维 -- jenkins -- 自动化部署 -- docker">
 <meta name="twitter:card" content="summary">
@@ -281,6 +281,7 @@
 <p>测试docker:</p> 
 <pre class="has" name="code"><code class="hljs properties"><span class="hljs-attr">sudo</span> <span class="hljs-string">docker run hello-world</span></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
 <p>看到打印hello world!&nbsp;就表示成功了。</p> 
+<a id="more"></a>)
 <p>如果你的服务器是其它系统，可以参考官方教程：<a target="_blank" rel="noopener" href="https://docs.docker.com/install/">https://docs.docker.com/install/</a>&nbsp; ，找到 SERVER&nbsp;一栏点击对应的系统查看教程。</p> 
 <p>&nbsp;</p> 
 <h2><span id="二-安装jenkins">二、安装jenkins</span></h2> 
@@ -489,6 +490,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#content_views"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#content_views"><span class="toc-number">1.0.1.</span> <span class="toc-text">Docker的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#content_views"><span class="toc-number">1.0.2.</span> <span class="toc-text">有感而发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.1.</span> <span class="toc-text">一、安装docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.2.</span> <span class="toc-text">二、安装jenkins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.3.</span> <span class="toc-text">三、配置jenkins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.4.</span> <span class="toc-text">四、编写docker构建shell命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.5.</span> <span class="toc-text">五、编写Dockerfile文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.6.</span> <span class="toc-text">六、测试是否成功</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#content_views"><span class="toc-number">1.6.1.</span> <span class="toc-text">测试docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#content_views"><span class="toc-number">1.6.2.</span> <span class="toc-text">推送docker镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#content_views"><span class="toc-number">1.6.3.</span> <span class="toc-text">查看服务日志</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -516,8 +530,8 @@
       owner: 'wc394915432',
       repo: 'wc394915432.github.io',
       oauth: {
-        client_id: '54835d6f400c6183c982',
-        client_secret: '8997e85ba4a76fd950cb00c8e99ee9281ac4444a',
+        client_id: 'f3849a4d7ee918d7da99',
+        client_secret: 'd2f2e0b00608238f5cfbb62e016fc0be1f4a70fc',
       },
     })
     gitment.render('gitment-ctn')
@@ -662,11 +676,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-- 程序人生 -- 杂谈 -- hexo测试页面</a>
+                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">-- 程序人生 -- 杂谈 -- hexo测试页面</a>
               </li>
              
               <li class="article-tag-list-item">

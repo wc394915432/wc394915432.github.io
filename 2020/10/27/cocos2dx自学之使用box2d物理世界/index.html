@@ -18,7 +18,7 @@
 <meta property="og:description" content="需要引入的头文件  #include &quot;cocos2d.h&quot; #include &quot;Box2D\Box2D.h&quot; #include &lt;string&gt;      创建物理世界   world &#x3D; new b2World(b2Vec2(0,-10));  创建会自由掉落的 精灵    bird &#x3D; Sprite::create(&quot;bird0_0.pn">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-27T07:46:55.000Z">
-<meta property="article:modified_time" content="2020-10-27T07:47:56.713Z">
+<meta property="article:modified_time" content="2020-10-28T01:04:59.803Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="-- 游戏开发 -- C++ -- COCOS2DX">
 <meta name="twitter:card" content="summary">
@@ -271,6 +271,7 @@
 <p></p>
 <pre><code class="language-cpp hljs"><ol class="hljs-ln" style="width:1018px"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">HelloWorld::bingSprite</span><span class="hljs-params">()</span></span>&#123; <span class="hljs-comment">//让物理盒子和精灵实时绑定来达到物理效果 物理盒子本身是看不到的</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    Sprite *s;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">for</span> (b2Body *b = world-&gt;GetBodyList(); b; b = b-&gt;GetNext())&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        s = (Sprite*)b-&gt;GetUserData();</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">if</span> (b-&gt;GetUserData() &amp;&amp; b-&gt;GetType() == b2_dynamicBody||b-&gt;GetType()==b2_kinematicBody)&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">            <span class="hljs-keyword">if</span> (s != <span class="hljs-literal">NULL</span>)&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">                s-&gt;setPosition(b-&gt;GetPosition().x*RATIO, b-&gt;GetPosition().y*RATIO);<span class="hljs-comment">//每次渲染都让sprite与box body保持位置绑定</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">            &#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">            </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        &#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    &#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#125;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre>
 <p></p> 
+<a id="more"></a>)
 <p><br> </p> 
 <p><br> </p> 添加道路物体 &nbsp;精灵下落时会落在上面 
 <p></p>
@@ -432,6 +433,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -459,8 +473,8 @@
       owner: 'wc394915432',
       repo: 'wc394915432.github.io',
       oauth: {
-        client_id: '54835d6f400c6183c982',
-        client_secret: '8997e85ba4a76fd950cb00c8e99ee9281ac4444a',
+        client_id: 'f3849a4d7ee918d7da99',
+        client_secret: 'd2f2e0b00608238f5cfbb62e016fc0be1f4a70fc',
       },
     })
     gitment.render('gitment-ctn')
@@ -605,11 +619,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-- 程序人生 -- 杂谈 -- hexo测试页面</a>
+                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">-- 程序人生 -- 杂谈 -- hexo测试页面</a>
               </li>
              
               <li class="article-tag-list-item">
