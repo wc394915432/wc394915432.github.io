@@ -6,7 +6,7 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wc394915432.github.io">
-  <title>实现树形菜单或分类的方法之一，使用左右值树形数据结构（modified preorder tree traversal）实现树形菜单 | Hexo</title>
+  <title>实现树形菜单或分类的方法之一，使用左右值树形数据结构（modified preorder tree traversal）实现树形菜单 | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -14,7 +14,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="实现树形菜单或分类的方法之一，使用左右值树形数据结构（modified preorder tree traversal）实现树形菜单">
 <meta property="og:url" content="https://wc394915432.github.io/2020/10/27/%E5%AE%9E%E7%8E%B0%E6%A0%91%E5%BD%A2%E8%8F%9C%E5%8D%95%E6%88%96%E5%88%86%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E4%B9%8B%E4%B8%80%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%B7%A6%E5%8F%B3%E5%80%BC%E6%A0%91%E5%BD%A2%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Reinerの个人博客">
 <meta property="og:description" content="突然发现自己以前常用的parent_id ,node_id这种简单直观的树形结构设计效率很低，数据量一大，就需要不停迭代寻找节点，于是这几天学习了新的数据结构(modified preorder tree traversal)，在此做下笔记。  此数据结构的好处是查询非常快，当网站查询树形数据比修改多时使用此结构会比较好，一般用于电商网站的商品分类，查询仅">
 <meta property="og:locale">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2Jsb2cvMzQzNjIzLzIwMTQwOS8xODIyMzU0MzkyNTY2MjkuanBn?x-oss-process=image/format,png">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2Jsb2cvMzQzNjIzLzIwMTQwOS8xODIyMzU0MzkyNTY2MjkuanBn?x-oss-process=image/format,png">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
   
   
     <link rel="icon" href="/img/head.jpg">
@@ -72,13 +72,15 @@
 			<h1 class="header-author"><a href="/">reiner</a></h1>
 		</hgroup>
 		
+		<p class="header-subtitle">blog</p>
+		
 
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="https://wc394915432.github.io/" target="_blank">主页</a></li>
+				<li><a href="https://wc394915432.github.io" target="_blank">主页</a></li>
 			
-				<li><a href="https://wc394915432.github.io/" target="_blank">技术笔记</a></li>
+				<li><a href="https://wc394915432.github.io" target="_blank">技术笔记</a></li>
 			
 				<li><a href="/" target="_blank">个人简历</a></li>
 			
@@ -140,6 +142,8 @@
 			  <h1 class="header-author js-header-author">reiner</h1>
 			</hgroup>
 			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>blog<i class="icon icon-quo-right"></i></p>
+			
 			
 			
 				
@@ -172,9 +176,9 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 11.11111111111111%"><a href="https://wc394915432.github.io/">主页</a></li>
+					<li style="width: 11.11111111111111%"><a href="https://wc394915432.github.io">主页</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="https://wc394915432.github.io/">技术笔记</a></li>
+					<li style="width: 11.11111111111111%"><a href="https://wc394915432.github.io">技术笔记</a></li>
 		        
 					<li style="width: 11.11111111111111%"><a href="/">个人简历</a></li>
 		        
@@ -633,11 +637,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
+                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
               </li>
              
               <li class="article-tag-list-item">
