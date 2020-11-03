@@ -6,7 +6,7 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://reinerrshir.gitee.io">
-  <title>使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上 | Reinerの个人博客</title>
+  <title>简单的nginx反向代理配置 | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -15,24 +15,18 @@
   <meta name="google-site-verification" content="-8LKN7ca7GigJpLWN7Z50PCDCir9hxPwDIfBedHlI-Y">
   
   
-  <meta name="description" content="前言  最近又重新弄了一下jenkins,虽然之前也有弄过但是都是在本地服务器部署，而且记录的不够详细，因此这次将写下详细部署过程。  &amp;nbsp;  一、下载并启动Jenkins  下载地址：https:&#x2F;&#x2F;jenkins.io&#x2F;download&#x2F;&amp;nbsp; &amp;nbsp;，选择下载war包    下载">
+  <meta name="description" content="实用nginx反向代理可实现 url转发， 如输入www.cc.com  直接转发到 127.0.0.1:8080&#x2F;project&#x2F;  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况  下面是nginx的conf配置     首先在nginx.conf引入 配置文件include  vhost.conf; 新建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上">
-<meta property="og:url" content="https://reinerrshir.gitee.io/2020/10/27/%E4%BD%BF%E7%94%A8Jenkins%20+%20Gitlab%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BASpring%20Boot%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/index.html">
+<meta property="og:title" content="简单的nginx反向代理配置">
+<meta property="og:url" content="https://reinerrshir.gitee.io/posts/763efb1.html">
 <meta property="og:site_name" content="Reinerの个人博客">
-<meta property="og:description" content="前言  最近又重新弄了一下jenkins,虽然之前也有弄过但是都是在本地服务器部署，而且记录的不够详细，因此这次将写下详细部署过程。  &amp;nbsp;  一、下载并启动Jenkins  下载地址：https:&#x2F;&#x2F;jenkins.io&#x2F;download&#x2F;&amp;nbsp; &amp;nbsp;，选择下载war包    下载">
+<meta property="og:description" content="实用nginx反向代理可实现 url转发， 如输入www.cc.com  直接转发到 127.0.0.1:8080&#x2F;project&#x2F;  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况  下面是nginx的conf配置     首先在nginx.conf引入 配置文件include  vhost.conf; 新建">
 <meta property="og:locale">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515174919401.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515180408397.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515181713874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019051518212616.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515182829795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-10-27T07:18:43.000Z">
-<meta property="article:modified_time" content="2020-10-28T01:04:33.420Z">
+<meta property="article:published_time" content="2020-10-27T06:53:14.000Z">
+<meta property="article:modified_time" content="2020-11-03T06:29:23.540Z">
 <meta property="article:author" content="reiner">
-<meta property="article:tag" content="-- 运维 -- jenkins -- 自动化部署">
+<meta property="article:tag" content="-- 运维 -- nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190515174919401.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
   
@@ -293,14 +287,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-简单的nginx反向代理配置" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上
+      简单的nginx反向代理配置
     </h1>
   
 
@@ -312,8 +306,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/10/27/%E4%BD%BF%E7%94%A8Jenkins%20+%20Gitlab%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BASpring%20Boot%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/" class="archive-article-date">
-        <time datetime="2020-10-27T07:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+<a href="/posts/763efb1.html" class="archive-article-date">
+        <time datetime="2020-10-27T06:53:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
 </a>
 
   
@@ -326,7 +320,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.7k字</span>
+      <span class="post-count">279字</span>
     </span>
   </span>
 
@@ -335,7 +329,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">6分</span>
+      <span class="post-count">1分</span>
     </span>
   </span>
 </div>
@@ -346,74 +340,20 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <div id="article_content" class="article_content clearfix">
-        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b5506197d8.css">
-                <div id="content_views" class="htmledit_views">
-                    <h1><span id="前言">前言</span></h1> 
-<p>最近又重新弄了一下jenkins,虽然之前也有弄过但是都是在本地服务器部署，而且记录的不够详细，因此这次将写下详细部署过程。</p> 
-<p>&nbsp;</p> 
-<h2><span id="一-下载并启动jenkins">一、下载并启动Jenkins</span></h2> 
-<p>下载地址：<a target="_blank" rel="noopener" href="https://jenkins.io/download/">https://jenkins.io/download/</a>&nbsp; &nbsp;，选择下载war包</p> 
-<p><img alt class="has" src="https://img-blog.csdnimg.cn/20190515174919401.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70"></p> 
-<p>下载完成后用FTP上传到服务器上输入启动命令：nohup java -jar jenkins.war --httpPort=7070&nbsp; &gt;&nbsp;jenkins.out 2&gt;&amp;1 &amp;&nbsp;,后面参数是启动端口。</p> 
-<p>启动完成后浏览器打开http://ip:7070&nbsp; 进入jenkins操作页面，此时会出现一个页面要求你输入密码，此时回到linux控制台，输入tail -100f jenkins.out&nbsp;查看启动日志，注意看日志，它会打印你的初始密码，复制初始密码并点下一步，后面的操作按提示来就可以了，可以安装推荐的插件也可以自己选，下面将进入JENKINS配置步骤。</p> 
-<p>&nbsp;</p> 
-<h2><span id="二-配置jenkins">二、配置JENKINS</span></h2> 
-<p>&nbsp;</p> 
-<p>点击jenkins&nbsp;系统管理-&gt;插件管理&nbsp; 点击available（可选插件）选项卡 ，在右上角的搜索框搜索并安装如下几个插件：</p> 
-<p>1、<a target="_blank" rel="noopener" href="http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin">Git plugin</a>&nbsp;&nbsp;<a target="_blank" rel="noopener" href="https://wiki.jenkins.io/display/JENKINS/Git+Client+Plugin">Git client plugin</a></p> 
-<p>2、<a target="_blank" rel="noopener" href="https://wiki.jenkins.io/display/JENKINS/Maven+Project+Plugin">Maven Integration plugin</a></p> 
-<p>3、<a target="_blank" rel="noopener" href="http://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+SSH+Plugin">Publish Over SSH</a></p> 
-<p>4、<a target="_blank" rel="noopener" href="https://wiki.jenkins-ci.org/display/JENKINS/Gitlab+Hook+Plugin">Gitlab Hook Plugin</a>（可选）</p> 
-<p>&nbsp;</p> 
-<p>再次点击JENKINS的系统管理 -&gt;&nbsp;系统设置 ，找到Publish over SSH这一栏，如下图配置要发布到该服务器上的连接配置</p> 
-<p><img alt class="has" src="https://img-blog.csdnimg.cn/20190515180408397.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70"></p> 
-<p>参数说明：</p> 
-<p>&nbsp; name:可以随便起&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hostname:连接IP地址&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Remote Directory:&nbsp;远程文件夹路径，发布的项目将会在此目录下&nbsp; &nbsp;&nbsp;</p> 
-<p>&nbsp; username:账号&nbsp; password:密码&nbsp; ，&nbsp; 除了用账号密码连接外还可以通过private key连接，由于麻烦我在这选择了账号密码连接</p> 
-<p>&nbsp;</p> 
-<a id="more"></a>)
-<h3><span id="全局工具配置">全局工具配置</span></h3> 
-<p>这个是基础配置，可不能忘了，分别配置它的JDK&nbsp; GIT&nbsp; 和MAVEN，如果本机已经有了，则输入安装路径即可，如果没有可以使用JENKINS的自动安装功能 ，看下图：</p> 
-<p><img alt class="has" height="866" src="https://img-blog.csdnimg.cn/20190515181713874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70" width="1200"></p> 
-<p>自动安装和手动配置二选一。</p> 
-<p>&nbsp;</p> 
-<h2><span id="三-jenkins任务配置">三、Jenkins任务配置</span></h2> 
-<p>新建一个Jenkins任务，输入你的任务名称点确定，然后点配置进入该任务的配置页面。</p> 
-<p>1、配置源码管理：</p> 
-<p>&nbsp;&nbsp;<img alt class="has" height="831" src="https://img-blog.csdnimg.cn/2019051518212616.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70" width="1200"></p> 
-<p>&nbsp;</p> 
-<p>找到源码管理点GIT，输入你的项目的GIT URL，如http://localhost:80/project.git&nbsp; ，下面的Credentials是凭据，点添加然后输入登陆gitlab的账号密码</p> 
-<p>&nbsp;</p> 
-<p>2、配置Build&nbsp;</p> 
-<p>&nbsp; 找到Build一栏，分别配置好Root POM和Goals and options&nbsp; ，root pom是你项目的pom.xml，goals and options是mvn的执行命令，可以填 ：install -DskipTests ，不需要填mvn xxx</p> 
-<p>&nbsp;</p> 
-<p>3、配置Post Steps</p> 
-<p>&nbsp; 选择Add post-build step -&gt;&nbsp;Send files or execute commands over SSH&nbsp; ，然后如下图&nbsp;配置：</p> 
-<p><img alt class="has" height="865" src="https://img-blog.csdnimg.cn/20190515182829795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70" width="1200"></p> 
-<p>1、name是之前我们在系统配置里添加的远程服务器配置</p> 
-<p>2、Source files是哪些文件将被发布到远程服务器，可以使用匹配符如：**/*.jar&nbsp; &nbsp;or&nbsp; &nbsp;**/project.jar ，推荐这样填 ：**/*.jar,build.sh （将build.sh也打包的因为是发布完可以直接运行该脚本）</p> 
-<p>3、Remove prefix是要删除的前缀文件夹，例：project/target/p.jar&nbsp; 输入移除前缀：project/target，那么部署后就不会有移除的那些文件夹路径了，推荐不要填，因为它不支持匹配符，只能填死路径 。</p> 
-<p>4、Exec commond是发布完成后要执行的shell命令，一般用它调用写好的sh脚本，对了如果这里没有Exec command这一栏的话，回到系统配置，找到之前配置远程服务器的地方点开高级配置，把disable exec&nbsp;取消勾选。</p> 
-<p>一切准备就绪，最后填写build.sh！</p> 
-<h2><span id="四-buildshnbsp重启脚本">四、Build.sh&nbsp;重启脚本</span></h2> 
-<p>&nbsp;</p> 
-<p>这个脚本调了我很久，一开始不是没执行完就结束要么就是启动没反应，该脚本的大致作用是查找该目录下的所有jar文件，并使用nohup java -jar&nbsp;启动，同时保存它的进程PID，下次启动前先获取PID&nbsp;调用 KILL命令。</p> 
-<p>下面上脚本 ，代码上面有说明大家可以根据需要修改。</p> 
-<pre class="has" name="code"><code class="language-bash hljs"><ol class="hljs-ln" style="width:967px"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">#!/bin/bash -ilex</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#jenkin编译时调用的shell,仅使用在测试服务器上</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#export BUILD_ID=dontKillMe这一句很重要，这样指定了，项目启动之后才不会被Jenkins杀掉。</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-built_in">source</span> /etc/profile</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#用于保存启动服务的PID</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">pid_path=/pids</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#如果PID目录不存在，则创建</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-string">"<span class="hljs-variable">$&#123;pid_path&#125;</span>"</span> ]; <span class="hljs-keyword">then</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  mkdir <span class="hljs-variable">$&#123;pid_path&#125;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">fi</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#遍历文件夹获取jar</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> `find  * -name <span class="hljs-string">"*.jar"</span>`</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="13"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">do</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="14"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#Jenkins中编译好的jar名称 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="15"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">jar_name=<span class="hljs-variable">$&#123;file##*/&#125;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="16"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#获取运行编译好的进程ID，便于我们在重新部署项目的时候先杀掉以前的进程</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="17"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">pid=$(cat <span class="hljs-variable">$&#123;pid_path&#125;</span>/<span class="hljs-variable">$&#123;jar_name&#125;</span>.pid) </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="18"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="19"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#rm -f $&#123;www_path&#125;/$&#123;jar_name&#125;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="20"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#杀掉以前可能启动的项目进程 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="21"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-built_in">kill</span> -9 <span class="hljs-variable">$&#123;pid&#125;</span> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="22"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$jar_name</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="23"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#启动jar，后台启动 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="24"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#BUILD_ID=dontKillMe</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="25"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">BUILD_ID=dontKillMe nohup java -Xmx512m -Xms512m -Xmn200m -jar <span class="hljs-variable">$&#123;file&#125;</span> &gt; <span class="hljs-variable">$&#123;jar_name%-*.*.*-SNAPSHOT.jar&#125;</span>.out 2&gt;&amp;1 &amp; </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="26"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#将进程ID存入到ufind-web.pid文件中 (pid统一路径)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="27"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-built_in">echo</span> $! &gt; <span class="hljs-variable">$&#123;pid_path&#125;</span>/<span class="hljs-variable">$&#123;jar_name&#125;</span>.pid </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="28"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="29"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">done</span></div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
-<p>大功告成，最后点立即构建试试效果吧！</p> 
-<p>PS:JENKINS支持定时自动构建和检测GITLAB代码变动自动构建，由于我目前使用的是多结构的maven工程，一次变动会导致所有项目重新打包，因此并没有使用这个功能，有需要的朋友可以搜索jenkins + gitlab webhook&nbsp;通过gitlab的接口触发jenkins自动构建</p> 
-<p>&nbsp;</p> 
-<p><strong>2019-5-21更新升级了shell脚本=======================================</strong></p> 
-<p><strong>现在支持参数了，根据参数扫描指定的jar包，使用代码如：bash build.sh "service*.jar" "serviceB*.jar"</strong></p> 
-<p>&nbsp;</p> 
-<p><strong>build.sh:</strong></p> 
-<pre class="has" name="code"><code class="language-bash hljs"><ol class="hljs-ln" style="width:998px"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">#!/bin/bash -ilex</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#export BUILD_ID=dontKillMe这一句很重要，这样指定了，项目启动之后才不会被Jenkins杀掉。</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-built_in">export</span> BUILD_ID=dontKillMe</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-built_in">source</span> /etc/profile</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">pid_path=/PID</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">findJar</span></span>()</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#遍历文件夹获取jar</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> `find  * -name <span class="hljs-string">"<span class="hljs-variable">$&#123;1&#125;</span>"</span>`</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">do</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#Jenkins中编译好的jar名称 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    jar_name=<span class="hljs-variable">$&#123;file##*/&#125;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="13"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#获取运行编译好的进程ID，便于我们在重新部署项目的时候先杀掉以前的进程</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="14"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    pid=$(cat <span class="hljs-variable">$&#123;pid_path&#125;</span>/<span class="hljs-variable">$&#123;jar_name&#125;</span>.pid) </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="15"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#rm -f $&#123;www_path&#125;/$&#123;jar_name&#125;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="16"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#杀掉以前可能启动的项目进程 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="17"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-built_in">kill</span> -9 <span class="hljs-variable">$&#123;pid&#125;</span> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="18"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#启动jar，后台启动 </span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="19"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-comment">#BUILD_ID=dontKillMe</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="20"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    BUILD_ID=dontKillMe nohup java -Xmx512m -Xms512m -Xmn200m -jar <span class="hljs-variable">$&#123;file&#125;</span> &gt; <span class="hljs-variable">$&#123;jar_name%-*.*.*-SNAPSHOT.jar&#125;</span>.out 2&gt;&amp;1 &amp; </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="21"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-built_in">echo</span> $! &gt; <span class="hljs-variable">$&#123;pid_path&#125;</span>/<span class="hljs-variable">$&#123;jar_name&#125;</span>.pid </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="22"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">done</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="23"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="24"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="25"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">#如果PID目录不存在，则创建</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="26"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-string">"<span class="hljs-variable">$&#123;pid_path&#125;</span>"</span> ]; <span class="hljs-keyword">then</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="27"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  mkdir <span class="hljs-variable">$&#123;pid_path&#125;</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="28"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">fi</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="29"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$#</span> -gt 0 ] ;<span class="hljs-keyword">then</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="30"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">for</span> regx <span class="hljs-keyword">in</span> $*</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="31"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">do</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="32"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    findJar <span class="hljs-variable">$regx</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="33"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">done</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="34"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">else</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="35"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    findJar <span class="hljs-string">"*.jar"</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="36"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">fi</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="37"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
-<p>&nbsp;</p> 
-<p>&nbsp;</p> 
-<p>&nbsp;</p>
-                </div><div data-report-view="{&quot;mod&quot;:&quot;1585297308_001&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/u012280292/article/details/90241596&quot;,&quot;extend1&quot;:&quot;pc&quot;,&quot;ab&quot;:&quot;new&quot;}"><div></div></div>
-        </div>
+    <!-- toc -->
+
+
+
+<!-- tocstop -->
+
+<p>实用nginx反向代理可实现 url转发， 如输入<a target="_blank" rel="noopener" href="http://www.cc.com/">www.cc.com</a>  直接转发到 127.0.0.1:8080/project/  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况 </p>
+<p>下面是nginx的conf配置    </p>
+<p>首先在nginx.conf引入 配置文件include  vhost.conf;</p>
+<p>新建vhost.conf </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">## Basic reverse proxy server ##</span><br><span class="line">#这个是反向代理的地址</span><br><span class="line">upstream apachejsp  &#123;</span><br><span class="line">    server 127.0.0.1:8080; #Apache #这里输入你服务器的ip与tomcat端口</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;  #侦听80端口</span><br><span class="line">    server_name  www.&lt;span style&#x3D;&quot;font-size: 11.8181819915771px; font-family: Arial, Helvetica, sans-serif;&quot;&gt;wangzhan&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;font-size: 12px; font-family: Arial, Helvetica, sans-serif;&quot;&gt;.com;#拦截此url&lt;&#x2F;span&gt;</span><br><span class="line"> </span><br><span class="line">    access_log  logs&#x2F;fuchiht.access.log ; #log path</span><br><span class="line">    error_log  logs&#x2F;fuchiht.error.log;</span><br><span class="line">    root   html;</span><br><span class="line">    index  index.html index.htm index.jsp;  #welcome page </span><br><span class="line"> </span><br><span class="line">    ## send request back to apache ##</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass  http:&#x2F;&#x2F;apachejsp;  </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">        #Proxy Settings</span><br><span class="line">        proxy_redirect     off;</span><br><span class="line">        proxy_set_header   Host             $host;</span><br><span class="line">        proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;</span><br><span class="line">        proxy_max_temp_file_size 0;</span><br><span class="line">        proxy_connect_timeout      90;</span><br><span class="line">        proxy_send_timeout         90;</span><br><span class="line">        proxy_read_timeout         90;</span><br><span class="line">        proxy_buffer_size          4k;</span><br><span class="line">        proxy_buffers              4 32k;</span><br><span class="line">        proxy_busy_buffers_size    64k;</span><br><span class="line">        proxy_temp_file_write_size 64k;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 
 
     
@@ -429,7 +369,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reinerrshir.gitee.io/2020/10/27/使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上/" title="使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上" target="_blank">https://reinerrshir.gitee.io/2020/10/27/使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上/</a>
+          <a href="https://reinerrshir.gitee.io/posts/763efb1.html" title="简单的nginx反向代理配置" target="_blank">https://reinerrshir.gitee.io/posts/763efb1.html</a>
         </li>
         
         <li>
@@ -451,7 +391,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">-- 运维 -- jenkins -- 自动化部署</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-- 运维 -- nginx</a>
         		</li>
       		
 		</ul>
@@ -518,7 +458,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reinerrshir.gitee.io/2020/10/27/%E4%BD%BF%E7%94%A8Jenkins%20+%20Gitlab%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BASpring%20Boot%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reinerrshir.gitee.io/posts/763efb1.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -533,18 +473,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/10/27/jenkins-docker-dockerfile-maven-plugin%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/posts/e259bd66.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          使用Jenkins + docker 自动化部署Spring Cloud微服务【使用maven插件dockerfile-maven-plugin自动构建镜像】
+          使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上
         
       </div>
     </a>
   
   
-    <a href="/2020/10/27/%E7%AE%80%E5%8D%95%E7%9A%84nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">简单的nginx反向代理配置</div>
+    <a href="/posts/3242f1a9.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">换新博客啦！</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -571,7 +511,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#content_views"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.1.</span> <span class="toc-text">一、下载并启动Jenkins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.2.</span> <span class="toc-text">二、配置JENKINS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#content_views"><span class="toc-number">1.2.1.</span> <span class="toc-text">全局工具配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.3.</span> <span class="toc-text">三、Jenkins任务配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content_views"><span class="toc-number">1.4.</span> <span class="toc-text">四、Build.sh&amp;nbsp;重启脚本</span></a></li></ol></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -598,9 +538,9 @@
     <script src="/lib/gitment.js"></script>
   
   <script>
-    <!-- id: "使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上" -->
+    <!-- id: "简单的nginx反向代理配置" -->
     var gitment = new Gitment({
-      id: "20201027151843",
+      id: "20201027145314",
       owner: 'wc394915432',
       repo: 'wc394915432.github.io',
       oauth: {
@@ -758,11 +698,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
+                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
               </li>
              
               <li class="article-tag-list-item">
