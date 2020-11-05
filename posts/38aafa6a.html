@@ -23,7 +23,7 @@
 <meta property="og:description" content="前言  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询     SELECT * FROM TABLE WHERE IS_DELETE&#x3D;0 LIMIT 5000000,20   也许你查前几页的时候是很快的，比如limit">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-11-02T08:34:33.000Z">
-<meta property="article:modified_time" content="2020-11-03T06:29:23.537Z">
+<meta property="article:modified_time" content="2020-11-05T06:19:15.759Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="-- MYSQL -- mysql优化 -- 数据库 -- 大数据优化">
 <meta name="twitter:card" content="summary">
@@ -320,7 +320,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.7k字</span>
+      <span class="post-count">2.2k字</span>
     </span>
   </span>
 
@@ -329,7 +329,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">6分</span>
+      <span class="post-count">8分</span>
     </span>
   </span>
 </div>
@@ -345,15 +345,29 @@
 <p>  也许你查前几页的时候是很快的，比如limit 0,20，但是当分到第几百万行的时候，越往后速度越慢，这是由于mysql的innoDB引擎使用的是B+Tree数据存储结构。</p>
 <h2><span id="关于优化">关于优化</span></h2><p>  有人可能说数据量上千万了为何不直接分表分库，而我个人觉得分表分库会增加查询的复杂性，能通过优化索引解决的问题还没有必要分表，除非数据量大到了索引无法解决问题的地步.</p>
 <p>  另外一个，一般很少有业务需求是直接把一张大数据量表的数据分页查询的，一般都是要带点条件，比如订单表那肯定是根据用户ID和删除状态去查，这种情况只需要建好索引即可。</p>
-<h2><span id="开始优化">开始优化</span></h2><p>  先来看看未优化前的SQL<br>  <code>select * from TEST_ORDER WHERE limit 10000000,10000010</code><br>  查询第一千万条，查10条数据，结果是执行时间12秒。</p>
+<h2><span id="开始优化">开始优化</span></h2><p>  先来看看未优化前的SQL</p>
+<p>  <code>select * from TEST_ORDER WHERE limit 10000000,10000010</code></p>
+<p>  从第一千万条开始，查10条数据，结果是执行时间12秒。</p>
   <a id="more"></a>
 <p>  有人提供思路，通过ID分页查询，于是SQL变成了如下：<br>  <code>select * from TEST_ORDER where id&gt;10000000 limit 10</code><br>  由于ID自带主键索引，所以查询非常快，从之前的12s瞬间变为0.02s</p>
 <p>  那么问题来了，如果我的ID不是连续的，中间删除了几条怎么办？如果不做处理，这样分页的结果是，上一页和下一页会查出重复的数据。<br>  于是改进版变成了每次请求下一页之前带上上一页的最大值ID（lastId）,且添加删除标记，不再物理删除<br>  <code>select * from TEST_ORDER where id&gt;#&#123;lastId&#125; AND DELETED=0 limit 10</code></p>
 <p>  然而还是有问题，谁会一页一页的去点？如果不是一页一页的去点，而是跳页点，那么就拿不到lastId。</p>
-<h3><span id="分页查询最终优化版">分页查询最终优化版</span></h3><p>  为了解决这个问题，我想了一个(tou)骚(ji)操(qu)作(qiao)的办法，首先必须给删除标记字段添加索引（DELETED），查询时通过ID - (被删除数据的条数) = 实际分页起始ID ，因此代码如下：<br>  <code>SELECT ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; - (SELECT COUNT(*) FROM TEST_ORDER WHERE DELETED=1 AND ID&lt;#&#123;offset&#125;) AND DELETED=0 LIMIT #&#123;pageSize&#125; )</code></p>
-<p>  比如要查询第10000页，每页20条，那么offset参数= 10000*20 = 200000,pageSize=20,如此分页就不会查出重复数据了。</p>
+<h3><span id="普通分页查询优化版">普通分页查询优化版</span></h3><p>  为了解决这个问题，我想了一个(tou)骚(ji)操(qu)作(qiao)的办法，首先必须给删除标记字段添加索引（DELETED），查询时通过ID - (被删除数据的条数) = 实际分页起始ID ，因此代码如下：<br>  <code>SELECT ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; - (SELECT COUNT(*) FROM TEST_ORDER WHERE DELETED=1 AND ID&lt;#&#123;offset&#125;) AND DELETED=0 LIMIT #&#123;pageSize&#125; )</code></p>
+<p>  比如要查询第10000页，每页20条，那么offset参数= 10000*20 = 200000,pageSize=20,如此分页就不会查出重复数据了。 <strong>注意：如果是第一页offset参数应该要=0</strong></p>
 <p>  以上通过ID走主键索引，查询时间基本在0.2s左右。</p>
-<p>  查询总条数不需要减删除条数：<br>  <code>SELECT COUNT(*) FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; AND DELETED= 0 </code></p>
+<p>  查询总条数不需要减删除条数：<br>  <code>SELECT COUNT(*) FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; AND DELETED= 0 </code> </p>
+<p>  然而你以为就这样结束了吗？此时站在你后面的产品经理说了：小X，你这样不行啊！这个必须要按时间排序啊，客户需要优先看到最新的数据！</p>
+<p>  通过ID分页实际上已经是使用了ORDER BY ID ASC，时间与ID排序只能二选一？</p>
+<h3><span id="按时间分页查询优化版">按时间分页查询优化版</span></h3><p>  所幸我还是有手段解决这个问题的。</p>
+<p>  ID是自增的，那么最新创建的数据必然是ID值最大的，根据这个规则我们可以倒序通过ID分页</p>
+<p>  ```select ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME from TEST_ORDER  WHERE </p>
+<p>  ID &lt;(select max(id) from TEST_ORDER ) - (select count(id) from TEST_ORDER WHERE ID&gt;((select max(id) from TEST_ORDER)-#{offset}) AND IS_DELETE=1)</p>
+<p>  -#{offset} AND IS_DELETE=0 ORDER BY ID DESC limit #{pageSize}```</p>
+<p>  直接从最大的ID开始查起，然后减去要分页的条数,由于是倒过来了所以要用最大值ID减去要查的行数再得出被删除的条数，比如要查询第10000页，</p>
+<p>  每页20条，那么offset参数= 10000*20=200000，分页计算规则和上一版一样！ <strong>注意：如果是第一页offset参数应该要=0</strong></p>
+<p>  到此使用以上方法按时间排序查询，第一次可能在0.2-0.5S内，后面基本在0.02S左右</p>
+<h3><span id="分页查询拓展思路">分页查询拓展思路</span></h3><p>   利用这个思路其实根据更新时间分页查询也是可以的，只不过稍微麻烦一点，大致思路是新建一个类似于ID的字段，每次更新数据时使用数据库的ID自增同时修改这个新增的字段，</p>
+<p>   记得提前为这个字段添加索引，然后ORDER BY 新字段 DESC就可以了。</p>
 <h1><span id="关于更新数据">关于更新数据</span></h1><p>  更新数据时，where条件一定要带上索引字段，否则走全表扫描更新时间必定&gt;10s，最好根据ID更新。</p>
 <h1><span id="分析sql是否有走索引">分析SQL是否有走索引</span></h1><p>  可通过expain关键字分析：<br>  <code>expain SELECT * FROM TEST_ORDER WHERE ORDER_NO = 100010022012</code></p>
 <p>  出现结果：</p>
@@ -565,7 +579,7 @@ useing index代表索引覆盖，就是查询的列正好在索引中，不用�
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">关于优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">开始优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text">分页查询最终优化版</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">关于更新数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">分析SQL是否有走索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">type(重要)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">rows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">Extra</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">filtered 列</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">关于优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">开始优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text">普通分页查询优化版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.2.</span> <span class="toc-text">按时间分页查询优化版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.3.</span> <span class="toc-text">分页查询拓展思路</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">关于更新数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">分析SQL是否有走索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">type(重要)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">rows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">Extra</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">filtered 列</span></a></li></ol></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
