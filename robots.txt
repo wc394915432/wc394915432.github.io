@@ -12,6 +12,6 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: https://reinerrshir.gitee.io/sitemap.xml
-Sitemap: https://reinerrshir.gitee.io/baidusitemap.xml
-Sitemap: https://wc394915432.github.io/sitemap.xml
+Sitemap: https://reinershir.gitee.io/sitemap.xml
+Sitemap: https://reinershir.gitee.io/baidusitemap.xml
+Sitemap: https://reinershir.github.io/sitemap.xml

@@ -5,20 +5,22 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://reinershir.gitee.io">
+  <link rel="dns-prefetch" href="https://reinershir.github.io">
+  <link rel="canonical" href="https://reinershir.github.io/posts/e6208c64.html"/>
   <title>spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关 | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <!-- baidu&google验证标签 -->
-  <meta name="baidu-site-verification" content="code-PH3ZSO5mST">
-  <meta name="google-site-verification" content="-8LKN7ca7GigJpLWN7Z50PCDCir9hxPwDIfBedHlI-Y">
+  <meta name="baidu-site-verification" content="code-Y9lUIi7fRN" />
+  <meta name="google-site-verification" content="f-_MQ0tuvvOKSW_jovOrGPzqJ_M0H0wA9yRb7Tx8cUA" />
+  <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
   <meta name="description" content="前言  在微服务架构下开发权限控制一般的做法是，独立开发一个专门用于鉴权的服务，其它服务每次请求接口时都调用鉴权服务鉴权，这样做的好处是，代码耦合低，权限控制功能好扩展，其坏处是每次鉴权都要请求鉴权服务，增加服务器资源消耗，因此我弄了一个简单的权限验证，能满足接口级别的验证，不通过专门的鉴权服务，而是每个服务自己去验证权限。  &amp;nbsp;  权限验证开关">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关">
-<meta property="og:url" content="https://reinershir.gitee.io/posts/e6208c64.html">
+<meta property="og:url" content="https://reinershir.github.io/posts/e6208c64.html">
 <meta property="og:site_name" content="Reinerの个人博客">
 <meta property="og:description" content="前言  在微服务架构下开发权限控制一般的做法是，独立开发一个专门用于鉴权的服务，其它服务每次请求接口时都调用鉴权服务鉴权，这样做的好处是，代码耦合低，权限控制功能好扩展，其坏处是每次鉴权都要请求鉴权服务，增加服务器资源消耗，因此我弄了一个简单的权限验证，能满足接口级别的验证，不通过专门的鉴权服务，而是每个服务自己去验证权限。  &amp;nbsp;  权限验证开关">
 <meta property="og:locale">
@@ -386,7 +388,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reinershir.gitee.io/posts/e6208c64.html" title="spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关" target="_blank">https://reinershir.gitee.io/posts/e6208c64.html</a>
+          <a href="https://reinershir.github.io/posts/e6208c64.html" title="spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关" target="_blank">https://reinershir.github.io/posts/e6208c64.html</a>
         </li>
         
         <li>
@@ -475,7 +477,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reinershir.gitee.io/posts/e6208c64.html" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reinershir.github.io/posts/e6208c64.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -580,7 +582,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 <a href="https://reinershir.gitee.io/" target="_blank">reiner</a>
+    		&copy; 2020 <a href="https://reinershir.github.io/" target="_blank">reiner</a>
     	</div>
       	<div class="footer-right">
 			

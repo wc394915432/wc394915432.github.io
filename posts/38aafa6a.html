@@ -5,20 +5,22 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://reinershir.gitee.io">
+  <link rel="dns-prefetch" href="https://reinershir.github.io">
+  <link rel="canonical" href="https://reinershir.github.io/posts/38aafa6a.html"/>
   <title>mysql千万级数据分页查询优化方案 | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <!-- baidu&google验证标签 -->
-  <meta name="baidu-site-verification" content="code-PH3ZSO5mST">
-  <meta name="google-site-verification" content="-8LKN7ca7GigJpLWN7Z50PCDCir9hxPwDIfBedHlI-Y">
+  <meta name="baidu-site-verification" content="code-Y9lUIi7fRN" />
+  <meta name="google-site-verification" content="f-_MQ0tuvvOKSW_jovOrGPzqJ_M0H0wA9yRb7Tx8cUA" />
+  <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
   <meta name="description" content="前言  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询     SELECT * FROM TABLE WHERE IS_DELETE&#x3D;0 LIMIT 5000000,20   也许你查前几页的时候是很快的，比如limit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql千万级数据分页查询优化方案">
-<meta property="og:url" content="https://reinershir.gitee.io/posts/38aafa6a.html">
+<meta property="og:url" content="https://reinershir.github.io/posts/38aafa6a.html">
 <meta property="og:site_name" content="Reinerの个人博客">
 <meta property="og:description" content="前言  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询     SELECT * FROM TABLE WHERE IS_DELETE&#x3D;0 LIMIT 5000000,20   也许你查前几页的时候是很快的，比如limit">
 <meta property="og:locale">
@@ -444,7 +446,7 @@ useing index代表索引覆盖，就是查询的列正好在索引中，不用�
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reinershir.gitee.io/posts/38aafa6a.html" title="mysql千万级数据分页查询优化方案" target="_blank">https://reinershir.gitee.io/posts/38aafa6a.html</a>
+          <a href="https://reinershir.github.io/posts/38aafa6a.html" title="mysql千万级数据分页查询优化方案" target="_blank">https://reinershir.github.io/posts/38aafa6a.html</a>
         </li>
         
         <li>
@@ -533,7 +535,7 @@ useing index代表索引覆盖，就是查询的列正好在索引中，不用�
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reinershir.gitee.io/posts/38aafa6a.html" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reinershir.github.io/posts/38aafa6a.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -629,7 +631,7 @@ useing index代表索引覆盖，就是查询的列正好在索引中，不用�
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 <a href="https://reinershir.gitee.io/" target="_blank">reiner</a>
+    		&copy; 2020 <a href="https://reinershir.github.io/" target="_blank">reiner</a>
     	</div>
       	<div class="footer-right">
 			
