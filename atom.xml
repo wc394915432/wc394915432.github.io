@@ -3,11 +3,11 @@
   <title>Reinerの个人博客</title>
   
   <subtitle>分享个人经验见解</subtitle>
-  <link href="https://reinershir.github.io/atom.xml" rel="self"/>
+  <link href="https://reiner.host/atom.xml" rel="self"/>
   
-  <link href="https://reinershir.github.io/"/>
+  <link href="https://reiner.host/"/>
   <updated>2020-12-03T06:37:53.286Z</updated>
-  <id>https://reinershir.github.io/</id>
+  <id>https://reiner.host/</id>
   
   <author>
     <name>reiner</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>hexo+github pages个人博客做百度、谷歌、bing等搜索引擎收录以及SEO优化</title>
-    <link href="https://reinershir.github.io/posts/2262a2b8.html"/>
-    <id>https://reinershir.github.io/posts/2262a2b8.html</id>
+    <link href="https://reiner.host/posts/2262a2b8.html"/>
+    <id>https://reiner.host/posts/2262a2b8.html</id>
     <published>2020-11-24T06:17:10.000Z</published>
     <updated>2020-12-03T06:37:53.286Z</updated>
     
@@ -33,23 +33,23 @@
     
     
     
-    <category term="其它" scheme="https://reinershir.github.io/categories/%E5%85%B6%E5%AE%83/"/>
+    <category term="其它" scheme="https://reiner.host/categories/%E5%85%B6%E5%AE%83/"/>
     
     
-    <category term="hexo" scheme="https://reinershir.github.io/tags/hexo/"/>
+    <category term="hexo" scheme="https://reiner.host/tags/hexo/"/>
     
-    <category term="seo优化" scheme="https://reinershir.github.io/tags/seo%E4%BC%98%E5%8C%96/"/>
+    <category term="seo优化" scheme="https://reiner.host/tags/seo%E4%BC%98%E5%8C%96/"/>
     
-    <category term="搜索引擎收录" scheme="https://reinershir.github.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95/"/>
+    <category term="搜索引擎收录" scheme="https://reiner.host/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95/"/>
     
-    <category term="github pages" scheme="https://reinershir.github.io/tags/github-pages/"/>
+    <category term="github pages" scheme="https://reiner.host/tags/github-pages/"/>
     
   </entry>
   
   <entry>
     <title>记上传jar包到MavenRepository中央库的流程以及踩坑历程</title>
-    <link href="https://reinershir.github.io/posts/26a3b465.html"/>
-    <id>https://reinershir.github.io/posts/26a3b465.html</id>
+    <link href="https://reiner.host/posts/26a3b465.html"/>
+    <id>https://reiner.host/posts/26a3b465.html</id>
     <published>2020-11-23T08:34:33.000Z</published>
     <updated>2020-11-23T07:26:41.233Z</updated>
     
@@ -68,25 +68,25 @@
     
     
     
-    <category term="其它" scheme="https://reinershir.github.io/categories/%E5%85%B6%E5%AE%83/"/>
+    <category term="其它" scheme="https://reiner.host/categories/%E5%85%B6%E5%AE%83/"/>
     
     
-    <category term="maven central" scheme="https://reinershir.github.io/tags/maven-central/"/>
+    <category term="maven central" scheme="https://reiner.host/tags/maven-central/"/>
     
-    <category term="maven中央库上传" scheme="https://reinershir.github.io/tags/maven%E4%B8%AD%E5%A4%AE%E5%BA%93%E4%B8%8A%E4%BC%A0/"/>
+    <category term="maven中央库上传" scheme="https://reiner.host/tags/maven%E4%B8%AD%E5%A4%AE%E5%BA%93%E4%B8%8A%E4%BC%A0/"/>
     
-    <category term="技术笔记" scheme="https://reinershir.github.io/tags/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    <category term="技术笔记" scheme="https://reiner.host/tags/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>mysql千万级数据分页查询优化方案</title>
-    <link href="https://reinershir.github.io/posts/38aafa6a.html"/>
-    <id>https://reinershir.github.io/posts/38aafa6a.html</id>
+    <link href="https://reiner.host/posts/38aafa6a.html"/>
+    <id>https://reiner.host/posts/38aafa6a.html</id>
     <published>2020-11-02T08:34:33.000Z</published>
-    <updated>2020-11-23T07:11:21.683Z</updated>
+    <updated>2020-12-09T01:03:36.688Z</updated>
     
-    <content type="html"><![CDATA[<h1><span id="前言">前言</span></h1><p>  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询  </p><p>  <code>SELECT * FROM TABLE WHERE IS_DELETE=0 LIMIT 5000000,20</code></p><p>  也许你查前几页的时候是很快的，比如limit 0,20，但是当分到第几百万行的时候，越往后速度越慢，这是由于mysql的innoDB引擎使用的是B+Tree数据存储结构。</p><h2><span id="关于优化">关于优化</span></h2><p>  有人可能说数据量上千万了为何不直接分表分库，而我个人觉得分表分库会增加查询的复杂性，能通过优化索引解决的问题还没有必要分表，除非数据量大到了索引无法解决问题的地步.</p><p>  另外一个，一般很少有业务需求是直接把一张大数据量表的数据分页查询的，一般都是要带点条件，比如订单表那肯定是根据用户ID和删除状态去查，这种情况只需要建好索引即可。</p><h2><span id="开始优化">开始优化</span></h2><p>  先来看看未优化前的SQL</p><p>  <code>select * from TEST_ORDER WHERE limit 10000000,10000010</code></p><p>  从第一千万条开始，查10条数据，结果是执行时间12秒。</p>  <a id="more"></a><p>  有人提供思路，通过ID分页查询，于是SQL变成了如下：<br>  <code>select * from TEST_ORDER where id&gt;10000000 limit 10</code><br>  由于ID自带主键索引，所以查询非常快，从之前的12s瞬间变为0.02s</p><p>  那么问题来了，如果我的ID不是连续的，中间删除了几条怎么办？如果不做处理，这样分页的结果是，上一页和下一页会查出重复的数据。<br>  于是改进版变成了每次请求下一页之前带上上一页的最大值ID（lastId）,且添加删除标记，不再物理删除<br>  <code>select * from TEST_ORDER where id&gt;#&#123;lastId&#125; AND DELETED=0 limit 10</code></p><p>  然而还是有问题，谁会一页一页的去点？如果不是一页一页的去点，而是跳页点，那么就拿不到lastId。</p><h3><span id="普通分页查询优化版">普通分页查询优化版</span></h3><p>  为了解决这个问题，我想了一个(tou)骚(ji)操(qu)作(qiao)的办法，首先必须给删除标记字段添加索引（DELETED），查询时通过ID - (被删除数据的条数) = 实际分页起始ID ，因此代码如下：<br>  <code>SELECT ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; - (SELECT COUNT(*) FROM TEST_ORDER WHERE DELETED=1 AND ID&lt;#&#123;offset&#125;) AND DELETED=0 LIMIT #&#123;pageSize&#125; )</code></p><p>  比如要查询第10000页，每页20条，那么offset参数= 10000*20 = 200000,pageSize=20,如此分页就不会查出重复数据了。 <strong>注意：如果是第一页offset参数应该要=0</strong></p><p>  以上通过ID走主键索引，查询时间基本在0.2s左右。</p><p>  查询总条数不需要减删除条数：<br>  <code>SELECT COUNT(*) FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; AND DELETED= 0 </code> </p><p>  然而你以为就这样结束了吗？此时站在你后面的产品经理说了：小X，你这样不行啊！这个必须要按时间排序啊，客户需要优先看到最新的数据！</p><p>  通过ID分页实际上已经是使用了ORDER BY ID ASC，时间与ID排序只能二选一？</p><h3><span id="按时间分页查询优化版">按时间分页查询优化版</span></h3><p>  所幸我还是有手段解决这个问题的。</p><p>  ID是自增的，那么最新创建的数据必然是ID值最大的，根据这个规则我们可以倒序通过ID分页</p><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME from TEST_ORDER  WHERE </span><br><span class="line"></span><br><span class="line">ID &lt;(select max(id) from TEST_ORDER ) - (select count(id) from TEST_ORDER WHERE ID&gt;((select max(id) from TEST_ORDER)-#&#123;offset&#125;) AND DELETED&#x3D;1)</span><br><span class="line"></span><br><span class="line">-#&#123;offset&#125; AND DELETED&#x3D;0 ORDER BY ID DESC limit #&#123;pageSize&#125; </span><br></pre></td></tr></table></figure></code></pre><p>  直接从最大的ID开始查起，然后减去要分页的条数,由于是倒过来了所以要用最大值ID减去要查的行数再得出被删除的条数，比如要查询第10000页，</p><p>  每页20条，那么offset参数= 10000*20=200000，分页计算规则和上一版一样！ <strong>注意：如果是第一页offset参数应该要=0</strong></p><p>  到此使用以上方法按时间排序查询，第一次可能在0.2-0.5S内，后面基本在0.02S左右</p><h3><span id="分页查询拓展思路">分页查询拓展思路</span></h3><p>   利用这个思路其实根据更新时间分页查询也是可以的，只不过稍微麻烦一点，大致思路是新建一个类似于ID的字段，每次更新数据时使用数据库的ID自增同时修改这个新增的字段，</p><p>   记得提前为这个字段添加索引，然后ORDER BY 新字段 DESC就可以了。</p><h1><span id="关于更新数据">关于更新数据</span></h1><p>  更新数据时，where条件一定要带上索引字段，否则走全表扫描更新时间必定&gt;10s，最好根据ID更新。</p><h1><span id="分析sql是否有走索引">分析SQL是否有走索引</span></h1><p>  可通过expain关键字分析：<br>  <code>expain SELECT * FROM TEST_ORDER WHERE ORDER_NO = 100010022012</code></p><p>  出现结果：</p><table><thead><tr><th align="center">SELECT_TYPE</th><th align="center">TABLE</th><th align="center">TYPE</th><th align="center">POSSIBLE_KEYS</th><th align="center">KEYS</th><th align="center">ROWS</th><th align="center">FILTERED</th><th align="center">EXTRA</th></tr></thead><tbody><tr><td align="center">SIMPLE</td><td align="center">TEST_ORDER</td><td align="center">ref</td><td align="center">ORDER_NO_INDEX</td><td align="center">ORDER_NO_INDEX</td><td align="center">20</td><td align="center">10</td><td align="center">Using where</td></tr></tbody></table><p>  以下是expain字段说明，资料来源于互联网</p><h4><span id="type重要">type(重要)</span></h4><pre><code>表示MySQL在表中找到所需行的方式，又称“访问类型”。是分析”查数据过程”的重要依据 常用的类型有： ALL, index, range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好） ALL：Full Table Scan， MySQL将遍历全表以找到匹配的行 ,逐行做全表扫描.,运气不好扫描到最后一行. (说明语句写的很失败) index: Full Index Scan，index与ALL区别为index类型只遍历索引树,相当于data_all index 扫描所有的索引节点,相当于index_all range:只检索给定范围的行，使用一个索引来选择行,能根据索引做范围的扫描 ref: 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值,通过索引列,可以直接引用到某些数据行 eq_ref: 类似ref，区别就在使用的索引是唯一索引，对于每个索引键值，表中只有一条记录匹配，简单来说，就是多表连接中使用primary key或者 unique key作为关联条件 const、system: 当MySQL对查询某部分进行优化，并转换为一个常量时，使用这些类型访问。如将主键置于where列表中，MySQL就能将该查询转换为一个常量,system是const类型的特例，当查询的表只有一行的情况下，使用system NULL: MySQL在优化过程中分解语句，执行时甚至不用访问表或索引，例如从一个索引列里选取最小值可以通过单独索引查找完成。</code></pre><h4><span id="rows">rows</span></h4><pre><code>表示MySQL根据表统计信息及索引选用情况，估算的找到所需的记录所需要读取的行数</code></pre><h4><span id="extra">Extra</span></h4><p>　　 </p><p>　　性能从好到坏:useing index&gt;usinh where &gt; using temporary | using filesort </p><pre><code>该列包含MySQL解决查询的详细信息,有以下几种情况： Using temporary：表示MySQL需要使用临时表来存储结果集，常见于排序和分组查询 Using filesort：MySQL中无法利用索引完成的排序操作称为“文件排序” Using where:列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候，表示mysql服务器将在存储引擎检索行后再进行过滤 Using join buffer：改值强调了在获取连接条件时没有使用索引，并且需要连接缓冲区来存储中间结果。如果出现了这个值，那应该注意，根据查询的具体情况可能需要添加索引来改进能。 Impossible where：这个值强调了where语句会导致没有符合条件的行。 Select tables optimized away：这个值意味着仅通过使用索引，优化器可能仅从聚合函数结果中返回一行 useing index代表索引覆盖，就是查询的列正好在索引中，不用回物理行查询数据</code></pre><h4><span id="filtered-列">filtered 列</span></h4><pre><code>5.7之后的版本默认就有这个字段，不需要使用explain extended了。这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录数量的比例，注意是百分比，不是具体记录数。(个人理解是它指返回结果的行占需要读到的行(rows列的值)的百分比,也就是比例越小越好)</code></pre>]]></content>
+    <content type="html"><![CDATA[<h1><span id="前言">前言</span></h1><p>  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询  </p><p>  <code>SELECT * FROM TABLE WHERE IS_DELETE=0 LIMIT 5000000,20</code></p><p>  也许你查前几页的时候是很快的，比如limit 0,20，但是当分到第几百万行的时候，越往后速度越慢，这是由于mysql的innoDB引擎使用的是B+Tree数据存储结构。</p><h2><span id="关于优化">关于优化</span></h2><p>  有人可能说数据量上千万了为何不直接分表分库，而我个人觉得分表分库会增加查询的复杂性，能通过优化索引解决的问题还没有必要分表，除非数据量大到了索引无法解决问题的地步.</p><p>  另外一个，一般很少有业务需求是直接把一张大数据量表的数据分页查询的，一般都是要带点条件，比如订单表那肯定是根据用户ID和删除状态去查，这种情况只需要建好索引即可。</p><h2><span id="开始优化">开始优化</span></h2><p>  先来看看未优化前的SQL</p><p>  <code>select * from TEST_ORDER WHERE limit 10000000,10000010</code></p><p>  从第一千万条开始，查10条数据，结果是执行时间12秒。</p>  <a id="more"></a><p>  有人提供思路，通过ID分页查询，于是SQL变成了如下：<br>  <code>select * from TEST_ORDER where id&gt;10000000 limit 10</code><br>  由于ID自带主键索引，所以查询非常快，从之前的12s瞬间变为0.02s</p><p>  那么问题来了，如果我的ID不是连续的，中间删除了几条怎么办？如果不做处理，这样分页的结果是，上一页和下一页会查出重复的数据。<br>  于是改进版变成了每次请求下一页之前带上上一页的最大值ID（lastId）,且添加删除标记，不再物理删除<br>  <code>select * from TEST_ORDER where id&gt;#&#123;lastId&#125; AND DELETED=0 limit 10</code></p><p>  然而还是有问题，谁会一页一页的去点？如果不是一页一页的去点，而是跳页点，那么就拿不到lastId。</p><h3><span id="普通分页查询优化版">普通分页查询优化版</span></h3><p>  为了解决这个问题，我想了一个(tou)骚(ji)操(qu)作(qiao)的办法，首先必须给删除标记字段添加索引（DELETED），查询时通过ID - (被删除数据的条数) = 实际分页起始ID ，因此代码如下：<br>  <code>SELECT ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; - (SELECT COUNT(*) FROM TEST_ORDER WHERE DELETED=1 AND ID&lt;#&#123;offset&#125;) AND DELETED=0 LIMIT #&#123;pageSize&#125; )</code></p><p>  比如要查询第10000页，每页20条，那么offset参数= 10000*20 = 200000,pageSize=20,如此分页就不会查出重复数据了。 <strong>注意：如果是第一页offset参数应该要=0</strong></p><p>  以上通过ID走主键索引，查询时间基本在0.2s左右。</p><p>  查询总条数不需要减删除条数：<br>  <code>SELECT COUNT(*) FROM TEST_ORDER WHERE ID&gt;#&#123;offset&#125; AND DELETED= 0 </code> </p><p>  然而你以为就这样结束了吗？此时站在你后面的产品经理说了：小X，你这样不行啊！这个必须要按时间排序啊，客户需要优先看到最新的数据！</p><p>  通过ID分页实际上已经是使用了ORDER BY ID ASC，时间与ID排序只能二选一？</p><h3><span id="按时间分页查询优化版">按时间分页查询优化版</span></h3><p>  所幸我还是有手段解决这个问题的。</p><p>  ID是自增的，那么最新创建的数据必然是ID值最大的，根据这个规则我们可以倒序通过ID分页</p><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select ID,PRODUCT_NAME,ORDER_NO,PAY_TIME,CREATE_TIME from TEST_ORDER  WHERE </span><br><span class="line"></span><br><span class="line">ID &lt;(select max(id) from TEST_ORDER ) - (select count(id) from TEST_ORDER WHERE ID&gt;((select max(id) from TEST_ORDER)-#&#123;offset&#125;) AND DELETED&#x3D;1)</span><br><span class="line"></span><br><span class="line">-#&#123;offset&#125; AND DELETED&#x3D;0 ORDER BY ID DESC limit #&#123;pageSize&#125; </span><br></pre></td></tr></table></figure></code></pre><p>  直接从最大的ID开始查起，然后减去要分页的条数,由于是倒过来了所以要用最大值ID减去要查的行数再得出被删除的条数，比如要查询第10000页，</p><p>  每页20条，那么offset参数= 10000*20=200000，分页计算规则和上一版一样！ <strong>注意：如果是第一页offset参数应该要=0</strong></p><p>  到此使用以上方法按时间排序查询，第一次可能在0.2-0.5S内，后面基本在0.02S左右</p> <!-- ### 分页查询拓展思路    利用这个思路其实根据更新时间分页查询也是可以的，只不过稍微麻烦一点，大致思路是新建一个类似于ID的字段，每次更新数据时使用数据库的ID自增同时修改这个新增的字段，   记得提前为这个字段添加索引，然后ORDER BY 新字段 DESC就可以了。--><h1><span id="关于更新数据">关于更新数据</span></h1><p>  更新数据时，where条件一定要带上索引字段，否则走全表扫描更新时间必定&gt;10s，最好根据ID更新。</p><h1><span id="分析sql是否有走索引">分析SQL是否有走索引</span></h1><p>  可通过expain关键字分析：<br>  <code>expain SELECT * FROM TEST_ORDER WHERE ORDER_NO = 100010022012</code></p><p>  出现结果：</p><table><thead><tr><th align="center">SELECT_TYPE</th><th align="center">TABLE</th><th align="center">TYPE</th><th align="center">POSSIBLE_KEYS</th><th align="center">KEYS</th><th align="center">ROWS</th><th align="center">FILTERED</th><th align="center">EXTRA</th></tr></thead><tbody><tr><td align="center">SIMPLE</td><td align="center">TEST_ORDER</td><td align="center">ref</td><td align="center">ORDER_NO_INDEX</td><td align="center">ORDER_NO_INDEX</td><td align="center">20</td><td align="center">10</td><td align="center">Using where</td></tr></tbody></table><p>  以下是expain字段说明，资料来源于互联网</p><h4><span id="type重要">type(重要)</span></h4><pre><code>表示MySQL在表中找到所需行的方式，又称“访问类型”。是分析”查数据过程”的重要依据 常用的类型有： ALL, index, range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好） ALL：Full Table Scan， MySQL将遍历全表以找到匹配的行 ,逐行做全表扫描.,运气不好扫描到最后一行. (说明语句写的很失败) index: Full Index Scan，index与ALL区别为index类型只遍历索引树,相当于data_all index 扫描所有的索引节点,相当于index_all range:只检索给定范围的行，使用一个索引来选择行,能根据索引做范围的扫描 ref: 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值,通过索引列,可以直接引用到某些数据行 eq_ref: 类似ref，区别就在使用的索引是唯一索引，对于每个索引键值，表中只有一条记录匹配，简单来说，就是多表连接中使用primary key或者 unique key作为关联条件 const、system: 当MySQL对查询某部分进行优化，并转换为一个常量时，使用这些类型访问。如将主键置于where列表中，MySQL就能将该查询转换为一个常量,system是const类型的特例，当查询的表只有一行的情况下，使用system NULL: MySQL在优化过程中分解语句，执行时甚至不用访问表或索引，例如从一个索引列里选取最小值可以通过单独索引查找完成。</code></pre><h4><span id="rows">rows</span></h4><pre><code>表示MySQL根据表统计信息及索引选用情况，估算的找到所需的记录所需要读取的行数</code></pre><h4><span id="extra">Extra</span></h4><p>　　 </p><p>　　性能从好到坏:useing index&gt;usinh where &gt; using temporary | using filesort </p><pre><code>该列包含MySQL解决查询的详细信息,有以下几种情况： Using temporary：表示MySQL需要使用临时表来存储结果集，常见于排序和分组查询 Using filesort：MySQL中无法利用索引完成的排序操作称为“文件排序” Using where:列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候，表示mysql服务器将在存储引擎检索行后再进行过滤 Using join buffer：改值强调了在获取连接条件时没有使用索引，并且需要连接缓冲区来存储中间结果。如果出现了这个值，那应该注意，根据查询的具体情况可能需要添加索引来改进能。 Impossible where：这个值强调了where语句会导致没有符合条件的行。 Select tables optimized away：这个值意味着仅通过使用索引，优化器可能仅从聚合函数结果中返回一行 useing index代表索引覆盖，就是查询的列正好在索引中，不用回物理行查询数据</code></pre><h4><span id="filtered-列">filtered 列</span></h4><pre><code>5.7之后的版本默认就有这个字段，不需要使用explain extended了。这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录数量的比例，注意是百分比，不是具体记录数。(个人理解是它指返回结果的行占需要读到的行(rows列的值)的百分比,也就是比例越小越好)</code></pre>]]></content>
     
     
     <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询  &lt;/p&gt;
@@ -100,23 +100,23 @@
     
     
     
-    <category term="JAVA" scheme="https://reinershir.github.io/categories/JAVA/"/>
+    <category term="JAVA" scheme="https://reiner.host/categories/JAVA/"/>
     
     
-    <category term="MYSQL" scheme="https://reinershir.github.io/tags/MYSQL/"/>
+    <category term="MYSQL" scheme="https://reiner.host/tags/MYSQL/"/>
     
-    <category term="mysql优化" scheme="https://reinershir.github.io/tags/mysql%E4%BC%98%E5%8C%96/"/>
+    <category term="mysql优化" scheme="https://reiner.host/tags/mysql%E4%BC%98%E5%8C%96/"/>
     
-    <category term="数据库" scheme="https://reinershir.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <category term="数据库" scheme="https://reiner.host/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-    <category term="大数据优化" scheme="https://reinershir.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/"/>
+    <category term="大数据优化" scheme="https://reiner.host/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>Android游戏开发之360°半透明摇杆</title>
-    <link href="https://reinershir.github.io/posts/6ada3be1.html"/>
-    <id>https://reinershir.github.io/posts/6ada3be1.html</id>
+    <link href="https://reiner.host/posts/6ada3be1.html"/>
+    <id>https://reiner.host/posts/6ada3be1.html</id>
     <published>2020-10-27T07:51:54.000Z</published>
     <updated>2020-11-23T07:24:51.605Z</updated>
     
@@ -135,19 +135,19 @@
     
     
     
-    <category term="游戏开发" scheme="https://reinershir.github.io/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
+    <category term="游戏开发" scheme="https://reiner.host/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="ANDROID" scheme="https://reinershir.github.io/tags/ANDROID/"/>
+    <category term="ANDROID" scheme="https://reiner.host/tags/ANDROID/"/>
     
-    <category term="游戏开发" scheme="https://reinershir.github.io/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
+    <category term="游戏开发" scheme="https://reiner.host/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>cocos2dx自学之使用box2d物理世界</title>
-    <link href="https://reinershir.github.io/posts/4e43340b.html"/>
-    <id>https://reinershir.github.io/posts/4e43340b.html</id>
+    <link href="https://reiner.host/posts/4e43340b.html"/>
+    <id>https://reiner.host/posts/4e43340b.html</id>
     <published>2020-10-27T07:46:55.000Z</published>
     <updated>2020-11-03T06:29:23.536Z</updated>
     
@@ -173,17 +173,17 @@
     
     
     
-    <category term="游戏开发" scheme="https://reinershir.github.io/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
+    <category term="游戏开发" scheme="https://reiner.host/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="-- 游戏开发 -- C++ -- COCOS2DX" scheme="https://reinershir.github.io/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-C-COCOS2DX/"/>
+    <category term="-- 游戏开发 -- C++ -- COCOS2DX" scheme="https://reiner.host/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-C-COCOS2DX/"/>
     
   </entry>
   
   <entry>
     <title>解决mybatis-plus3.x和pagehelper无法共用</title>
-    <link href="https://reinershir.github.io/posts/7bf19d56.html"/>
-    <id>https://reinershir.github.io/posts/7bf19d56.html</id>
+    <link href="https://reiner.host/posts/7bf19d56.html"/>
+    <id>https://reiner.host/posts/7bf19d56.html</id>
     <published>2020-10-27T07:42:46.000Z</published>
     <updated>2020-11-03T06:29:23.543Z</updated>
     
@@ -198,17 +198,17 @@
     
     
     
-    <category term="JAVA" scheme="https://reinershir.github.io/categories/JAVA/"/>
+    <category term="JAVA" scheme="https://reiner.host/categories/JAVA/"/>
     
     
-    <category term="-- JAVA -- mybatis-plus -- pagehelper" scheme="https://reinershir.github.io/tags/JAVA-mybatis-plus-pagehelper/"/>
+    <category term="-- JAVA -- mybatis-plus -- pagehelper" scheme="https://reiner.host/tags/JAVA-mybatis-plus-pagehelper/"/>
     
   </entry>
   
   <entry>
     <title>spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关</title>
-    <link href="https://reinershir.github.io/posts/e6208c64.html"/>
-    <id>https://reinershir.github.io/posts/e6208c64.html</id>
+    <link href="https://reiner.host/posts/e6208c64.html"/>
+    <id>https://reiner.host/posts/e6208c64.html</id>
     <published>2020-10-27T07:41:02.000Z</published>
     <updated>2020-11-03T06:29:23.550Z</updated>
     
@@ -227,17 +227,17 @@
     
     
     
-    <category term="JAVA" scheme="https://reinershir.github.io/categories/JAVA/"/>
+    <category term="JAVA" scheme="https://reiner.host/categories/JAVA/"/>
     
     
-    <category term="-- 权限设计 -- springcloud" scheme="https://reinershir.github.io/tags/%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1-springcloud/"/>
+    <category term="-- 权限设计 -- springcloud" scheme="https://reiner.host/tags/%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1-springcloud/"/>
     
   </entry>
   
   <entry>
     <title>实现树形菜单或分类的方法之一，使用左右值树形数据结构（modified preorder tree traversal）实现树形菜单</title>
-    <link href="https://reinershir.github.io/posts/9340b114.html"/>
-    <id>https://reinershir.github.io/posts/9340b114.html</id>
+    <link href="https://reiner.host/posts/9340b114.html"/>
+    <id>https://reiner.host/posts/9340b114.html</id>
     <published>2020-10-27T07:37:14.000Z</published>
     <updated>2020-11-03T06:29:23.552Z</updated>
     
@@ -256,17 +256,17 @@
     
     
     
-    <category term="数据结构与算法" scheme="https://reinershir.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    <category term="数据结构与算法" scheme="https://reiner.host/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形" scheme="https://reinershir.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AE%97%E6%B3%95-modified-preorder-tree-traversal-%E5%B7%A6%E5%8F%B3%E5%80%BC%E6%A0%91%E5%BD%A2/"/>
+    <category term="-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形" scheme="https://reiner.host/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AE%97%E6%B3%95-modified-preorder-tree-traversal-%E5%B7%A6%E5%8F%B3%E5%80%BC%E6%A0%91%E5%BD%A2/"/>
     
   </entry>
   
   <entry>
     <title>使用Jenkins + docker 自动化部署Spring boot 微服务 详尽操作流程</title>
-    <link href="https://reinershir.github.io/posts/b9a8eed7.html"/>
-    <id>https://reinershir.github.io/posts/b9a8eed7.html</id>
+    <link href="https://reiner.host/posts/b9a8eed7.html"/>
+    <id>https://reiner.host/posts/b9a8eed7.html</id>
     <published>2020-10-27T07:34:57.000Z</published>
     <updated>2020-11-03T06:29:23.548Z</updated>
     
@@ -302,17 +302,17 @@
     
     
     
-    <category term="运维" scheme="https://reinershir.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    <category term="运维" scheme="https://reiner.host/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="-- 运维 -- jenkins -- 自动化部署 -- docker" scheme="https://reinershir.github.io/tags/%E8%BF%90%E7%BB%B4-jenkins-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2-docker/"/>
+    <category term="-- 运维 -- jenkins -- 自动化部署 -- docker" scheme="https://reiner.host/tags/%E8%BF%90%E7%BB%B4-jenkins-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2-docker/"/>
     
   </entry>
   
   <entry>
     <title>总结一下微信扫码支付、小程序支付的几个坑</title>
-    <link href="https://reinershir.github.io/posts/d6b91638.html"/>
-    <id>https://reinershir.github.io/posts/d6b91638.html</id>
+    <link href="https://reiner.host/posts/d6b91638.html"/>
+    <id>https://reiner.host/posts/d6b91638.html</id>
     <published>2020-10-27T07:31:30.000Z</published>
     <updated>2020-11-03T06:29:23.539Z</updated>
     
@@ -327,17 +327,17 @@
     
     
     
-    <category term="JAVA" scheme="https://reinershir.github.io/categories/JAVA/"/>
+    <category term="JAVA" scheme="https://reiner.host/categories/JAVA/"/>
     
     
-    <category term="-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口" scheme="https://reinershir.github.io/tags/JAVA-%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%94%AF%E4%BB%98-%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E6%8E%A5%E5%8F%A3/"/>
+    <category term="-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口" scheme="https://reiner.host/tags/JAVA-%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%94%AF%E4%BB%98-%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E6%8E%A5%E5%8F%A3/"/>
     
   </entry>
   
   <entry>
     <title>使用Jenkins + docker 自动化部署Spring Cloud微服务【使用maven插件dockerfile-maven-plugin自动构建镜像】</title>
-    <link href="https://reinershir.github.io/posts/f608275d.html"/>
-    <id>https://reinershir.github.io/posts/f608275d.html</id>
+    <link href="https://reiner.host/posts/f608275d.html"/>
+    <id>https://reiner.host/posts/f608275d.html</id>
     <published>2020-10-27T07:27:36.000Z</published>
     <updated>2020-11-03T06:29:23.546Z</updated>
     
@@ -368,17 +368,17 @@
     
     
     
-    <category term="运维" scheme="https://reinershir.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    <category term="运维" scheme="https://reiner.host/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="-- 运维 -- jenkins -- 自动化部署" scheme="https://reinershir.github.io/tags/%E8%BF%90%E7%BB%B4-jenkins-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
+    <category term="-- 运维 -- jenkins -- 自动化部署" scheme="https://reiner.host/tags/%E8%BF%90%E7%BB%B4-jenkins-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
   <entry>
     <title>使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上</title>
-    <link href="https://reinershir.github.io/posts/e259bd66.html"/>
-    <id>https://reinershir.github.io/posts/e259bd66.html</id>
+    <link href="https://reiner.host/posts/e259bd66.html"/>
+    <id>https://reiner.host/posts/e259bd66.html</id>
     <published>2020-10-27T07:18:43.000Z</published>
     <updated>2020-11-03T06:29:23.544Z</updated>
     
@@ -414,17 +414,17 @@
     
     
     
-    <category term="运维" scheme="https://reinershir.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    <category term="运维" scheme="https://reiner.host/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="-- 运维 -- jenkins -- 自动化部署" scheme="https://reinershir.github.io/tags/%E8%BF%90%E7%BB%B4-jenkins-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
+    <category term="-- 运维 -- jenkins -- 自动化部署" scheme="https://reiner.host/tags/%E8%BF%90%E7%BB%B4-jenkins-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
   <entry>
     <title>简单的nginx反向代理配置</title>
-    <link href="https://reinershir.github.io/posts/763efb1.html"/>
-    <id>https://reinershir.github.io/posts/763efb1.html</id>
+    <link href="https://reiner.host/posts/763efb1.html"/>
+    <id>https://reiner.host/posts/763efb1.html</id>
     <published>2020-10-27T06:53:14.000Z</published>
     <updated>2020-11-03T06:29:23.540Z</updated>
     
@@ -444,17 +444,17 @@
     
     
     
-    <category term="运维" scheme="https://reinershir.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    <category term="运维" scheme="https://reiner.host/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="-- 运维 -- nginx" scheme="https://reinershir.github.io/tags/%E8%BF%90%E7%BB%B4-nginx/"/>
+    <category term="-- 运维 -- nginx" scheme="https://reiner.host/tags/%E8%BF%90%E7%BB%B4-nginx/"/>
     
   </entry>
   
   <entry>
     <title>换新博客啦！</title>
-    <link href="https://reinershir.github.io/posts/3242f1a9.html"/>
-    <id>https://reinershir.github.io/posts/3242f1a9.html</id>
+    <link href="https://reiner.host/posts/3242f1a9.html"/>
+    <id>https://reiner.host/posts/3242f1a9.html</id>
     <published>2020-10-27T02:11:24.000Z</published>
     <updated>2020-11-23T07:17:20.179Z</updated>
     
@@ -475,14 +475,14 @@
     
     
     
-    <category term="杂谈" scheme="https://reinershir.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    <category term="杂谈" scheme="https://reiner.host/categories/%E6%9D%82%E8%B0%88/"/>
     
     
-    <category term="程序人生" scheme="https://reinershir.github.io/tags/%E7%A8%8B%E5%BA%8F%E4%BA%BA%E7%94%9F/"/>
+    <category term="程序人生" scheme="https://reiner.host/tags/%E7%A8%8B%E5%BA%8F%E4%BA%BA%E7%94%9F/"/>
     
-    <category term="杂谈" scheme="https://reinershir.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    <category term="杂谈" scheme="https://reiner.host/tags/%E6%9D%82%E8%B0%88/"/>
     
-    <category term="hexo测试页面" scheme="https://reinershir.github.io/tags/hexo%E6%B5%8B%E8%AF%95%E9%A1%B5%E9%9D%A2/"/>
+    <category term="hexo测试页面" scheme="https://reiner.host/tags/hexo%E6%B5%8B%E8%AF%95%E9%A1%B5%E9%9D%A2/"/>
     
   </entry>
   
