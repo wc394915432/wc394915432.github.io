@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <!-- baidu&google验证标签 -->
-  <meta name="baidu-site-verification" content="code-Y9lUIi7fRN" />
+  <meta name="baidu-site-verification" content="code-gPHOAL542d" />
   <meta name="google-site-verification" content="f-_MQ0tuvvOKSW_jovOrGPzqJ_M0H0wA9yRb7Tx8cUA" />
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
@@ -284,6 +284,237 @@
           </div>
           <div id="js-content" class="content-ll">
             
+
+  
+    <article id="post-实现树形菜单或分类的方法之一，使用左右值树形数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/9340b114.html" target="_blank">实现树形菜单或分类的方法之一，使用左右值树形数据结构（modified preorder tree traversal）实现树形菜单</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/9340b114.html" class="archive-article-date">
+        <time datetime="2020-10-27T07:37:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <div id="content_views" class="htmledit_views">
+                    <p>突然发现自己以前常用的parent_id ,node_id这种简单直观的树形结构设计效率很低，数据量一大，就需要不停迭代寻找节点，于是这几天学习了新的数据结构(modified preorder tree traversal)，在此做下笔记。</p> 
+<p>此数据结构的好处是查询非常快，当网站查询树形数据比修改多时使用此结构会比较好，一般用于电商网站的商品分类，查询仅仅需要判断left&gt; ? right &lt;?这样即可，缺点是修改节点表数据量大时很慢，而且操作复杂一点。</p> 
+<p><img alt="" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2Jsb2cvMzQzNjIzLzIwMTQwOS8xODIyMzU0MzkyNTY2MjkuanBn?x-oss-process=image/format,png"></p> 
+<p>左右值数据结构网上教程很多，不再赘述，总结一下就是：要保持父节点右值比所有子节点的右值大，左节点左值比所有子结点左值小 。</p> 
+<p>直接上代码，上面有注释 ，说明了如何找子节点，如何找父节点、删除节点，同级平移，兄弟节点前插入等（基于postgreSQL数据库）。</p> 
+<p>&nbsp;</p> 
+<h3><a name="t0"></a><a name="t0"></a>表字段</h3> 
+<pre><code class="language-sql hljs"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">"public"</span>.<span class="hljs-string">"t_test"</span> (</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"id"</span> int4 <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">nextval</span>(<span class="hljs-string">'"T_TEST_ID_seq"'</span>::regclass),</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"name"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">COLLATE</span> <span class="hljs-string">"pg_catalog"</span>.<span class="hljs-string">"default"</span>,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"l"</span> int4,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"r"</span> int4,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"level"</span> int4,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"other"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">COLLATE</span> <span class="hljs-string">"pg_catalog"</span>.<span class="hljs-string">"default"</span>,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  <span class="hljs-string">"status"</span> int2 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">  PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-string">"id"</span>)</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">)</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre>
+    
+    <a class="article-more-a" href="/posts/9340b114.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/数据结构与算法//" class="article-tag-list-link color3">数据结构与算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/9340b114.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-使用Jenkins-docker自动化部署Springboot" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/b9a8eed7.html" target="_blank">使用Jenkins + docker 自动化部署Spring boot 微服务 详尽操作流程</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/b9a8eed7.html" class="archive-article-date">
+        <time datetime="2020-10-27T07:34:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b5506197d8.css">
+                <div id="content_views" class="htmledit_views">
+                    <h1><a name="t0"></a><a name="t0"></a>前言</h1> 
+<p>&nbsp; 之前写过一遍比较粗略的jenkins + docker部署文章，这次有时间，认真的写一遍比较详细完整的jenkins +docker部署文章，由于有时间所以这次就多写一点吧，记录下我自己对docker的看法，以及它的作用，若有不对之处还请指出。</p> 
+<h3><a name="t1"></a><a name="t1"></a>Docker的作用</h3> 
+<p>&nbsp; 其实一般的小型项目是用不上也没有必要使用docker的，docker的作用是资源隔离以及快速部署，在项目比较小的时间我们完全可以手动上传jar/war&nbsp;包到服务器上，并输入命令启动即可，但是，想像一下如果你用上了微服务，好几个团队开发，那么这些服务加起来可能有好几十个，这个时候再手动去部署，想想看你要做什么？&nbsp; 1、安装 JDK&nbsp; &nbsp; 2、配置环境变量&nbsp; &nbsp;3、安装一些必要的软件如TOMCAT之类的&nbsp; &nbsp;4、等等不止这些，有些服务甚至有可能要修改JDK配置。</p> 
+<p>&nbsp; &nbsp;每部署一台机器都要做如此多的操作是不是得烦死？如果是这种情况下，那么docker就可以派上用场了，我们可以直接把安装好各种软件以及配置的系统环境打包成一个docker镜像并保存在某个镜像中心，然后其它服务器只需几行命令就可以轻松使用打包好的环境并完成部署了，而且由于各个docker容器之间是隔离了，一台机器可以部署多种镜像也不会有影响。</p> 
+<p>&nbsp;</p> 
+<h3><a name="t2"></a><a name="t2"></a>有感而发</h3> 
+<p>&nbsp; 最近网上看到很多老程序员们在谈论中年危机，仿佛看到了几年后的自己，我自认为自己也不属于那无可替代的1%，而且自己也确实感觉到了行情不好（如工资下降，面试变少等），感觉自己有可能以后会不再干程序员，希望留下来的文章能够帮到其他人吧，好了，下面开始正题。</p> 
+<p>&nbsp;</p> 
+<h2><a name="t3"></a><a name="t3"></a>一、安装docker</h2> 
+<p>&nbsp; 最好将jenkins和docker安装在同一台服务器上，当然不是同一台服务器也可以，只不过要多一个步骤，docker安装步骤如下，以centOs为例：</p> 
+<p>&nbsp;卸载旧版本：</p> 
+<pre class="has" name="code"><code class="hljs properties"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-attr">sudo</span> <span class="hljs-string"><span class="hljs-string">yum remove docker \</span></span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-client \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-client-latest \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-common \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-latest \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-latest-logrotate \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-logrotate \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">                  docker-engine</span></div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<p>设置docker存储库：</p> 
+<pre class="has" name="code"><code class="hljs properties"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-attr">sudo</span> <span class="hljs-string"><span class="hljs-string">yum install -y yum-utils \</span></span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">  device-mapper-persistent-data \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">  lvm2</span></div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<pre class="has" name="code"><code class="hljs properties"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-attr">sudo</span> <span class="hljs-string"><span class="hljs-string">yum-config-manager \</span></span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">    --add-repo \</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-string">    https://download.docker.com/linux/centos/docker-ce.repo</span></div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<p>安装docker:</p> 
+<pre class="has" name="code"><code class="hljs sql">sudo yum <span class="hljs-keyword">install</span> docker-ce docker-ce-cli containerd.io</code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<p>启动docker:</p> 
+<pre class="has" name="code"><code class="hljs sql">sudo systemctl <span class="hljs-keyword">start</span> docker</code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<p>测试docker:</p> 
+<pre class="has" name="code"><code class="hljs properties"><span class="hljs-attr">sudo</span> <span class="hljs-string">docker run hello-world</span></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<p>看到打印hello world!&nbsp;就表示成功了。</p>
+    
+    <a class="article-more-a" href="/posts/b9a8eed7.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">-- 运维 -- jenkins -- 自动化部署 -- docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/b9a8eed7.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
 
   
     <article id="post-总结一下微信扫码支付、小程序支付的几个坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
@@ -881,6 +1112,22 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">seo优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">搜索引擎收录</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">-- 游戏开发 -- C++ -- COCOS2DX</a>
               </li>
              
@@ -901,23 +1148,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">seo优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">搜索引擎收录</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
+                <a href="javascript:void(0)" class="js-tag color2">-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -933,11 +1164,31 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口</a>
+                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">生活笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">食谱</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面试笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -950,10 +1201,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven中央库上传</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
               </li>
              
               <li class="article-tag-list-item">
