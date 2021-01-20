@@ -403,6 +403,245 @@
 
 
   
+    <article id="post-自用技术笔记（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/8deaf922.html" target="_blank">自用技术笔记（二）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/8deaf922.html" class="archive-article-date">
+        <time datetime="2021-01-20T08:12:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-20</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1><span id="前言">前言</span></h1><p>由于太长，分成两篇记录，第一篇地址： <a href="bdfc15fa.html">自自技术笔记（一）</a></p>
+<h2><span id="java数据结构相关笔记">JAVA数据结构相关笔记</span></h2><p>hashmap<br>数组加链表存储，通过hash计算key值直接计算出链表在数组中的下标位置，再通过遍历链表判断hash查找value<br>二叉树其实就是链表的加强版</p>
+<p><strong>Java所有集合类型</strong></p>
+<ul>
+<li>1.ArrayList</li>
+<li>2.LinkedList</li>
+<li>3.Set    只允许一个null，且是无序的</li>
+<li>4.TreeSet  有序的，访问遍历比较快，底层基于TreeMap，TreeSet根据其 compare() 和 compareTo() 的定义进行排序的有序容器。</li>
+<li>5.TreeMap 红黑树数据结构，有序的，非同步</li>
+<li>6.HashSet 散列法，底层基于Hashmap，无序</li>
+<li>7.LinkedHashSet  有序的，底层基于HashMap</li>
+<li>8.HashMap</li>
+<li>9.HashTable</li>
+<li>10.Vector 动态数组，线程安全</li>
+</ul>
+<p><strong>注意:共10个集合类！</strong></p>
+<p><strong>Hashmap扩容机制</strong><br>loadFactor默认0.75，扩容时要满足一下两个条件<br>1、 存放新值的时候当前已有元素的个数必须大于等于阈值<br>2、 存放新值的时候当前存放数据发生hash碰撞（当前key计算的hash值换算出来的数组下标位置已经存在值）<br>扩容时一般成倍扩容，自jdk1.8后引入新机制<br>当hash碰撞的链表长度超过默认的8时自动由链表变为红黑树<br>注意点:如果map触发扩容会重新计算每个数据的位置，所以应尽量避免扩容</p>
+<p><strong>ArrayList和LinkedList</strong></p>
+<ul>
+<li>1.arraylist是动态数组，适合使用下标随机访问，不适合添加删除，因为添加删除要移动数据。</li>
+<li>2.linkedlist是双向链表数据结构，适合添加和删除，不适合通过下标随机访问，因为他是通过移动指针一个一个节点的去遍历</li>
+<li>3.linkedlist插入和删除劲量操作第一个或者最后一个效率最高。</li>
+</ul>
+<p><strong>HashMap和HashTable</strong></p>
+<ul>
+<li>1.hashmap基本上可以代替haahtable了</li>
+<li>2.hashtable是线程安全</li>
+<li>3.hashtable的迭代器不同，当迭代过程中hashtable的值被修改时会报错</li>
+<li>4.HashMap把Hashtable的contains方法去掉了，改成containsValue和containsKey，因为contains方法容易让人引起误解。</li>
+<li><ol start="5">
+<li>Hashtable继承自Dictionary类，而HashMap继承自AbstractMap类。但二者都实现了Map接口。</li>
+</ol>
+</li>
+</ul>
+<h3><span id="http">HTTP</span></h3><p>Http Tcp<br>为什么需要四次挥手<br>tcp之所以三次握手四次挥手是因为发送端的数据发送完了请求关闭连接，但接收端不一定接收完毕，因此需要来回重复确认。</p>
+<p>为什么需要三次握手<br>如果只有两次握手，<br>tcp/udp属于传输层 基于 ip网络层 socket和http属于应用层</p>
+<p><strong>http的几种请求方式</strong></p>
+<p>get post put head delete connect options<br>trace<br>其中trace用于回显收到的请求，一般禁用<br>connect用于代理</p>
+<p>http由几部分组成如head method  keepAlive  请求url cookie host等</p>
+<h3><span id="微服务相关">微服务相关</span></h3><p><strong>缓存穿透</strong></p>
+<p>当查询一个不存在的数据时，会每次都先请求缓存再请求数据库，由此造成性能浪费和攻击漏洞</p>
+<p>解决方案1，直接缓存空数据，设置短时间过期</p>
+<p>解决方案2，布隆过滤器，将所有可能存在的数据的哈希保存下来，每次请求时判断哈希是否存在</p>
+<p><strong>缓存雪崩</strong></p>
+<p>同一时间大量缓存失效造成服务器压力暴增，解决方案：失效时间加上随机数保证每个缓存的失效时间不一样</p>
+<p><strong>缓存击穿</strong></p>
+<p>一些热点数据可能正好在缓存失效时出现大量请求导致数据库压力剧增，解决方案：</p>
+<ul>
+<li>1.分布式锁</li>
+<li>2.提前续期，在发现该缓存快要过期时续期并锁住，然后重新从数据库查询最新数据</li>
+<li>3.后台线程定时更新缓存</li>
+</ul>
+<p><strong>Cap理论</strong></p>
+<ul>
+<li>C.一致性（Consistency），某一节点更新数据后，其他节点都能读取到最新数据</li>
+<li>A.可用性（Availability），每一个请求都能得到响应，无需确保返回的数据为最新</li>
+<li>P.分区容错性（Partition tolerance），当服务被分散在各个孤立的区域，而区域之间相互无法通信时，系统照样能够工作<br>Cap三者无法同时满足，只能取其二。</li>
+</ul>
+<p>1.当大量服务分散部署到各个省，且合省之间相互独立，其他省服务器宕机不影响本省服务继续提供支持时，选择ap<br>2.对于其他情况则只需保证ca即可，一般情况下没有分区性问题。  </p>
+<p><strong>一致性hash</strong></p>
+<p>一致性hash的作用是解决数据倾斜问题，保证请求和数据分布均匀。<br>整个Hash空间被构建成一个首尾相接的环，使用一致性Hash时需要进行两次映射。<br>第一次给每个节点计算哈希并记录它们在环上的位置，第二次给每个Key计算Hash，然后沿着顺时针的方向找到环上的第一个节点，就是该Key储存对应的集群</p>
+<p><strong>源码问答</strong></p>
+<p>为了应对该死的面试而记录的</p>
+<p>1.Spring注入私有属性开关<br>2.spring boot自动加载原理<br>3.spring扫描原理 ，读取class文件反射</p>
+<p><strong>spring循环注入问题</strong></p>
+<p>spring为避免循环注入 spring用了三级缓存分别为：</p>
+<ul>
+<li>singletonFactories ： 单例对象工厂的cache </li>
+<li>earlySingletonObjects ：提前暴光的单例对象的Cache </li>
+<li>singletonObjects 单例对象缓存,逐步从缓存中获取，未创建完的对象放提前曝光对象cache里，通过对象引用传递解决循环依赖问题当对象创建完成后会从缓存中移出，属性注入通过后置处理器注入</li>
+</ul>
+<p><strong>spring cloud ribbon 7种负载均衡策略</strong></p>
+<ul>
+<li><ol>
+<li>轮询  </li>
+</ol>
+</li>
+<li>2.随机   </li>
+<li>3.最大可用策略（过滤不可用选择并发数最小的）</li>
+<li>4.可用过滤（过滤并发大于阈值的再轮询）</li>
+<li>5.加权轮询   </li>
+<li>6.重试策略（配置时间段内访问不成功则一直尝试使用subRule方式重试 ）</li>
+<li>7.区域感知策略（先使用主过滤条件，判断最小过滤数和最小过滤百分比，满足条件的服务才使用）</li>
+<li>8.令牌桶(也就是ip绑定)</li>
+</ul>
+<p>分表算法<br>1.按时间分表<br>2.按数字，如分30张表使用id %30 得出的结果为表的位置<br>3.使用md5值的前5位做hash</p>
+<p>@enableEurekaClient只能用于注册中心为eureka而@enableDiscoveryClien则支持其他注册中心</p>
+<p>高可用策略<br>服务降级    自动重试  快速失败（熔断）<br>负载均衡  健康检测   回退部署  </p>
+<p>服务降级<br>暂时关闭不重要的服务   分级降级 降级权重</p>
+<p><strong>微服务概念理解</strong></p>
+<p>1.将业务服务拆分成多个细小独立的服务<br>2.每个微服务都是独立可运行的<br>3.微服务本质是soa(面向服务架构)其是一种架构设计理念</p>
+<p><em>微服务的好处</em></p>
+<p>1.每个服务独立运行不受技术，数据库，等影响<br>2.由于其划分精细，小部分功能升级不影响其他功能使用<br>3.松耦合<br>4.接口通用</p>
+<p>spring cloud组件<br>1.eureka<br>2.ribbon<br>3. feign<br>4.config<br>5.hystrix<br>6. bus消息总线<br>7.dashbord（hystrix仪表盘）<br>8.Zuul网关<br>9.sleuth调用链追踪(一般配合zipkin)</p>
+<p>高并发策略<br>1.线程池<br>2.负载均衡<br>3.熔断<br>4.队列<br>5.服务降级</p>
+<p>实现高并发秒杀的三种思路<br>1.数据库行锁（性能差）<br>2.使用redis的list存储秒杀数据使用lpop删除数组中的第一个下标的数据来表示减少库存，redis是单线程的 (性能最好)<br>3.使用redis分布式锁，通过setnx方法获取锁，setnx是设置一个值，如果它不存在则设置成功返回1，否则失败返回0，再通过expire设置锁的超时时间，避免死锁，最后需要操作完后根据客户端请求唯一标识删除锁（为了避免误删）</p>
+<h3><span id="redis相关">redis相关</span></h3><p><strong>redis优势</strong></p>
+<ul>
+<li>1.单线程与上下文切换消耗</li>
+<li>2.多路复用io模型，非阻塞io</li>
+<li>3.基于内存操作，hashmap时间复杂度是o(1)</li>
+<li>4.redis实现了自己的vm机制</li>
+</ul>
+<p>redis哨兵模式有三种</p>
+<p>故障转移 投票选举 监控</p>
+<p><strong>epoll</strong></p>
+<p>io复用模型中的一种，为每一个流增加标记，这样重缓冲区读取流时就知道当前流的状态了，在获取到流之前处于阻塞状态类似socket<br>select所有流轮询，限制大小为1024，其优势有：</p>
+<ul>
+<li>1.没有并发限制，上限是最大可打开文件数目，这个数目和系统内存关系很大</li>
+<li>2.select代理网络io，无差别轮询，遍历所有流的io事件，去过有流发生了io事件则唤醒线程去处理，时间复杂度为o(n)</li>
+</ul>
+<p><strong>redis数据淘汰策略</strong></p>
+<ul>
+<li>1.当内存达到限制的值且尝试使用更多的内存时。</li>
+<li>2.回收最少使用的键</li>
+<li>3.回收最少使用的键，但是仅仅从过期的集合中回收</li>
+<li>4.随机回收</li>
+<li>5.随机回收过期集合中的键</li>
+<li>6.从过期集合中优先回收存活时间简短的键</li>
+</ul>
+<p><strong>Redis持久化</strong></p>
+<ul>
+<li><ol>
+<li>rdb策略，定时持久化，将当前内存数据保存,优点是效率高，持久化数据是单个文件，备份恢复简单，缺点是数据丢失过大</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>aof策略，每秒备份，也就是不停地望持久化数据库中追加数据，优点是宕机时丢失数据少，缺点是效率不如rdb</li>
+</ol>
+</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MYSQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">面试笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/8deaf922.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-生活笔记之懒人食谱" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -562,8 +801,10 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。</p>
-<h2 id="红黑树笔记"><a href="#红黑树笔记" class="headerlink" title="红黑树笔记"></a>红黑树笔记</h2><p><strong>红黑树</strong><br>红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找</p>
-<p>时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树</p>
+<p>由于太长，分成两篇记录,笔记二地址： <a href="bdfc15fa.html">自自技术笔记（二）</a></p>
+<h2 id="红黑树笔记"><a href="#红黑树笔记" class="headerlink" title="红黑树笔记"></a>红黑树笔记</h2><p><strong>红黑树</strong></p>
+<p>红黑树其实就是平衡二叉树，该规则可保证每个节点都是平衡的，不会出现单个节点过长的情况</p>
+<p>红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找，时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树</p>
 <p>普通二叉树的局限性是子节点都比父节点小因此全排在右，会退化成链表</p>
 <p><strong>红黑树4个性质</strong></p>
 <ul>
@@ -1315,113 +1556,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/posts/7bf19d56.html">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-微服务架构中使用自定义注解实现简单的权限控制与权限开关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/posts/e6208c64.html" target="_blank">spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/posts/e6208c64.html" class="archive-article-date">
-        <time datetime="2020-10-27T07:41:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <div id="content_views" class="htmledit_views">
-                    <h3><a name="t0"></a><a name="t0"></a>前言</h3> 
-<p>在微服务架构下开发权限控制一般的做法是，独立开发一个专门用于鉴权的服务，其它服务每次请求接口时都调用鉴权服务鉴权，这样做的好处是，代码耦合低，权限控制功能好扩展，其坏处是每次鉴权都要请求鉴权服务，增加服务器资源消耗，因此我弄了一个简单的权限验证，能满足接口级别的验证，不通过专门的鉴权服务，而是每个服务自己去验证权限。</p> 
-<p>&nbsp;</p> 
-<h3><a name="t1"></a><a name="t1"></a>权限验证开关注解</h3> 
-<p>&nbsp; 并非每个服务都需要验证权限，因此我们可以定义一个类似@EnableDiscoery&nbsp;这样的注解开关来控制：</p> 
-<pre><code class="language-java hljs"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Target(ElementType.TYPE)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Documented</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Import(AuthenticationInterceptor.class)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> EnableAuthentication &#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#125;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
-<p>关键代码是@Import，当你在代码中使用了@EnableAuthentication&nbsp;注解时，spring&nbsp;会自动扫描并加载Import注解中的AuthenticationInterceptor类</p> 
-<p>&nbsp;</p>
-    
-    <a class="article-more-a" href="/posts/e6208c64.html#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">-- 权限设计 -- springcloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/posts/e6208c64.html">展开全文 >></a>
     </p>
     
 

@@ -17,15 +17,15 @@
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
-  <meta name="description" content="前言整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。 红黑树笔记红黑树红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找 时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树 普通二叉树的局限性是子节点都比父节点小因此全排在右，会退化成链表 红黑树4个性质  1.节点是红色或者">
+  <meta name="description" content="前言整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。 由于太长，分成两篇记录,笔记二地址： 自自技术笔记（二） 红黑树笔记红黑树 红黑树其实就是平衡二叉树，该规则可保证每个节点都是平衡的，不会出现单个节点过长的情况 红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找，时间复杂度logn,也就是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自用技术笔记（一）">
 <meta property="og:url" content="https://reiner.host/posts/bdfc15fa.html">
 <meta property="og:site_name" content="Reinerの个人博客">
-<meta property="og:description" content="前言整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。 红黑树笔记红黑树红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找 时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树 普通二叉树的局限性是子节点都比父节点小因此全排在右，会退化成链表 红黑树4个性质  1.节点是红色或者">
+<meta property="og:description" content="前言整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。 由于太长，分成两篇记录,笔记二地址： 自自技术笔记（二） 红黑树笔记红黑树 红黑树其实就是平衡二叉树，该规则可保证每个节点都是平衡的，不会出现单个节点过长的情况 红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找，时间复杂度logn,也就是">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-01-20T06:19:26.000Z">
-<meta property="article:modified_time" content="2021-01-20T07:44:33.944Z">
+<meta property="article:modified_time" content="2021-01-20T08:29:17.491Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="MYSQL">
 <meta property="article:tag" content="面试笔记">
@@ -319,7 +319,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">3.8k字</span>
+      <span class="post-count">4.5k字</span>
     </span>
   </span>
 
@@ -328,7 +328,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">13分</span>
+      <span class="post-count">15分</span>
     </span>
   </span>
 </div>
@@ -340,8 +340,10 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h1><span id="前言">前言</span></h1><p>整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。</p>
-<h2><span id="红黑树笔记">红黑树笔记</span></h2><p><strong>红黑树</strong><br>红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找</p>
-<p>时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树</p>
+<p>由于太长，分成两篇记录,笔记二地址： <a href="bdfc15fa.html">自自技术笔记（二）</a></p>
+<h2><span id="红黑树笔记">红黑树笔记</span></h2><p><strong>红黑树</strong></p>
+<p>红黑树其实就是平衡二叉树，该规则可保证每个节点都是平衡的，不会出现单个节点过长的情况</p>
+<p>红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找，时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树</p>
 <p>普通二叉树的局限性是子节点都比父节点小因此全排在右，会退化成链表</p>
 <p><strong>红黑树4个性质</strong></p>
 <ul>
@@ -408,7 +410,8 @@
 <li>6.定时整理碎片数据</li>
 <li>7.复杂操作可以使用存储过程</li>
 </ul>
-<p>msql主从复制原理<br>通过binlog异步同步数据，为保证复制准确，mysql在master.info和relay-log.info中保存了同步日志，主从同步有两个线程<br>1.io线程，监听主库数据是否发生改变，当发生修改时，将异步复制到从库中的relay log中<br>2. sql线程，从中继日志中读取主库修改的数据同步到从库中来完成数据同步操作。</p>
+<p><strong>msql主从复制原理</strong></p>
+<p>通过binlog异步同步数据，为保证复制准确，mysql在master.info和relay-log.info中保存了同步日志，主从同步有两个线程<br>1.io线程，监听主库数据是否发生改变，当发生修改时，将异步复制到从库中的relay log中<br>2. sql线程，从中继日志中读取主库修改的数据同步到从库中来完成数据同步操作。</p>
 <p>三种复制方式<br>二进制binlog的格式有三种：<br>statement：基于sql的binlog，每条修改数据的sql都会保存到binlog里。<br>row：基于行级别，记录每一行数据的变化，也就是将每一行数据的变化都记录到binlog里，记录非常详细。<br>mixed：混合statement和row模式。<br>阿里的canal框架也可以实现主从复制</p>
 <p>Msql分库分表后按时间查询思路<br>垂直拆分，新建一张数据索引表，保存了主表id和该表的时间数据，查询时先按时间来索引表查id，再根据id查关联数据，如果索引表也变得非常庞大，可以单开一个库按月分表，查询时先按月份找到表，再按时间从表中筛选，最后根据id查到想要的数据</p>
 <p>Mysql保证持久化<br>Undo log记录修改前的数据，用于回滚<br>Redo log记录事物提交修改后的数据，用于数据恢复</p>
@@ -422,38 +425,15 @@
 <li>PROPAGATION_NEVER:以非事务方式运行，假设当前存在事务，则抛出异常。</li>
 <li>ROPAGATION_NESTED:如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。</li>
 </ul>
+<p><strong>spring生命周期关键点:</strong></p>
+<p>执行initantiationAwareBeanPostProcessor的postProcessPropertyValue方法后开始 执行bean构造器 - 为bean注入属性 - beanAware的setBeanName  setBeanFactoru  - 调用 bean init-method  销毁时执行destory 并调用配置的destroy-method </p>
 <p><em>分布式锁笔记</em><br>分布式锁有如下几种<br>1.使用redis做分布式锁<br>2.使用mysql索引锁<br>3.使用乐观锁<br>Redis锁的加锁和解锁需要两步操作，为保证原子性，需要用lua脚本一次执行，一般使用公平锁，加速队列，避免出现大量线程竞争不到锁而超时的问题</p>
 <p>当redis为分布式环境时需要使用redlock算法，避免重复获取锁<br>Redlock基本原理如下<br>1.快速失败时间，客户端使用相同key和随机数尝试获取锁时，为每个锁设置快速失败时间<br>2.计算获取锁的时间，判断获取锁消耗时间小于锁的存活时间，且一半以上的master节点获得锁才算锁定成功<br>3.获取成功的锁不足一半以上时需要释放所有节点锁<br>4.加锁失败时如释放锁时出现问题需要等待所有锁自动失效<br>5.获取锁成功后，执行任务的时间窗口是锁的存活时间减去锁的消耗时间</p>
-<h2><span id="java数据结构相关笔记">JAVA数据结构相关笔记</span></h2><p>hashmap<br>数组加链表存储，通过hash计算key值直接计算出链表在数组中的下标位置，再通过遍历链表判断hash查找value<br>二叉树其实就是链表的加强版</p>
-<p><strong>Java所有集合类型</strong></p>
-<ul>
-<li>1.ArrayList</li>
-<li>2.LinkedList</li>
-<li>3.Set    只允许一个null，且是无序的</li>
-<li>4.TreeSet  有序的，访问遍历比较快，底层基于TreeMap，TreeSet根据其 compare() 和 compareTo() 的定义进行排序的有序容器。</li>
-<li>5.TreeMap 红黑树数据结构，有序的，非同步</li>
-<li>6.HashSet 散列法，底层基于Hashmap，无序</li>
-<li>7.LinkedHashSet  有序的，底层基于HashMap</li>
-<li>8.HashMap</li>
-<li>9.HashTable</li>
-<li>10.Vector 动态数组，线程安全</li>
-</ul>
-<p><strong>注意:共10个集合类！</strong></p>
-<p><strong>Hashmap扩容机制</strong><br>loadFactor默认0.75，扩容时要满足一下两个条件<br>1、 存放新值的时候当前已有元素的个数必须大于等于阈值<br>2、 存放新值的时候当前存放数据发生hash碰撞（当前key计算的hash值换算出来的数组下标位置已经存在值）<br>扩容时一般成倍扩容，自jdk1.8后引入新机制<br>当hash碰撞的链表长度超过默认的8时自动由链表变为红黑树<br>注意点:如果map触发扩容会重新计算每个数据的位置，所以应尽量避免扩容</p>
-<p><strong>ArrayList和LinkedList</strong></p>
-<ul>
-<li>1.arraylist是动态数组，适合使用下标随机访问，不适合添加删除，因为添加删除要移动数据。</li>
-<li>2.linkedlist是双向链表数据结构，适合添加和删除，不适合通过下标随机访问，因为他是通过移动指针一个一个节点的去遍历</li>
-<li>3.linkedlist插入和删除劲量操作第一个或者最后一个效率最高。</li>
-</ul>
 <h2><span id="jvm相关">JVM相关</span></h2><p><strong>jvm类的加载方式</strong></p>
 <ul>
 <li>1.本地class</li>
 <li>2.网络加载 java.net.URIClassLoader可以加载url指定类</li>
-<li><ol start="3">
-<li>jar zip等压缩文件，自动解析</li>
-</ol>
-</li>
+<li>3.jar zip等压缩文件，自动解析</li>
 <li>4.从java源代码文件动态编译为class</li>
 </ul>
 <p>类加载生命周期<br>加载～验证～准备～解析～初始化～使用～卸载</p>
@@ -464,12 +444,53 @@
 <li>3.系统类加载器system  负责classpath中指定类库的加载，开发者可直接使用</li>
 <li>4.自定义类加载器:java.lang.ClassLoader</li>
 </ul>
-<p>类加载双亲委派机制<br>在某个特定的类加载器接到加载请求时先将加载任务委托给父类，依次递归，如果父类不能完成才自己去加载，类加载器均继承自ClassLoader抽象类。</p>
-<p><strong>jvm内存模型</strong><br>JVM内存空间分为五部分，分别是：方法区、堆、Java虚拟机栈、本地方法栈、程序计数器</p>
-<p>方法区主要用来存放类信息、类的静态变量、常量、运行时常量池等，方法区的大小是可以动态扩展的，</p>
-<p>堆主要存放的是数组、类的实例对象、字符串常量池等。</p>
-<p>Java虚拟机栈是描述JAVA方法运行过程的内存模型，Java虚拟机栈会为每一个即将执行的方法创建一个叫做“栈帧”的区域，该区域用来存储该方法运行时需要的一些信息，包括：局部变量表、操作数栈、动态链接、方法返回地址等。比如我们方法执行过程中需要创建变量时，就会将局部变量插入到局部变量表中，局部变量的运算、传递等在操作数栈中进行，当方法执行结束后，这个方法对应的栈帧将出栈，并释放内存空间。栈中会发生的两种异常，StackOverFlowError和OutOfMemoryError,StackOverFlowError表示当前线程申请的栈超过了事先定好的栈的最大深度，但内存空间可能还有很多。 而OutOfMemoryError是指当线程申请栈时发现栈已经满了，而且内存也全都用光了。</p>
-<p>本地方法栈结构上和Java虚拟机栈一样，只不过Java虚拟机栈是运行Java方法的区域，</p>
+<p><strong>类加载双亲委派机制</strong></p>
+<p>在某个特定的类加载器接到加载请求时先将加载任务委托给父类，依次递归，如果父类不能完成才自己去加载，类加载器均继承自ClassLoader抽象类。</p>
+<p><strong>jvm内存模型</strong></p>
+<p>JVM内存空间分为五部分，分别是：方法区、堆、Java虚拟机栈、本地方法栈、程序计数器，方法区主要用来存放类信息、类的静态变量、常量、运行时常量池等，方法区的大小是可以动态扩展的，</p>
+<p>堆主要存放的是数组、类的实例对象、字符串常量池等。Java虚拟机栈是描述JAVA方法运行过程的内存模型，Java虚拟机栈会为每一个即将执行的方法创建一个叫做“栈帧”的区域，该区域用来存储该方法运行时需要的一些信息，</p>
+<p>包括：局部变量表、操作数栈、动态链接、方法返回地址等。比如我们方法执行过程中需要创建变量时，就会将局部变量插入到局部变量表中，局部变量的运算、传递等在操作数栈中进行，</p>
+<p>当方法执行结束后，这个方法对应的栈帧将出栈，并释放内存空间。栈中会发生的两种异常，StackOverFlowError和OutOfMemoryError,StackOverFlowError表示当前线程申请的栈超过了事先定好的栈的最大深度，</p>
+<p>但内存空间可能还有很多。 而OutOfMemoryError是指当线程申请栈时发现栈已经满了，而且内存也全都用光了。</p>
+<p>本地方法栈结构上和Java虚拟机栈一样，只不过Java虚拟机栈是运行Java方法的区域，而本地方法栈是运行本地方法的内存模型。运行本地方法时也会创建栈帧，</p>
+<p>同样栈帧里也有局部变量表、操作数栈、动态链接和方法返回地址等，在本地方法执行结束后栈帧也会出栈并释放内存资源，也会发生OutOfMemoryError。</p>
+<p>最后是程序计数器，程序计数器是一个比较小的内存空间，用来记录当前线程正在执行的那一条字节码指令的地址。如果当前线程正在执行的是本地方法，那么此时程序计数器为空。</p>
+<p><strong>程序计数器有两个作用：</strong></p>
+<ul>
+<li><p>1、字节码解释器通过改变程序计数器来一次读取指令，从而实现代码的流程控制，比如我们常见的顺序、循环、选择、异常处理等。</p>
+</li>
+<li><p>2、在多线程的情况下，程序计数器用来记录当前线程执行的位置，</p>
+</li>
+</ul>
+<p>当线程切换回来的时候仍然可以知道该线程上次执行到了哪里。而且程序计数器是唯一一个不会出现OutOfMeroryError的内存区域。</p>
+<p>方法区和堆都是线程共享的，在JVM启动时创建，在JVM停止时销毁，而Java虚拟机栈、本地方法栈、程序计数器是线程私有的，随线程的创建而创建，随线程的结束而死亡。</p>
+<p><strong>JVM三大性能调优参数：-Xms –Xmx –Xss</strong></p>
+<p>-Xms –Xmx是对堆的性能调优参数，一般两个设置是一样的，如果不一样，当Heap不够用，会发生内存抖动。一般都调大这两个参数，并且两个大小一样。</p>
+<p>-Xss是对每一个线程栈的性能调优参数,影响堆栈调用的深度</p>
+<p><strong>Jvm回收判断</strong></p>
+<p>1.引用计数法，缺点是当循环引用时会内存溢出</p>
+<p>2.可达性分析法，存储了对象的引用链接，并向下搜索，当一个对象到root节点没有任何引用链接时，则证明此对象是可以被回收的。以下对象会被认为是root对象：</p>
+<ul>
+<li>栈内存中引用的对象 </li>
+<li>方法区中静态引用和常量引用指向的对象 </li>
+<li>被启动类（bootstrap加载器）加载的类和创建的对象</li>
+<li>Native方法中JNI引用的对象。 </li>
+</ul>
+<p><strong>Jvm 3个回收算法</strong></p>
+<ul>
+<li>1.标记清除</li>
+<li>2.复制算法</li>
+<li>3.标记复制算法，(整合1和2)</li>
+</ul>
+<p><strong>Jvm调优工具</strong></p>
+<ul>
+<li><p>1.jconsole，jdk1.5自带，用于对JVM中内存，线程和类等的监控，是一个基于JMX（java management extensions）的GUI性能监测工具</p>
+</li>
+<li><p>2.VisualVM，可监控cpu、内存、类、线程，新生代，老年代等内存变化</p>
+</li>
+<li><p>3.Mat eclipse的一个第三方调优工具，它可以帮助我们查找内存泄漏和减少内存消耗。使用内存分析工具从众多的对象中进行分析，快速的计算出在内存中对象的占用大小</p>
+</li>
+</ul>
 <h2><span id="java多线程笔记">JAVA多线程笔记</span></h2><p>join的作用<br>join的作用是等待调用该方法的线程结束后才往下执行，如主线程调用t1.join（） 那么t1 执行完后才继续执行后面代码</p>
 <p><strong>java线程锁</strong></p>
 <ul>
@@ -488,7 +509,30 @@
 <li>4.timer</li>
 <li>5.FutureTask 带返回结果的线程</li>
 </ul>
-<p>实现高并发秒杀的三种思路<br>1.数据库行锁（性能差）<br>2.使用redis的list存储秒杀数据使用lpop删除数组中的第一个下标的数据来表示减少库存，redis是单线程的<br>3.使用redis分布式锁，通过setnx方法获取锁，setnx是设置一个值，如果它不存在则设置成功返回1，否则失败返回0，再通过expire设置锁的超时时间，避免死锁，最后需要操作完后根据客户端请求唯一标识删除锁（为了避免误删）</p>
+<p><strong>4种线程池</strong></p>
+<ul>
+<li>1.newCachedThreadPool可缓存线程池，无限制扩展，无可回收时创建新的线程</li>
+<li>2.newFixedThreadPool 固定数量大小的线程池，当任务超过线程数量时加入队列等待</li>
+<li>3.newSingleThreadExecutor单线程化线程池，将所有线程按指定顺序如先进先出，先进后出的顺序执行</li>
+<li>4.newScheduleThreadPool 定长的线程池，支持定时周期性的任务执行</li>
+</ul>
+<p><strong>线程池的4种拒绝策略</strong></p>
+<ul>
+<li>1.discardPolicy 直接丢弃</li>
+<li>2.discardOldestPolicy丢弃队列中最老的任务</li>
+<li>3.abortPolicy抛异常</li>
+<li>4.callerRunsPolicy将任务分给调用线程来执行,但调用者线程性能会下降</li>
+</ul>
+<p>默认策略抛异常</p>
+<p><strong>线程池的4种队列:</strong></p>
+<ul>
+<li>1.ArrayBlockingQuene 数组结构，有序，先进先出（FIFO）</li>
+<li>2.LinkedBlickingQuene 链表结构，先进先出，吞吐量高于数组结构</li>
+<li>3.SynchronousQuene无缓冲队列，当第一个任务添加进该队列后会一直处于阻塞状态，直到有线程将调用take方法取走元素，该队列不保存元素，添加进来的元素会直接被消费方取走<br>支持公平，非公平策略，非公平策略有可能取不到元素</li>
+<li>4.priorityBlockingQuene具有优先级的无阻塞队列，可自定义竞争算法</li>
+</ul>
+<p>join 让父线程等待子线程结束后才运行，join可指定等待时间</p>
+<p>java IO流<br>1.字节流 不缓存到缓冲区，主要操作类inputStream   outputStream<br>2.字符流  会缓存到缓冲区，当输出内容到文件时即使不flush文件中也依旧有内容，且一个字符占两个字节，默认编码unicode  主要操作类为   Reader   Writer</p>
 <p>线程池原理<br>workset线程集合加队列<br>配置说明:<br>keepAlivetime排队时长，该参数只在当然线程求大于corePoolSize时有用</p>
 <p>maxinumPoolSize最大线程执行数量，超过核心线程会自动创建非核心线程，前提是不超过maxinumPoolSize</p>
 <p>线程池总体流程:<br>当用户提交线程时创建新线程执行直到线程数量等于corePoolSize，多出来的任务则加入队列，当队列满了且当前线程数小于maxinumPoolSize时创建新的线程执行任务，当队列满了且线程池执行数量超过设定上限则执行配置的拒绝策略。</p>
@@ -660,7 +704,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">红黑树笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">mysql笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">Spring事务传播级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">JAVA数据结构相关笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">JVM相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">JAVA多线程笔记</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">红黑树笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">mysql笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">Spring事务传播级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">JVM相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">JAVA多线程笔记</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

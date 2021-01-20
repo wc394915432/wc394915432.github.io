@@ -286,6 +286,113 @@
             
 
   
+    <article id="post-微服务架构中使用自定义注解实现简单的权限控制与权限开关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/e6208c64.html" target="_blank">spring cloud微服务架构中使用自定义注解实现简单的权限控制与权限开关</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/e6208c64.html" class="archive-article-date">
+        <time datetime="2020-10-27T07:41:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <div id="content_views" class="htmledit_views">
+                    <h3><a name="t0"></a><a name="t0"></a>前言</h3> 
+<p>在微服务架构下开发权限控制一般的做法是，独立开发一个专门用于鉴权的服务，其它服务每次请求接口时都调用鉴权服务鉴权，这样做的好处是，代码耦合低，权限控制功能好扩展，其坏处是每次鉴权都要请求鉴权服务，增加服务器资源消耗，因此我弄了一个简单的权限验证，能满足接口级别的验证，不通过专门的鉴权服务，而是每个服务自己去验证权限。</p> 
+<p>&nbsp;</p> 
+<h3><a name="t1"></a><a name="t1"></a>权限验证开关注解</h3> 
+<p>&nbsp; 并非每个服务都需要验证权限，因此我们可以定义一个类似@EnableDiscoery&nbsp;这样的注解开关来控制：</p> 
+<pre><code class="language-java hljs"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Target(ElementType.TYPE)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Documented</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@Import(AuthenticationInterceptor.class)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> EnableAuthentication &#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#125;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
+<p>关键代码是@Import，当你在代码中使用了@EnableAuthentication&nbsp;注解时，spring&nbsp;会自动扫描并加载Import注解中的AuthenticationInterceptor类</p> 
+<p>&nbsp;</p>
+    
+    <a class="article-more-a" href="/posts/e6208c64.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">-- 权限设计 -- springcloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/e6208c64.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-实现树形菜单或分类的方法之一，使用左右值树形数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
