@@ -25,7 +25,7 @@
 <meta property="og:description" content="重要的前言  先说说为什么重复造轮子，当时的情况是只需要一个简单的延时任务，做到不丢失即可，引入分布式定时任务框架又觉得太重，因此手动造了个基于redis的简单可靠定时任务。 适用场景，此种做法在单机部署情况下是肯定没问题的，在分布式部署情况下可能会出现问题，比如同一个服务同时重启了，又刚好同时读取redis中的定时任务，还刚好就在那几十毫秒的情况下没有检测到redis锁，此时会导致任务重复读取。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-03-18T02:59:58.000Z">
-<meta property="article:modified_time" content="2021-03-18T05:39:46.204Z">
+<meta property="article:modified_time" content="2021-03-19T07:17:54.982Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="SringBoot">
@@ -421,6 +421,17 @@
 	</div>
 
     
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
     
 
@@ -484,6 +495,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/posts/397a07c0.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          OculusQuest2激活教程（无需智能路由器）
+        
+      </div>
+    </a>
   
   
     <a href="/posts/8deaf922.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -789,6 +809,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oculus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">oculusquest2</a>
               </li>
             
             <div class="clearfix"></div>
