@@ -403,6 +403,124 @@
 
 
   
+    <article id="post-微信小程序用户请求同一个接口session会话会阻塞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/d84fac55.html" target="_blank">微信小程序用户请求同一个接口session会话会阻塞</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/d84fac55.html" class="archive-article-date">
+        <time datetime="2021-04-02T03:06:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-02</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1><span id="说明">说明</span></h1><p> 微信开发真乃坑中之坑，会话阻塞场景如下： </p>
+<p>小程序，有两个用户同时访问同一个接口会阻塞，第二个请求的人必须请等一个请求的人处理完毕才会响应第二个请求。</p>
+<p>但如果我在 PC 上用两个不同的浏览器同时请求这个接口，是并行的，从结果上来看可能是 session 阻塞，即同一个会话同时只能处理一个请求。</p>
+<p>我的测试代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@RestController()</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@GetMapping(&quot;block&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;blocking...   &quot;</span>+Thread.currentThread().getName());</span><br><span class="line">			Thread.sleep(<span class="number">8000l</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>两个不同的小程序用户同时请求，第二个请求的人必须请等一个请求的人返回OK才会打印第二个请求的日志，理论上来说，不同用户的请求应当是并行的，但服务器似乎将它们视为同一个会话(session)了。</p>
+<p>一开始想到了异步处理，即controller返回callable让处理不占用会话，但是发现这样做事务没法控制！</p>
+<h1><span id="解决办法">解决办法</span></h1><p>最终使用了比较粗暴的解决办法，即不使用微信浏览器生成的session id，而是每次请求都由前端生成一个随机数作为session id，这样用户的请求就不会被视为同一个会话了</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WEB开发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">session</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">BUG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/d84fac55.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-使用netty作为TCP服务端并使用16进制与硬件进行通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1392,127 +1510,9 @@
 
 
   
-    <article id="post-mysql千万级数据分页查询优化方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/posts/38aafa6a.html" target="_blank">mysql千万级数据分页查询优化方案</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/posts/38aafa6a.html" class="archive-article-date">
-        <time datetime="2020-11-02T08:34:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-02</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  使用mysql作为数据分页查询的时候我们一般使用limit，这样做在数据量不大的情况下是完全没问题的，当数据量达到几百万或者几千万的时候，使用limit速度将会非常的慢，比如在一张600万数据量的表中使用以下sql分页查询  </p>
-<p>  <code>SELECT * FROM TABLE WHERE IS_DELETE=0 LIMIT 5000000,20</code></p>
-<p>  也许你查前几页的时候是很快的，比如limit 0,20，但是当分到第几百万行的时候，越往后速度越慢，这是由于mysql的innoDB引擎使用的是B+Tree数据存储结构。</p>
-<h2 id="关于优化"><a href="#关于优化" class="headerlink" title="关于优化"></a>关于优化</h2><p>  有人可能说数据量上千万了为何不直接分表分库，而我个人觉得分表分库会增加查询的复杂性，能通过优化索引解决的问题还没有必要分表，除非数据量大到了索引无法解决问题的地步.</p>
-<p>  另外一个，一般很少有业务需求是直接把一张大数据量表的数据分页查询的，一般都是要带点条件，比如订单表那肯定是根据用户ID和删除状态去查，这种情况只需要建好索引即可。</p>
-<h2 id="开始优化"><a href="#开始优化" class="headerlink" title="开始优化"></a>开始优化</h2><p>  先来看看未优化前的SQL</p>
-<p>  <code>select * from TEST_ORDER WHERE limit 10000000,10000010</code></p>
-<p>  从第一千万条开始，查10条数据，结果是执行时间12秒。</p>
-    
-    <a class="article-more-a" href="/posts/38aafa6a.html#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MYSQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql优化</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">大数据优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/posts/38aafa6a.html">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1775,6 +1775,22 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">16进制通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">微信小程序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">WEB开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">session</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">BUG</a>
               </li>
             
             <div class="clearfix"></div>
