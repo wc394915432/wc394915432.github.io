@@ -6,7 +6,7 @@
   <link href="https://reiner.host/atom.xml" rel="self"/>
   
   <link href="https://reiner.host/"/>
-  <updated>2021-04-02T03:18:53.869Z</updated>
+  <updated>2021-04-02T03:19:48.460Z</updated>
   <id>https://reiner.host/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://reiner.host/posts/d84fac55.html"/>
     <id>https://reiner.host/posts/d84fac55.html</id>
     <published>2021-04-02T03:06:18.000Z</published>
-    <updated>2021-04-02T03:18:53.869Z</updated>
+    <updated>2021-04-02T03:19:48.460Z</updated>
     
     <content type="html"><![CDATA[<h1><span id="说明">说明</span></h1><p> 微信开发真乃坑中之坑，会话阻塞场景如下： </p><p>小程序，有两个用户同时访问同一个接口会阻塞，第二个请求的人必须请等一个请求的人处理完毕才会响应第二个请求。</p><p>但如果我在 PC 上用两个不同的浏览器同时请求这个接口，是并行的，从结果上来看可能是 session 阻塞，即同一个会话同时只能处理一个请求。</p><p>我的测试代码如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@RestController()</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping(&quot;block&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">System.out.println(<span class="string">&quot;blocking...   &quot;</span>+Thread.currentThread().getName());</span><br><span class="line">Thread.sleep(<span class="number">8000l</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>两个不同的小程序用户同时请求，第二个请求的人必须请等一个请求的人返回OK才会打印第二个请求的日志，理论上来说，不同用户的请求应当是并行的，但服务器似乎将它们视为同一个会话(session)了。</p><p>一开始想到了异步处理，即controller返回callable让处理不占用会话，但是发现这样做事务没法控制！</p><h1><span id="解决办法">解决办法</span></h1><p>最终使用了比较粗暴的解决办法，即不使用微信浏览器生成的session id，而是每次请求都由前端生成一个随机数作为session id，这样用户的请求就不会被视为同一个会话了</p>]]></content>
     
