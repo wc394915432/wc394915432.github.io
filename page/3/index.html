@@ -286,7 +286,7 @@
             
 
   
-    <article id="post-简单的nginx反向代理配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-换新的个人博客啦" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -294,7 +294,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/posts/763efb1.html" target="_blank">简单的nginx反向代理配置</a>
+	  <a class="article-title" href="/posts/3242f1a9.html" target="_blank">换新博客啦！</a>
   
     </h1>
   
@@ -302,8 +302,8 @@
 
   
   
-<a href="/posts/763efb1.html" class="archive-article-date">
-        <time datetime="2020-10-27T06:53:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+<a href="/posts/3242f1a9.html" class="archive-article-date">
+        <time datetime="2020-10-27T02:11:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
 </a>
 
   
@@ -321,15 +321,8 @@
 
 <!-- tocstop -->
 
-<p>实用nginx反向代理可实现 url转发， 如输入<a target="_blank" rel="noopener" href="http://www.cc.com/">www.cc.com</a>  直接转发到 127.0.0.1:8080/project/  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况 </p>
-<p>下面是nginx的conf配置    </p>
-<p>首先在nginx.conf引入 配置文件include  vhost.conf;</p>
-<p>新建vhost.conf </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">## Basic reverse proxy server ##</span><br><span class="line">#这个是反向代理的地址</span><br><span class="line">upstream apachejsp  &#123;</span><br><span class="line">    server 127.0.0.1:8080; #Apache #这里输入你服务器的ip与tomcat端口</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;  #侦听80端口</span><br><span class="line">    server_name  www.&lt;span style&#x3D;&quot;font-size: 11.8181819915771px; font-family: Arial, Helvetica, sans-serif;&quot;&gt;wangzhan&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;font-size: 12px; font-family: Arial, Helvetica, sans-serif;&quot;&gt;.com;#拦截此url&lt;&#x2F;span&gt;</span><br><span class="line"> </span><br><span class="line">    access_log  logs&#x2F;fuchiht.access.log ; #log path</span><br><span class="line">    error_log  logs&#x2F;fuchiht.error.log;</span><br><span class="line">    root   html;</span><br><span class="line">    index  index.html index.htm index.jsp;  #welcome page </span><br><span class="line"> </span><br><span class="line">    ## send request back to apache ##</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass  http:&#x2F;&#x2F;apachejsp;  </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">        #Proxy Settings</span><br><span class="line">        proxy_redirect     off;</span><br><span class="line">        proxy_set_header   Host             $host;</span><br><span class="line">        proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;</span><br><span class="line">        proxy_max_temp_file_size 0;</span><br><span class="line">        proxy_connect_timeout      90;</span><br><span class="line">        proxy_send_timeout         90;</span><br><span class="line">        proxy_read_timeout         90;</span><br><span class="line">        proxy_buffer_size          4k;</span><br><span class="line">        proxy_buffers              4 32k;</span><br><span class="line">        proxy_busy_buffers_size    64k;</span><br><span class="line">        proxy_temp_file_write_size 64k;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
+<p>换了新的个人博客啦，通过hexo + github pages 白嫖个人博客美滋滋</p>
+<p>新博客将会只保留一些比较有内容的博文，剩余的一些BUG记录，小问题等请访问老博客链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012280292">https://blog.csdn.net/u012280292</a></p>
 
     
 
@@ -346,7 +339,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-- 运维 -- nginx</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">程序人生</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">hexo测试页面</a>
         		</li>
       		
 		</ul>
@@ -358,7 +359,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
+        			<a href="/categories/其它//" class="article-tag-list-link color3">其它</a>
         		</li>
       		
 		</ul>
@@ -367,7 +368,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/posts/763efb1.html">展开全文 >></a>
+      <a class="article-more-a" href="/posts/3242f1a9.html">展开全文 >></a>
     </p>
     
 
@@ -921,7 +922,7 @@
   }
 
   
-    var modelName = "shizuku";
+    var modelName = "hijiki";
   
 
   var modelJsonPath = "";
