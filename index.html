@@ -286,6 +286,124 @@
             
 
   
+    <article id="post-TCP-IP协议自我总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/cc861966.html" target="_blank">HTTP&amp;TCP/IP协议自我总结</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/cc861966.html" class="archive-article-date">
+        <time datetime="2021-05-25T02:58:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-25</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="HTTP、TCP-IP总结"><a href="#HTTP、TCP-IP总结" class="headerlink" title="HTTP、TCP/IP总结"></a>HTTP、TCP/IP总结</h1><h4 id="协议分类"><a href="#协议分类" class="headerlink" title="协议分类"></a>协议分类</h4><p>HTTP属于应用层协议，TCP属于传输层协议，IP属于网络层协议，一个HTTP协议由IP协议包体包含了TCP协议内容，而TCP协议包体又包括了HTTP协议内容，就像一个洋葱。</p>
+<h4 id="HTTP请求历程"><a href="#HTTP请求历程" class="headerlink" title="HTTP请求历程"></a>HTTP请求历程</h4><p>一个HTTP请求的完整历程，首先会根据URL解析请求的地址和端口，此时的地址拿到的一般是域名，因此还需要根据DNS服务器获取域名的真实IP。</p>
+<p>NDS服务查询完毕后，此时浏览器会调用Socket库将HTTP协议里的内容包装成TCP或者UDP协议包。</p>
+<p>光靠TCP协议还无法具备传输功能，因此TCP还需要借助IP协议来定位目标服务器在互联网中的位置，光靠IP依旧无法准确定位，因为一个IP可能有好几台设备使用，要明确要传输的目标还得在IP头部加上目标的MAC地址。</p>
+<p>最后由网卡将数字信息转换为光信号经网线发送出去，将服务器通过交换机和路由器接收到请求包后像剥洋葱一样一层一层解析包中内容。</p>
+<p>小结，一个HTTP请求总共要经历如下几层协议：</p>
+<ul>
+<li><p>应用层：定义数据格式，并按照对应的格式解读数据。 –HTTP</p>
+</li>
+<li><p>传输层：定义端口，确认主机上应用程序的身份，并将数据包交给对应的应用程序。 –TCP</p>
+</li>
+<li><p>网络层：定义IP地址，确认主机所在的网络位置，并通过IP进行MAC寻址，对外网数据包进行路由转发。 –IP</p>
+</li>
+<li><p>链路层：对0和1进行分组，定义数据帧，确认主机的物理地址，传输数据。 –物理传输</p>
+</li>
+</ul>
+    
+    <a class="article-more-a" href="/posts/cc861966.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HTTP协议</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/cc861966.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-WEB安全总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1405,121 +1523,6 @@
 
 
   
-    <article id="post-记上传jar包到MavenRepository中央库的流程以及踩坑历程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/posts/26a3b465.html" target="_blank">记上传jar包到MavenRepository中央库的流程以及踩坑历程</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/posts/26a3b465.html" class="archive-article-date">
-        <time datetime="2020-11-23T08:34:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-23</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2><span id="前置准备">前置准备</span></h2><p>首先你得将代码上传至github，其次包的命名也是有规范的，如果你没有自己的域名，那么你的group id需要使用github的包路径，如：io.github.你的github用户名 </p>
-<p>如果拥有自己的域名，那么可以使用域名倒叙作为group id，如：域名为：mysite.blogs.com，那么group id开头即: com.blogs.mysite。</p>
-<p>使用自己的域名需要配置dns，具体做法创建工单后工作人员会提示。</p>
-<h2><span id="第一步新建工单">第一步，新建工单</span></h2><p>要上传jar库到maven中央库首先得注册他们的工单系统账号：<a target="_blank" rel="noopener" href="https://issues.sonatype.org/">https://issues.sonatype.org/</a> 。</p>
-<p>关于注册 ： <strong>这里重点注意下密码的坑，不要使用xml中必须要转义的特殊字符作为密码，如’&amp;’ ，否则上传时老是验证失败！</strong></p>
-<p>登陆成功后点新建，项目类型选 -&gt; Community Support - Open Source Project Repository Hosting  ，问题类型-&gt;new project，接着将必填项填上：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Group Id:io.github.yourgithubId    #也可以使用自己的域名</span><br><span class="line">Project URL:https://github.com/user/projectName    #代码的url路径</span><br><span class="line">SCM url:https://github.com/user/projectName.git    #git代码ssh地址</span><br></pre></td></tr></tbody></table></figure>
-
-<p>工单创建完毕后等待我们的Orlina小姐姐处理，由于时差关系所以一般是晚上才有动静，所以趁这个时间将代码上的准备工作解决。</p>
-    
-    <a class="article-more-a" href="/posts/26a3b465.html#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">maven central</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven中央库上传</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其它//" class="article-tag-list-link color3">其它</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/posts/26a3b465.html">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1817,6 +1820,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">SQL注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HTTP协议</a>
               </li>
             
             <div class="clearfix"></div>

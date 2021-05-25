@@ -286,6 +286,130 @@
             
 
   
+    <article id="post-使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/e259bd66.html" target="_blank">使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/e259bd66.html" class="archive-article-date">
+        <time datetime="2020-10-27T07:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b5506197d8.css">
+                <div id="content_views" class="htmledit_views">
+                    <h1><a name="t0"></a><a name="t0"></a>前言</h1> 
+<p>最近又重新弄了一下jenkins,虽然之前也有弄过但是都是在本地服务器部署，而且记录的不够详细，因此这次将写下详细部署过程。</p> 
+<p>&nbsp;</p> 
+<h2><a name="t1"></a><a name="t1"></a>一、下载并启动Jenkins</h2> 
+<p>下载地址：<a target="_blank" rel="noopener" href="https://jenkins.io/download/">https://jenkins.io/download/</a>&nbsp; &nbsp;，选择下载war包</p> 
+<p><img alt="" class="has" src="https://img-blog.csdnimg.cn/20190515174919401.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70"></p> 
+<p>下载完成后用FTP上传到服务器上输入启动命令：nohup java -jar jenkins.war --httpPort=7070&nbsp; &gt;&nbsp;jenkins.out 2&gt;&amp;1 &amp;&nbsp;,后面参数是启动端口。</p> 
+<p>启动完成后浏览器打开http://ip:7070&nbsp; 进入jenkins操作页面，此时会出现一个页面要求你输入密码，此时回到linux控制台，输入tail -100f jenkins.out&nbsp;查看启动日志，注意看日志，它会打印你的初始密码，复制初始密码并点下一步，后面的操作按提示来就可以了，可以安装推荐的插件也可以自己选，下面将进入JENKINS配置步骤。</p> 
+<p>&nbsp;</p> 
+<h2><a name="t2"></a><a name="t2"></a>二、配置JENKINS</h2> 
+<p>&nbsp;</p> 
+<p>点击jenkins&nbsp;系统管理-&gt;插件管理&nbsp; 点击available（可选插件）选项卡 ，在右上角的搜索框搜索并安装如下几个插件：</p> 
+<p>1、<a target="_blank" rel="noopener" href="http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin">Git plugin</a>&nbsp;&nbsp;<a target="_blank" rel="noopener" href="https://wiki.jenkins.io/display/JENKINS/Git+Client+Plugin">Git client plugin</a></p> 
+<p>2、<a target="_blank" rel="noopener" href="https://wiki.jenkins.io/display/JENKINS/Maven+Project+Plugin">Maven Integration plugin</a></p> 
+<p>3、<a target="_blank" rel="noopener" href="http://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+SSH+Plugin">Publish Over SSH</a></p> 
+<p>4、<a target="_blank" rel="noopener" href="https://wiki.jenkins-ci.org/display/JENKINS/Gitlab+Hook+Plugin">Gitlab Hook Plugin</a>（可选）</p> 
+<p>&nbsp;</p> 
+<p>再次点击JENKINS的系统管理 -&gt;&nbsp;系统设置 ，找到Publish over SSH这一栏，如下图配置要发布到该服务器上的连接配置</p> 
+<p><img alt="" class="has" src="https://img-blog.csdnimg.cn/20190515180408397.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyODAyOTI=,size_16,color_FFFFFF,t_70"></p> 
+<p>参数说明：</p> 
+<p>&nbsp; name:可以随便起&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hostname:连接IP地址&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Remote Directory:&nbsp;远程文件夹路径，发布的项目将会在此目录下&nbsp; &nbsp;&nbsp;</p> 
+<p>&nbsp; username:账号&nbsp; password:密码&nbsp; ，&nbsp; 除了用账号密码连接外还可以通过private key连接，由于麻烦我在这选择了账号密码连接</p> 
+<p>&nbsp;</p>
+    
+    <a class="article-more-a" href="/posts/e259bd66.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">-- 运维 -- jenkins -- 自动化部署</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/e259bd66.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-简单的nginx反向代理配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -806,6 +930,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">SQL注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HTTP协议</a>
               </li>
             
             <div class="clearfix"></div>
