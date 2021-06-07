@@ -315,7 +315,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="HTTP、TCP-IP总结"><a href="#HTTP、TCP-IP总结" class="headerlink" title="HTTP、TCP/IP总结"></a>HTTP、TCP/IP总结</h1><h4 id="协议分类"><a href="#协议分类" class="headerlink" title="协议分类"></a>协议分类</h4><p>HTTP属于应用层协议，TCP属于传输层协议，IP属于网络层协议，一个HTTP协议由IP协议包体包含了TCP协议内容，而TCP协议包体又包括了HTTP协议内容，就像一个洋葱。</p>
+    <h1 id="HTTP、HTTPS、TCP-IP总结"><a href="#HTTP、HTTPS、TCP-IP总结" class="headerlink" title="HTTP、HTTPS、TCP/IP总结"></a>HTTP、HTTPS、TCP/IP总结</h1><h4 id="协议分类"><a href="#协议分类" class="headerlink" title="协议分类"></a>协议分类</h4><p>HTTP属于应用层协议，TCP属于传输层协议，IP属于网络层协议，一个HTTP协议由IP协议包体包含了TCP协议内容，而TCP协议包体又包括了HTTP协议内容，就像一个洋葱。</p>
 <h4 id="HTTP请求历程"><a href="#HTTP请求历程" class="headerlink" title="HTTP请求历程"></a>HTTP请求历程</h4><p>一个HTTP请求的完整历程，首先会根据URL解析请求的地址和端口，此时的地址拿到的一般是域名，因此还需要根据DNS服务器获取域名的真实IP。</p>
 <p>NDS服务查询完毕后，此时浏览器会调用Socket库将HTTP协议里的内容包装成TCP或者UDP协议包。</p>
 <p>光靠TCP协议还无法具备传输功能，因此TCP还需要借助IP协议来定位目标服务器在互联网中的位置，光靠IP依旧无法准确定位，因为一个IP可能有好几台设备使用，要明确要传输的目标还得在IP头部加上目标的MAC地址。</p>
