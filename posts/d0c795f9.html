@@ -6,8 +6,8 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://reiner.host">
-  <link rel="canonical" href="https://reiner.host/archives/page/3/"/>
-  <title>Archives | Reinerの个人博客</title>
+  <link rel="canonical" href="https://reiner.host/posts/d0c795f9.html"/>
+  <title>解决使用netty作为TCP服务端时设备接收消息连包问题 | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -17,13 +17,21 @@
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Reinerの个人博客">
-<meta property="og:url" content="https://reiner.host/archives/page/3/index.html">
+  <meta name="description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决使用netty作为TCP服务端时设备接收消息连包问题">
+<meta property="og:url" content="https://reiner.host/posts/d0c795f9.html">
 <meta property="og:site_name" content="Reinerの个人博客">
+<meta property="og:description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-06-11T07:28:21.000Z">
+<meta property="article:modified_time" content="2021-06-11T08:47:39.369Z">
 <meta property="article:author" content="reiner">
-<meta property="article:tag" content="JAVA BLOGS WEB开发">
+<meta property="article:tag" content="netty">
+<meta property="article:tag" content="TCP服务端">
+<meta property="article:tag" content="TCP粘包">
+<meta property="article:tag" content="TCP半包">
+<meta property="article:tag" content="16进制通信">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
@@ -279,250 +287,274 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-解决使用netty作为TCP服务端时设备接收消息连包问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/posts/f608275d.html" class="archive-article-date">
-        <time datetime="2020-10-27T07:27:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/posts/f608275d.html" target="_blank">使用Jenkins + docker 自动化部署Spring Cloud微服务【使用maven插件dockerfile-maven-plugin自动构建镜像】</a>
   
+    <h1 class="article-title" itemprop="name">
+      解决使用netty作为TCP服务端时设备接收消息连包问题
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/posts/d0c795f9.html" class="archive-article-date">
+        <time datetime="2021-06-11T07:28:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">553字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">2分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1><span id="前言">前言</span></h1><p>在前一章记录了如何使用netty作为TCP通信的服务端：<a href="https://reiner.host/posts/94ca3821.html">点击前往</a> ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。</p>
+<h1><span id="问题描述">问题描述</span></h1><p>在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：<code>EEFF0103GGHH</code>,心跳包的回复是：<code>EEFF0201GGHH</code>。</p>
+<p>当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：<code>EEFF0103GGHHEEFF0201GGHH</code>。</p>
+<p>这是由于调用netty的<code>writeAndFlush()</code>方法时并不是马上将数据发送过去，而将它放在一个缓冲池当中，而由于硬件的一发一收通信机制客户端无法对连包的数据做分割，因此这个问题要由服务端解决。</p>
+<a id="more"></a>
+
+<h1><span id="解决办法">解决办法</span></h1><p>找遍了谷歌、官方文档等资料就是没有说明连包问题的相关资料，大部分资料都是说明如何解决服务端接收TCP消息时产生的粘包、半包等问题。</p>
+<p>最终发现原来netty配置中有个<code>ChannelOption.TCP_NODELAY</code>选项，官网上没有任何介绍，根据名字可知意思为“无延迟TCP”，于是启动类代码修改为如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建线程组</span></span><br><span class="line">       EventLoopGroup bossGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       EventLoopGroup workerGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//创建启动类</span></span><br><span class="line">           ServerBootstrap b = <span class="keyword">new</span> ServerBootstrap(); </span><br><span class="line">           b.group(bossGroup, workerGroup)</span><br><span class="line">                   .channel(NioServerSocketChannel.class)</span><br><span class="line">                   .childHandler(<span class="keyword">new</span> ServerInitializer(deviceReportEvent))</span><br><span class="line">                   .option(ChannelOption.TCP_NODELAY, <span class="keyword">true</span>) <span class="comment">//无延时发送消息</span></span><br><span class="line">                   .option(ChannelOption.SO_BACKLOG, <span class="number">256</span>)</span><br><span class="line">                   .childOption(ChannelOption.SO_KEEPALIVE, <span class="keyword">true</span>);</span><br><span class="line">           <span class="comment">// 绑定端口，开始接收进来的连接</span></span><br><span class="line">           ChannelFuture f = b.bind(<span class="number">9000</span>).sync();</span><br><span class="line">           <span class="comment">// 等待服务器 socket 关闭 。</span></span><br><span class="line">           f.channel().closeFuture().sync();</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关键代码在于<code>.option(ChannelOption.TCP_NODELAY, true)</code>，最终通过抓包发现未在出现连包的情况。</p>
+<p>由于我这边的特殊情况，在发送消息时我还加了一层保障，防止心跳回复与指令冲突，示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Title</span>: writeAndFlush</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>:   返回消息到客户端</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> reiner_shir</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> channel</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> respData</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeAndFlush</span><span class="params">(Channel channel,<span class="keyword">byte</span>[] respData)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">final</span> ByteBuf respBuf = channel.alloc().buffer(respData.length);</span><br><span class="line">		respBuf.writeBytes(respData);</span><br><span class="line">		<span class="keyword">synchronized</span> (channel) &#123;</span><br><span class="line">			ChannelFuture future = channel.writeAndFlush(respBuf);</span><br><span class="line">			<span class="keyword">if</span>(future!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					future.sync();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          reiner
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://reiner.host/posts/d0c795f9.html" title="解决使用netty作为TCP服务端时设备接收消息连包问题" target="_blank">https://reiner.host/posts/d0c795f9.html</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">-- 运维 -- jenkins -- 自动化部署</a>
-        		</li>
-      		
-		</ul>
-	</div>
+          转载请注明出处，并附上原文链接
+        </li>
+        
+      </ul>
+    </div>
+    
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
-</article>
-  
+  <div class="article-info article-info-index">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/posts/e259bd66.html" class="archive-article-date">
-        <time datetime="2020-10-27T07:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/posts/e259bd66.html" target="_blank">使用Jenkins + Gitlab自动构建Spring Boot项目，并部署到远程服务器上</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">-- 运维 -- jenkins -- 自动化部署</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/posts/763efb1.html" class="archive-article-date">
-        <time datetime="2020-10-27T06:53:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/posts/763efb1.html" target="_blank">简单的nginx反向代理配置</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-- 运维 -- nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/运维//" class="article-tag-list-link color3">运维</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/posts/3242f1a9.html" class="archive-article-date">
-        <time datetime="2020-10-27T02:11:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/posts/3242f1a9.html" target="_blank">换新博客啦！</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">程序人生</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">netty</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP服务端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">hexo测试页面</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP粘包</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/其它//" class="article-tag-list-link color3">其它</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP半包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">16进制通信</a>
         		</li>
       		
 		</ul>
 	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
     
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/d0c795f9.html" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
   
+  
+    <a href="/posts/cc861966.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HTTP&amp;TCP/IP协议自我总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+  
+  <div id="gitment-ctn"></div>
+  
+    <!-- 中文 -->
+    <link rel="stylesheet" href="/lib/gitment.css">
+    <script src="/lib/gitment.js"></script>
+  
+  <script>
+    <!-- id: "解决使用netty作为TCP服务端时设备接收消息连包问题" -->
+    var gitment = new Gitment({
+      id: "20210611152821",
+      owner: 'reinershir',
+      repo: 'reinershir.github.io',
+      oauth: {
+        client_id: 'f3849a4d7ee918d7da99',
+        client_secret: 'd2f2e0b00608238f5cfbb62e016fc0be1f4a70fc',
+      },
+    })
+    gitment.render('gitment-ctn')
+  </script>
+
+
+  
+
 
 
           </div>
@@ -563,8 +595,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

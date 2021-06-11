@@ -286,6 +286,113 @@
             
 
   
+    <article id="post-解决使用netty作为TCP服务端时设备接收消息连包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/d0c795f9.html" target="_blank">解决使用netty作为TCP服务端时设备接收消息连包问题</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/d0c795f9.html" class="archive-article-date">
+        <time datetime="2021-06-11T07:28:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在前一章记录了如何使用netty作为TCP通信的服务端：<a href="https://reiner.host/posts/94ca3821.html">点击前往</a> ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。</p>
+<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：<code>EEFF0103GGHH</code>,心跳包的回复是：<code>EEFF0201GGHH</code>。</p>
+<p>当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：<code>EEFF0103GGHHEEFF0201GGHH</code>。</p>
+<p>这是由于调用netty的<code>writeAndFlush()</code>方法时并不是马上将数据发送过去，而将它放在一个缓冲池当中，而由于硬件的一发一收通信机制客户端无法对连包的数据做分割，因此这个问题要由服务端解决。</p>
+    
+    <a class="article-more-a" href="/posts/d0c795f9.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">netty</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP服务端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP粘包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP半包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">16进制通信</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/d0c795f9.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-TCP-IP协议自我总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1380,120 +1487,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/posts/bdfc15fa.html">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo个人博客做百度、谷歌、bing等搜索引擎SEO收录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/posts/2262a2b8.html" target="_blank">hexo+github pages个人博客做百度、谷歌、bing等搜索引擎收录以及SEO优化</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/posts/2262a2b8.html" class="archive-article-date">
-        <time datetime="2020-11-24T06:17:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-24</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>首先我想说的是，百度，食屎啦你！ 垃圾玩意，人家bing、谷歌做网站收录分分钟的事，就你百度叼得一批，一个月都不见收录，还因为爬虫过于频繁被github禁了，导致github上的个人博客百度都搜不到。</p>
-<div align=center> <img src="/img/shishilani.jpeg" height="200px" alt="我的心情"></div>
-
-<p>好了，开始正文<br><br/></p>
-    
-    <a class="article-more-a" href="/posts/2262a2b8.html#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">seo优化</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">搜索引擎收录</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">github pages</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其它//" class="article-tag-list-link color3">其它</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/posts/2262a2b8.html">展开全文 >></a>
     </p>
     
 
