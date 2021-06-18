@@ -1239,6 +1239,9 @@
     <div id="content_views" class="htmledit_views">
                     <p>突然发现自己以前常用的parent_id ,node_id这种简单直观的树形结构设计效率很低，数据量一大，就需要不停迭代寻找节点，于是这几天学习了新的数据结构(modified preorder tree traversal)，在此做下笔记。</p> 
 <p>此数据结构的好处是查询非常快，当网站查询树形数据比修改多时使用此结构会比较好，一般用于电商网站的商品分类，查询仅仅需要判断left&gt; ? right &lt;?这样即可，缺点是修改节点表数据量大时很慢，而且操作复杂一点。</p> 
+<p>
+    附最新更新: <a href="https://reiner.host/posts/cfc5b0c5.html">左右值树形移动节点方法]</a>
+    </p>
 <p><img alt="" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMwLmNuYmxvZ3MuY29tL2Jsb2cvMzQzNjIzLzIwMTQwOS8xODIyMzU0MzkyNTY2MjkuanBn?x-oss-process=image/format,png"></p> 
 <p>左右值数据结构网上教程很多，不再赘述，总结一下就是：要保持父节点右值比所有子节点的右值大，左节点左值比所有子结点左值小 。</p> 
 <p>直接上代码，上面有注释 ，说明了如何找子节点，如何找父节点、删除节点，同级平移，兄弟节点前插入等（基于postgreSQL数据库）。</p> 
