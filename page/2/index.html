@@ -286,6 +286,144 @@
             
 
   
+    <article id="post-自用技术笔记（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/posts/bdfc15fa.html" target="_blank">自用技术笔记（一）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/posts/bdfc15fa.html" class="archive-article-date">
+        <time datetime="2021-01-20T06:19:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-20</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>整理了一下记录在手机中的技术知识点，包含JAVA、MYSQL、数据结构等，自用笔记，放博客上备份以备不时之需，如若有人发现错误还请指出。</p>
+<p>由于太长，分成两篇记录,笔记二地址： <a href="/posts/8deaf922.html">自自技术笔记（二）</a></p>
+<h2 id="红黑树笔记"><a href="#红黑树笔记" class="headerlink" title="红黑树笔记"></a>红黑树笔记</h2><p><strong>红黑树</strong></p>
+<p>红黑树其实就是平衡二叉树，该规则可保证每个节点都是平衡的，不会出现单个节点过长的情况</p>
+<p>红黑树的作用，红黑树是一种平衡二叉树，不会退化为链表，多用于搜索查找，时间复杂度logn,也就是树的深度，倍数增长，红黑树是局部平衡二叉树</p>
+<p>普通二叉树的局限性是子节点都比父节点小因此全排在右，会退化成链表</p>
+<p><strong>红黑树4个性质</strong></p>
+<ul>
+<li>1.节点是红色或者黑色</li>
+<li>2.红色节点不会连在一起（子父节点不能同为红色）</li>
+<li>3.根节点都是黑色</li>
+<li>4.空的叶子节点都是黑色（既无子节点）</li>
+</ul>
+<p>红黑树有三种变化规则<br>1.红变黑  2.黑变红 3.旋转</p>
+<p><strong>红黑树的操作规则</strong></p>
+<ul>
+<li>0.所有变换后的节点不可违背红黑树的基本性质，既当插入节点后规则不符合红黑树基本性质时依次尝试，变色、左旋、右旋</li>
+<li>1.所有插入的节点默认为红色</li>
+<li>2.变换颜色条件，当子节点和父节点以及父节点的兄弟节点都是红色时需要变换颜色，颜色变换规则为将父节点以及父节点的兄弟节点变换成红色，将祖节点变换为红色</li>
+<li>3.左旋条件，当前节点的父节点是红色，叔叔节点是黑色，且当前节点是父节点的右子树时，旋转父节点和祖节点</li>
+<li>4.右旋条件，当前父节点是红色，叔叔节点是黑色，且当前节点是左子树时右旋转，与左旋不同的是右旋转操作是旋转祖节点和祖父节点</li>
+</ul>
+<p><strong>右旋有3步</strong></p>
+<ul>
+<li>1.把父节点变为黑色</li>
+<li>2.把祖节点变为红色</li>
+<li>3.把以祖节点为旋转点旋转（不同于左旋以父节点为旋转点）</li>
+</ul>
+    
+    <a class="article-more-a" href="/posts/bdfc15fa.html#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MYSQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">面试笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/posts/bdfc15fa.html">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo个人博客做百度、谷歌、bing等搜索引擎SEO收录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1271,131 +1409,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/posts/b9a8eed7.html">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-总结一下微信扫码支付、小程序支付的几个坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/posts/d6b91638.html" target="_blank">总结一下微信扫码支付、小程序支付的几个坑</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/posts/d6b91638.html" class="archive-article-date">
-        <time datetime="2020-10-27T07:31:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <div id="article_content" class="article_content clearfix">
-        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b5506197d8.css">
-                <div id="content_views" class="htmledit_views">
-                    <p>在调用微信支付接口中遇到各种问题，真不知道是哪个人才写的接口文档，几个简单的接口调了好几天。</p> 
-<p>&nbsp;</p> 
-<p>1、小程序获取code2Session时errcode出错时是会返回错误码，但正常时居然连这个字段都不返回了，说好的正常返回0呢？</p> 
-<p>&nbsp;</p> 
-<p>2、小程序支付的时间戳参数，在调用小程序支付接口时需要后台生成签名，有个timeStamp参数，文档上写的是当前时间，注意这里有个坑，它要的是到秒级别的，如果用java直接System.currentTimeMillis()&nbsp;是不行的！会提示签名错误！</p> 
-<p>正确做法是：&nbsp;System.currentTimeMillis() / 1000&nbsp; &nbsp;</p> 
-<p>3、小程序支付签名时key是要拼接的，文档上没有写明，示例上是写的了搞得不知道以哪个为准。</p> 
-<p>4、建议所有签名统一MD5，否则&nbsp;不知道哪个地方默认了其它签名就会签名通不过</p> 
-<p>5、小程序支付，也就是交易类型是JSAPI的情况下是要传openId的，另外appId appkey sercrt mechId 等有一个不对应就会报签名失败，这点要注意。</p> 
-<p>&nbsp;</p> 
-<p>6、微信支付demo里代码的一个大坑，其中有一段：</p> 
-<pre class="has" name="code"><code class="language-java hljs"><ol class="hljs-ln"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">WXPay</span><span class="hljs-params">()</span></span>&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-keyword">if</span>(useSandBox)&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        signType = MD5;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    &#125;<span class="hljs-keyword">else</span>&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        signType = HMACSHA256</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    &#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#125;&nbsp;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
-<p>注意这里一定要改下，改成统一的MD5&nbsp; ：</p> 
-<pre class="has" name="code"><code class="language-java hljs"><ol class="hljs-ln" style="width:1098px"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">WXPay</span><span class="hljs-params">(<span class="hljs-keyword">final</span> WXPayConfig config, <span class="hljs-keyword">final</span> String notifyUrl, <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> autoReport, <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> useSandbox)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">this</span>.config = config;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">this</span>.notifyUrl = notifyUrl;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">this</span>.autoReport = autoReport;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">this</span>.useSandbox = useSandbox;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">if</span> (useSandbox) &#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">            <span class="hljs-keyword">this</span>.signType = SignType.MD5; <span class="hljs-comment">// 沙箱环境</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        &#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">else</span> &#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">            <span class="hljs-comment">//TODO 默认用MD5</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">            <span class="hljs-keyword">this</span>.signType = SignType.MD5;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        &#125;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="13"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-keyword">this</span>.wxPayRequest = <span class="hljs-keyword">new</span> WXPayRequest(config);</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="14"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    &#125;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
-<p>&nbsp;</p> 
-<p>否则你会发现接收支付成功结果通知的时候怎么老是签名不通过，然后再发现换成HMACSHA256就通过了，看文档里明明写的是默认MD5，&nbsp;问题就出现在这，demo代码&nbsp;默认却是HMACSHA256 ！</p> 
-<p>&nbsp;</p> 
-<p>7、沙盒模式测试时报金额不正确，这个问题我自己也不记得在哪看到的了，总之微信文档上是没找到，其原因是沙盒模式测试的金额（total_fee）必须是固定的330 ！&nbsp;&nbsp;</p> 
-<p>另外，沙盒模式下的付款码是不能付款的，不能付款也就是说没法测试接收支付结果通知，只能上正式用1分钱测。</p> 
-<p>&nbsp;</p> 
-<p>最后记一下接收支付结果通知spring mvc 的接收方式代码:</p> 
-<pre class="has" name="code"><code class="language-java hljs"><ol class="hljs-ln" style="width:952px"><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-meta">@RequestMapping(value="receiveResult",consumes = &#123;MediaType.TEXT_XML_VALUE&#125;,produces = &#123;MediaType.TEXT_XML_VALUE&#125;)</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">receiveResult</span><span class="hljs-params">(<span class="hljs-meta">@NotNull</span> <span class="hljs-meta">@RequestBody</span> String xml)</span></span>&#123;</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//TODO</span></div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">   ....</div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line"> </div></div></li><li><div class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></div><div class="hljs-ln-code"><div class="hljs-ln-line">&#125;</div></div></li></ol></code><div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" onclick="hljs.copyCode(event)"></div></pre> 
-<p>算是比较偷懒了，不怕麻烦的建议用实体类加注解&nbsp;接收</p> 
-<p>&nbsp;</p>
-                </div><div><div></div></div>
-        </div>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/posts/d6b91638.html">展开全文 >></a>
     </p>
     
 
