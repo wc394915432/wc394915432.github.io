@@ -6,8 +6,8 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://reiner.host">
-  <link rel="canonical" href="https://reiner.host/posts/0.html"/>
-  <title>Reinerの个人博客</title>
+  <link rel="canonical" href="https://reiner.host/posts/cfc5b0c5.html"/>
+  <title>左右值树形结构移动节点方法(modified preorder tree traversal move node) | Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -17,15 +17,17 @@
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Reinerの个人博客">
-<meta property="og:url" content="https://reiner.host/posts/0.html">
+  <meta name="description" content="说明在之前的文章：使用左右值树形数据结构实现树形菜单 中记录了如何使用左右值增删改查节点，本次将记录一下如何移动节点，语言使用JAVA + MYSQL实现。 总体思路 移动节点的大致思路是记录移动节点和目标节点之间的左右值以及其子节点的左右值，移动节点及其子节点左右值和目标节点及其子节点的左右值相互加减。 举例 节点A的左右值是LEFT&#x3D;1,RIGHT&#x3D;2，节点B的左右值是LEFT&#x3D;5,RIGHT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="左右值树形结构移动节点方法(modified preorder tree traversal move node)">
+<meta property="og:url" content="https://reiner.host/posts/cfc5b0c5.html">
 <meta property="og:site_name" content="Reinerの个人博客">
+<meta property="og:description" content="说明在之前的文章：使用左右值树形数据结构实现树形菜单 中记录了如何使用左右值增删改查节点，本次将记录一下如何移动节点，语言使用JAVA + MYSQL实现。 总体思路 移动节点的大致思路是记录移动节点和目标节点之间的左右值以及其子节点的左右值，移动节点及其子节点左右值和目标节点及其子节点的左右值相互加减。 举例 节点A的左右值是LEFT&#x3D;1,RIGHT&#x3D;2，节点B的左右值是LEFT&#x3D;5,RIGHT">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-06-17T07:57:37.790Z">
-<meta property="article:modified_time" content="2021-06-21T09:12:37.504Z">
+<meta property="article:published_time" content="2021-06-17T07:57:37.000Z">
+<meta property="article:modified_time" content="2021-06-22T06:20:38.670Z">
 <meta property="article:author" content="reiner">
-<meta property="article:tag" content="JAVA BLOGS WEB开发">
+<meta property="article:tag" content="-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
@@ -284,9 +286,100 @@
             <article id="post-左右值树形结构移动节点方法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+  
+  
+    <h1 class="article-title" itemprop="name">
+      左右值树形结构移动节点方法(modified preorder tree traversal move node)
+    </h1>
+  
+
+
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/posts/cfc5b0c5.html" class="archive-article-date">
+        <time datetime="2021-06-17T07:57:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-17</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.7k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">8分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
   <div class="article-entry" itemprop="articleBody">
     
-    
+    <h1><span id="说明">说明</span></h1><p>在之前的文章：<a href="https://reiner.host/posts/9340b114.html">使用左右值树形数据结构实现树形菜单</a> 中记录了如何使用左右值增删改查节点，本次将记录一下如何移动节点，语言使用JAVA + MYSQL实现。</p>
+<p><strong>总体思路</strong></p>
+<p>移动节点的大致思路是记录移动节点和目标节点之间的左右值以及其子节点的左右值，移动节点及其子节点左右值和目标节点及其子节点的左右值相互加减。</p>
+<p><strong>举例</strong></p>
+<p>节点A的左右值是LEFT=1,RIGHT=2，节点B的左右值是LEFT=5,RIGHT=6，现在要将节点A移动到节点B前面，那么它的移动范围就是RIGHT - LEFT + 1，即：2 - 1 +1 = 2，也就是说节点A左右值+2，左右值小于节点B的左右值-2 。</p>
+<p>结果：节点A的LEFT = 3 ,RIGHT = 4，节点B前面的节点左右值减了2变成了LEFT=1,RIGHT=2，相当于和节点A换了个位置，如此来达到移动节点的目的</p>
+<p>后续的移动到节点B后面、移动到节点B作为其子节点思路相同。</p>
+<p><strong>更新</strong></p>
+<p>2021-6-22 更新</p>
+<p>修复了BUG，最新代码请关注： <a target="_blank" rel="noopener" href="https://github.com/reinershir/lui-auth">https://github.com/reinershir/lui-auth</a>  以下代码摘抄自菜单管理功能</p>
+<a id="more"></a>
+
+
+
+<h1><span id="代码示例">代码示例</span></h1><h3><span id="移动节点到目标节点的前面">移动节点到目标节点的前面</span></h3><p>将要移动的节点移动动目标节点的前面作为其兄弟节点，为防止在移动节点过程中左右值被修改，需要锁定表，代码示例如下 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Title</span>: moveNodeBefore</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:  移动菜单到目标菜单前面 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xh</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021年5月29日</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> moveId 被移动菜单ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> targetId 目标菜单ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">moveNodeBefore</span><span class="params">(Long moveId,Long targetId,<span class="keyword">boolean</span> isUnlockTable )</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.lockTable();</span><br><span class="line">	   </span><br><span class="line">	Menu moveMenu = <span class="keyword">this</span>.selectById(moveId);</span><br><span class="line">	</span><br><span class="line">	Menu targetMenu = <span class="keyword">this</span>.selectById(targetId);</span><br><span class="line">	</span><br><span class="line">	Integer nodeLeft = moveMenu.getLeftValue();</span><br><span class="line">	Integer nodeRight = moveMenu.getRightValue();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//要移动菜单的范围，即被移动菜单及其子节点的左右值范围</span></span><br><span class="line">	Integer nodeDist = nodeRight - nodeLeft+<span class="number">1</span>; <span class="comment">//确定要移动的范围</span></span><br><span class="line">	Integer level = moveMenu.getLevel();</span><br><span class="line">	</span><br><span class="line">	Integer targetLeft = targetMenu.getLeftValue();</span><br><span class="line">	Integer targetLevel = targetMenu.getLevel();</span><br><span class="line">	Integer moveNodeLeft = nodeLeft &lt; targetLeft?nodeLeft:nodeLeft + nodeDist;</span><br><span class="line">	<span class="keyword">if</span>((targetLeft&gt;=nodeLeft &amp;&amp; targetLeft&lt;= nodeRight)||(moveId==targetId)) &#123;</span><br><span class="line">		unlockTables();</span><br><span class="line">		<span class="comment">//is child node</span></span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Integer result = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	StringBuilder sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">	sql.append(tableName);</span><br><span class="line">	sql.append(<span class="string">&quot; SET LEFT_VALUE = CASE WHEN LEFT_VALUE &gt;= :targetLeft THEN LEFT_VALUE + :nodeDist ELSE LEFT_VALUE END ,&quot;</span>);</span><br><span class="line">	sql.append(<span class="string">&quot;RIGHT_VALUE = CASE WHEN RIGHT_VALUE &gt;= :targetLeft THEN RIGHT_VALUE + :nodeDist ELSE RIGHT_VALUE END &quot;</span>);</span><br><span class="line">	sql.append(<span class="string">&quot;WHERE RIGHT_VALUE &gt;= :targetLeft&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	MapSqlParameterSource  params = <span class="keyword">new</span> MapSqlParameterSource();</span><br><span class="line">	params.addValue(<span class="string">&quot;nodeLeft&quot;</span>, nodeLeft);</span><br><span class="line">	params.addValue(<span class="string">&quot;nodeRight&quot;</span>, nodeRight);</span><br><span class="line">	params.addValue(<span class="string">&quot;targetLeft&quot;</span>, targetLeft);</span><br><span class="line">	params.addValue(<span class="string">&quot;nodeDist&quot;</span>, nodeDist);</span><br><span class="line">	</span><br><span class="line">	NamedParameterJdbcTemplate namedParameterJdbcTemplate = <span class="keyword">new</span> NamedParameterJdbcTemplate(jdbcTemplate);</span><br><span class="line">	</span><br><span class="line">	result+=namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">	</span><br><span class="line">	sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">	sql.append(tableName);</span><br><span class="line">	sql.append(<span class="string">&quot; SET LEFT_VALUE = LEFT_VALUE + :targetLeft - :moveNodeLeft ,&quot;</span>);</span><br><span class="line">	sql.append(<span class="string">&quot;RIGHT_VALUE = RIGHT_VALUE + :targetLeft - :moveNodeLeft ,&quot;</span>);</span><br><span class="line">	sql.append(<span class="string">&quot;LEVEL = LEVEL - :level + :targetLevel WHERE LEFT_VALUE &gt;= :moveNodeLeft AND RIGHT_VALUE &lt;= :moveNodeLeft + :nodeDist -1 &quot;</span>);</span><br><span class="line">	</span><br><span class="line">	params.addValue(<span class="string">&quot;moveNodeLeft&quot;</span>, moveNodeLeft);</span><br><span class="line">	params.addValue(<span class="string">&quot;level&quot;</span>, level);</span><br><span class="line">	params.addValue(<span class="string">&quot;targetLevel&quot;</span>, targetLevel);</span><br><span class="line">	result +=namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">	</span><br><span class="line">	sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">	sql.append(tableName);</span><br><span class="line">	sql.append(<span class="string">&quot; SET LEFT_VALUE = CASE WHEN LEFT_VALUE &gt;= :moveNodeLeft THEN LEFT_VALUE - :nodeDist ELSE LEFT_VALUE END,&quot;</span>);</span><br><span class="line">	sql.append(<span class="string">&quot;RIGHT_VALUE = CASE WHEN RIGHT_VALUE &gt; :moveNodeLeft THEN RIGHT_VALUE - :nodeDist ELSE RIGHT_VALUE END &quot;</span>);</span><br><span class="line">	sql.append(<span class="string">&quot;WHERE RIGHT_VALUE &gt; :moveNodeLeft &quot;</span>);</span><br><span class="line">	</span><br><span class="line">	result+= namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">	<span class="keyword">if</span>(isUnlockTable) &#123;</span><br><span class="line">		unlockTables();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">moveNodeBefore</span><span class="params">(Long moveId,Long targetId)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> moveNodeBefore(moveId, targetId,<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例代码以移动菜单为例，LEFT_VALUE,RIGHT_VALUE分别对应左值和右值</p>
+<p>lockTables()，mysql锁表代码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdbcTemplate.update(&quot;<span class="keyword">LOCK</span> <span class="keyword">TABLES</span> <span class="string">&quot;+tableName+&quot;</span> WRITE<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>unlockTable() 手动解除锁表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdbcTemplate.update(&quot;<span class="keyword">UNLOCK</span> <span class="keyword">TABLES</span> <span class="string">&quot;);</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3><span id="移动节点到目标节点后面">移动节点到目标节点后面</span></h3><p>此代码还可以进一步优化，目前有点冗余</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">moveNodeAfter</span><span class="params">(Long moveId,Long targetId )</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> result = <span class="keyword">this</span>.moveNodeBefore(moveId, targetId,<span class="keyword">false</span>);</span><br><span class="line">		<span class="keyword">if</span>(result&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			result += moveNodeBackward(moveId, targetId);</span><br><span class="line">			unlockTables();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">moveNodeBackward</span><span class="params">(Long moveId,Long targetId)</span> </span>&#123;</span><br><span class="line">		Menu moveMenu = <span class="keyword">this</span>.selectById(moveId);</span><br><span class="line">		</span><br><span class="line">		Menu targetMenu = <span class="keyword">this</span>.selectById(targetId);</span><br><span class="line">		</span><br><span class="line">		Integer nodeLeft = moveMenu.getLeftValue();</span><br><span class="line">		Integer nodeRight = moveMenu.getRightValue();</span><br><span class="line">		</span><br><span class="line">		Integer targetLeft = targetMenu.getLeftValue();</span><br><span class="line">		Integer targetRight = targetMenu.getRightValue();</span><br><span class="line">		</span><br><span class="line">		Integer nodeDist = nodeRight - nodeLeft+<span class="number">1</span>; <span class="comment">//确定要移动的范围</span></span><br><span class="line">		</span><br><span class="line">		Integer targetDist = targetRight - targetLeft+<span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">		List&lt;Long&gt; ids = jdbcTemplate.queryForList(<span class="string">&quot;SELECT ID FROM &quot;</span>+tableName+<span class="string">&quot; WHERE LEFT_VALUE &gt;= ? AND RIGHT_VALUE&lt;=?&quot;</span>,Long.class,targetLeft,targetRight);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		StringBuilder sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">		sql.append(tableName);</span><br><span class="line">		sql.append(<span class="string">&quot; SET LEFT_VALUE = CASE WHEN LEFT_VALUE &gt;= :nodeLeft THEN LEFT_VALUE + :targetDist ELSE LEFT_VALUE END ,&quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;RIGHT_VALUE = CASE WHEN RIGHT_VALUE &lt;= :nodeRight THEN RIGHT_VALUE + :targetDist ELSE RIGHT_VALUE END &quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;WHERE LEFT_VALUE &gt;= :nodeLeft AND RIGHT_VALUE &lt;= :nodeRight&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		MapSqlParameterSource  params = <span class="keyword">new</span> MapSqlParameterSource();</span><br><span class="line">		params.addValue(<span class="string">&quot;nodeLeft&quot;</span>, nodeLeft);</span><br><span class="line">		params.addValue(<span class="string">&quot;nodeRight&quot;</span>, nodeRight);</span><br><span class="line">		params.addValue(<span class="string">&quot;targetLeft&quot;</span>, targetLeft);</span><br><span class="line">		params.addValue(<span class="string">&quot;targetRight&quot;</span>, targetRight);</span><br><span class="line">		params.addValue(<span class="string">&quot;nodeDist&quot;</span>, nodeDist);</span><br><span class="line">		params.addValue(<span class="string">&quot;targetDist&quot;</span>, targetDist);</span><br><span class="line">		params.addValue(<span class="string">&quot;ids&quot;</span>, ids);</span><br><span class="line">		</span><br><span class="line">		NamedParameterJdbcTemplate namedParameterJdbcTemplate = <span class="keyword">new</span> NamedParameterJdbcTemplate(jdbcTemplate);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> result=namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">		</span><br><span class="line">		sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">		sql.append(tableName);</span><br><span class="line">		sql.append(<span class="string">&quot; SET LEFT_VALUE = LEFT_VALUE - :nodeDist,RIGHT_VALUE = RIGHT_VALUE - :nodeDist &quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;WHERE LEFT_VALUE &gt;= :targetLeft AND RIGHT_VALUE &lt;= :targetRight AND ID IN (:ids) &quot;</span>);</span><br><span class="line">		</span><br><span class="line">		result+=namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3><span id="移动节点到目标节点的子节点最后一位">移动节点到目标节点的子节点最后一位</span></h3><p>移到节点到目标节点的下面，作为其子节点，并排在其子节点的最后一位，被移动节点的子节点也会跟着一并移动，代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Title</span>: moveNodeByParentAsLastChild</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>: 移动菜单到目标菜单下作为目标菜单的最后一个子菜单</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> reinershir</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@date</span> 2021年5月26日</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> moveId 要移动的菜单ID</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> targetId 目标父菜单ID</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Transactional</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">moveNodeByParentAsLastChild</span><span class="params">(Long moveId,Long targetId)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//LOCK TABLE</span></span><br><span class="line">		<span class="keyword">this</span>.lockTable();</span><br><span class="line">		   </span><br><span class="line">		Menu moveMenu = <span class="keyword">this</span>.selectById(moveId);</span><br><span class="line">		</span><br><span class="line">		Menu targetMenu = <span class="keyword">this</span>.selectById(targetId);</span><br><span class="line">		</span><br><span class="line">		Integer moveLeft = moveMenu.getLeftValue(); </span><br><span class="line">		</span><br><span class="line">		Integer moveRight = moveMenu.getRightValue();</span><br><span class="line">		<span class="comment">////要移动菜单的范围，即被移动菜单及其子节点的左右值范围</span></span><br><span class="line">		Integer moveDistance = moveRight - moveLeft+<span class="number">1</span>; </span><br><span class="line">		</span><br><span class="line">		Integer level = moveMenu.getLevel();</span><br><span class="line">		</span><br><span class="line">		Integer targetRight = targetMenu.getRightValue();</span><br><span class="line">		</span><br><span class="line">		Integer targetLevel = targetMenu.getLevel();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>((targetMenu.getLeftValue()&gt;=moveLeft&amp;&amp;targetRight&lt;=moveRight)||(moveId==targetId)) &#123;</span><br><span class="line">			unlockTables();</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		Integer result = <span class="number">0</span>;</span><br><span class="line">		<span class="comment">//设置子节点的新值 </span></span><br><span class="line">		StringBuilder sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">		sql.append(tableName);</span><br><span class="line">		sql.append(<span class="string">&quot; SET LEFT_VALUE = CASE WHEN LEFT_VALUE &gt; :targetRight THEN LEFT_VALUE + :moveDistance ELSE LEFT_VALUE END ,&quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;RIGHT_VALUE = CASE WHEN RIGHT_VALUE &gt;= :targetRight THEN RIGHT_VALUE + :moveDistance ELSE RIGHT_VALUE END &quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;WHERE RIGHT_VALUE &gt;= :targetRight&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		MapSqlParameterSource  params = <span class="keyword">new</span> MapSqlParameterSource();</span><br><span class="line">		params.addValue(<span class="string">&quot;moveLeft&quot;</span>, moveLeft);</span><br><span class="line">		params.addValue(<span class="string">&quot;moveRight&quot;</span>, moveRight);</span><br><span class="line">		params.addValue(<span class="string">&quot;targetRight&quot;</span>, targetRight);</span><br><span class="line">		params.addValue(<span class="string">&quot;moveDistance&quot;</span>, moveDistance);</span><br><span class="line">		</span><br><span class="line">		NamedParameterJdbcTemplate namedParameterJdbcTemplate = <span class="keyword">new</span> NamedParameterJdbcTemplate(jdbcTemplate);</span><br><span class="line">		</span><br><span class="line">		result+=namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//再次查询 </span></span><br><span class="line">		moveMenu = <span class="keyword">this</span>.selectById(moveId);</span><br><span class="line">		moveLeft = moveMenu.getLeftValue(); </span><br><span class="line">		moveRight = moveMenu.getRightValue();</span><br><span class="line">		</span><br><span class="line">		Integer newDistance = targetRight&gt;=moveLeft?targetRight-moveLeft:moveLeft - targetRight;</span><br><span class="line">		Integer newDistanceOperator = targetRight &gt;=moveLeft?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">		params.addValue(<span class="string">&quot;newDistanceOperator&quot;</span>, newDistanceOperator);</span><br><span class="line">		params.addValue(<span class="string">&quot;newDistance&quot;</span>, newDistance);</span><br><span class="line">		params.addValue(<span class="string">&quot;level&quot;</span>, level);</span><br><span class="line">		params.addValue(<span class="string">&quot;targetLevel&quot;</span>, targetLevel);</span><br><span class="line">		<span class="comment">//重新塞入</span></span><br><span class="line">		params.addValue(<span class="string">&quot;moveLeft&quot;</span>, moveLeft);</span><br><span class="line">		params.addValue(<span class="string">&quot;moveRight&quot;</span>, moveRight);</span><br><span class="line">		<span class="comment">//移动节点</span></span><br><span class="line">		sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">		sql.append(tableName);</span><br><span class="line">		sql.append(<span class="string">&quot; SET LEFT_VALUE = CASE WHEN :newDistanceOperator = 1 THEN LEFT_VALUE + :newDistance ELSE LEFT_VALUE - :newDistance END ,&quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;RIGHT_VALUE = CASE WHEN :newDistanceOperator = 1 THEN RIGHT_VALUE + :newDistance ELSE RIGHT_VALUE - :newDistance END ,&quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;LEVEL = LEVEL - :level +1 + :targetLevel WHERE RIGHT_VALUE &lt;= :moveRight AND LEFT_VALUE &gt;= :moveLeft&quot;</span>);</span><br><span class="line">	</span><br><span class="line">		result += namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">		sql = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;UPDATE &quot;</span>);</span><br><span class="line">		sql.append(tableName);</span><br><span class="line">		sql.append(<span class="string">&quot; SET LEFT_VALUE = CASE WHEN LEFT_VALUE &gt; :moveRight THEN LEFT_VALUE - :moveDistance ELSE LEFT_VALUE END,&quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;RIGHT_VALUE = CASE WHEN RIGHT_VALUE &gt;= :moveRight THEN RIGHT_VALUE - :moveDistance ELSE RIGHT_VALUE END &quot;</span>);</span><br><span class="line">		sql.append(<span class="string">&quot;WHERE RIGHT_VALUE &gt;= :moveRight &quot;</span>);</span><br><span class="line">		</span><br><span class="line">		result+= namedParameterJdbcTemplate.update(sql.toString(),params);</span><br><span class="line">		unlockTables();</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1><span id="附加说明">附加说明</span></h1><p>表字段对应上一章LEFT_VALUE对应L，RIGHT_VALUE对应R，其余字段名字相同</p>
+
     
 
     
@@ -300,7 +393,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reiner.host/posts/0.html" title="" target="_blank">https://reiner.host/posts/0.html</a>
+          <a href="https://reiner.host/posts/cfc5b0c5.html" title="左右值树形结构移动节点方法(modified preorder tree traversal move node)" target="_blank">https://reiner.host/posts/cfc5b0c5.html</a>
         </li>
         
         <li>
@@ -317,7 +410,29 @@
   <div class="article-info article-info-index">
     
     
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
     
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/数据结构与算法//" class="article-tag-list-link color3">数据结构与算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
     
 
@@ -367,7 +482,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/0.html" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/cfc5b0c5.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -411,7 +526,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.1.</span> <span class="toc-text">移动节点到目标节点的前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.2.</span> <span class="toc-text">移动节点到目标节点后面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.3.</span> <span class="toc-text">移动节点到目标节点的子节点最后一位</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">附加说明</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -438,7 +553,7 @@
     <script src="/lib/gitment.js"></script>
   
   <script>
-    <!-- id: "" -->
+    <!-- id: "左右值树形结构移动节点方法(modified preorder tree traversal move node)" -->
     var gitment = new Gitment({
       id: "20210617155737",
       owner: 'reinershir',
@@ -565,6 +680,42 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SringBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">WEB安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">xss攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">csrf攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">SQL注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">-- 游戏开发 -- C++ -- COCOS2DX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -581,10 +732,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">-- 游戏开发 -- C++ -- COCOS2DX</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MYSQL</a>
               </li>
              
@@ -598,102 +745,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">大数据优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hexo测试页面</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">生活笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">食谱</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-- 运维 -- jenkins -- 自动化部署</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">maven central</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven中央库上传</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-- 运维 -- jenkins -- 自动化部署 -- docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ANDROID</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">游戏开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- 权限设计 -- springcloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SringBoot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oculus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">oculusquest2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,19 +784,83 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">WEB安全</a>
+                <a href="javascript:void(0)" class="js-tag color2">-- JAVA -- 微信扫码支付 -- 小程序支付 -- 微信支付接口</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">xss攻击</a>
+                <a href="javascript:void(0)" class="js-tag color5">程序人生</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">csrf攻击</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SQL注入</a>
+                <a href="javascript:void(0)" class="js-tag color4">hexo测试页面</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">生活笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">食谱</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">-- 运维 -- nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面试笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">-- JAVA -- mybatis-plus -- pagehelper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-- 运维 -- jenkins -- 自动化部署</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">maven central</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven中央库上传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oculus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">oculusquest2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-- 运维 -- jenkins -- 自动化部署 -- docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ANDROID</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">游戏开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">-- 权限设计 -- springcloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">-- 数据结构 -- 算法 -- modified preorder tree traversal -- 左右值树形</a>
               </li>
              
               <li class="article-tag-list-item">
