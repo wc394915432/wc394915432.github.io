@@ -6,8 +6,8 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://reiner.host">
-  <link rel="canonical" href="https://reiner.host/posts/d0c795f9.html"/>
-  <title>解决使用netty作为TCP服务端时设备接收消息连包问题 | Reinerの个人博客</title>
+  <link rel="canonical" href="https://reiner.host/路径规划-a-star.html"/>
+  <title>Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -17,21 +17,17 @@
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
-  <meta name="description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
-<meta property="og:type" content="article">
-<meta property="og:title" content="解决使用netty作为TCP服务端时设备接收消息连包问题">
-<meta property="og:url" content="https://reiner.host/posts/d0c795f9.html">
+  <meta name="description" content="地图路线规划 	 	.grids{border:1px solid white;width:70px;height:70px;float:left;margin:1px;background:gray;} 	           &#x2F;&#x2F;开始位置 var startIndex &#x3D; 0; &#x2F;&#x2F;第几行 var startCell &#x3D; 6;&#x2F;&#x2F;左数第几格 &#x2F;&#x2F;结束位置 var endIndex &#x3D;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reinerの个人博客">
+<meta property="og:url" content="https://reiner.host/%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92-A-Star.html">
 <meta property="og:site_name" content="Reinerの个人博客">
-<meta property="og:description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
+<meta property="og:description" content="地图路线规划 	 	.grids{border:1px solid white;width:70px;height:70px;float:left;margin:1px;background:gray;} 	           &#x2F;&#x2F;开始位置 var startIndex &#x3D; 0; &#x2F;&#x2F;第几行 var startCell &#x3D; 6;&#x2F;&#x2F;左数第几格 &#x2F;&#x2F;结束位置 var endIndex &#x3D;">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-06-11T07:28:21.000Z">
-<meta property="article:modified_time" content="2021-06-11T08:47:39.369Z">
+<meta property="article:published_time" content="2021-07-02T07:10:32.022Z">
+<meta property="article:modified_time" content="2021-07-02T07:08:06.771Z">
 <meta property="article:author" content="reiner">
-<meta property="article:tag" content="netty">
-<meta property="article:tag" content="TCP服务端">
-<meta property="article:tag" content="TCP粘包">
-<meta property="article:tag" content="TCP半包">
-<meta property="article:tag" content="16进制通信">
+<meta property="article:tag" content="JAVA BLOGS WEB开发">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
@@ -287,80 +283,260 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-解决使用netty作为TCP服务端时设备接收消息连包问题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-  
-  
-    <h1 class="article-title" itemprop="name">
-      解决使用netty作为TCP服务端时设备接收消息连包问题
-    </h1>
-  
-
-
-  
-  
-        
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-<a href="/posts/d0c795f9.html" class="archive-article-date">
-        <time datetime="2021-06-11T07:28:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
-</a>
-
-  
-  
-    
-<div style="margin-top:10px;">
-  <span class="post-time">
-    <span class="post-meta-item-icon">
-      <!-- fonts.scss -->
-      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
-      <i class="icon-statistics"></i>
-      <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">553字</span>
-    </span>
-  </span>
-
-  <span class="post-time">
-    &nbsp; | &nbsp;
-    <span class="post-meta-item-icon">
-      <i class="icon-book icon"></i>
-      <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
-    </span>
-  </span>
-</div>
-
-
-  
-  </header>
-  
   <div class="article-entry" itemprop="articleBody">
     
-    <h1><span id="前言">前言</span></h1><p>在前一章记录了如何使用netty作为TCP通信的服务端：<a href="https://reiner.host/posts/94ca3821.html">点击前往</a> ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。</p>
-<h1><span id="问题描述">问题描述</span></h1><p>在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：<code>EEFF0103GGHH</code>,心跳包的回复是：<code>EEFF0201GGHH</code>。</p>
-<p>当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：<code>EEFF0103GGHHEEFF0201GGHH</code>。</p>
-<p>这是由于调用netty的<code>writeAndFlush()</code>方法时并不是马上将数据发送过去，而将它放在一个缓冲池当中，而由于硬件的一发一收通信机制客户端无法对连包的数据做分割，因此这个问题要由服务端解决。</p>
-<a id="more"></a>
+    <html>
+<head>
+	<meta charset="utf-8">
+	<title>地图路线规划</title>
+	<style type="text/css">
+	.grids{border:1px solid white;width:70px;height:70px;float:left;margin:1px;background:gray;}
+	</style>
+</head>
 
-<h1><span id="解决办法">解决办法</span></h1><p>找遍了谷歌、官方文档等资料就是没有说明连包问题的相关资料，大部分资料都是说明如何解决服务端接收TCP消息时产生的粘包、半包等问题。</p>
-<p>最终发现原来netty配置中有个<code>ChannelOption.TCP_NODELAY</code>选项，官网上没有任何介绍，根据名字可知意思为“无延迟TCP”，于是启动类代码修改为如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建线程组</span></span><br><span class="line">       EventLoopGroup bossGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       EventLoopGroup workerGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//创建启动类</span></span><br><span class="line">           ServerBootstrap b = <span class="keyword">new</span> ServerBootstrap(); </span><br><span class="line">           b.group(bossGroup, workerGroup)</span><br><span class="line">                   .channel(NioServerSocketChannel.class)</span><br><span class="line">                   .childHandler(<span class="keyword">new</span> ServerInitializer(deviceReportEvent))</span><br><span class="line">                   .option(ChannelOption.TCP_NODELAY, <span class="keyword">true</span>) <span class="comment">//无延时发送消息</span></span><br><span class="line">                   .option(ChannelOption.SO_BACKLOG, <span class="number">256</span>)</span><br><span class="line">                   .childOption(ChannelOption.SO_KEEPALIVE, <span class="keyword">true</span>);</span><br><span class="line">           <span class="comment">// 绑定端口，开始接收进来的连接</span></span><br><span class="line">           ChannelFuture f = b.bind(<span class="number">9000</span>).sync();</span><br><span class="line">           <span class="comment">// 等待服务器 socket 关闭 。</span></span><br><span class="line">           f.channel().closeFuture().sync();</span><br></pre></td></tr></table></figure>
+<body>
 
-
-
-<p>关键代码在于<code>.option(ChannelOption.TCP_NODELAY, true)</code>，最终通过抓包发现未在出现连包的情况。</p>
-<p>由于我这边的特殊情况，在发送消息时我还加了一层保障，防止心跳回复与指令冲突，示例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Title</span>: writeAndFlush</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>:   返回消息到客户端</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> reiner_shir</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> channel</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> respData</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeAndFlush</span><span class="params">(Channel channel,<span class="keyword">byte</span>[] respData)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">final</span> ByteBuf respBuf = channel.alloc().buffer(respData.length);</span><br><span class="line">		respBuf.writeBytes(respData);</span><br><span class="line">		<span class="keyword">synchronized</span> (channel) &#123;</span><br><span class="line">			ChannelFuture future = channel.writeAndFlush(respBuf);</span><br><span class="line">			<span class="keyword">if</span>(future!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					future.sync();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<div id="div">
 
 
+</div>
+
+<script>
+//开始位置
+var startIndex = 0; //第几行
+var startCell = 6;//左数第几格
+//结束位置
+var endIndex =  5;
+var endCell = 4;
+//地图格子的数量
+var rectCount = 7;
+
+//矩形对象，用于展示格子
+function Rect(){
+	//var next;//下一个元素
+	//var pre; //上一个
+	var data;	//保存的内容
+	var width = 70;
+	var height = 70;
+	
+}
+
+//用于保存地图对象的二维数组，和寻路无关，主要用于地图格子绘制
+var grids = new Array();
+
+var MAP = {};
+//地图，二维数组
+MAP.arr = new Array();
+//初始化足迹数组
+var marks = new Array();
+//可行走路线
+var allPlans = new Array();
+for(var i = 0;i<rectCount;i++){
+	grids[i] = new Array();
+	marks[i] = new Array();
+	MAP.arr[i]=new Array();
+	for(var j=0;j<rectCount;j++){
+		grids[i][j] = new Rect();
+		
+	}
+}
+
+MAP.rows = rectCount;
+MAP.cols = rectCount;
+//设置障碍物所在的格子
+MAP.arr[1][5]=1;
+MAP.arr[1][4]=1;
+MAP.arr[1][3]=1;
+MAP.arr[2][4]=1;
+MAP.arr[2][6] = 1;
+//MAP.arr[4][2] = 1;
+MAP.arr[4][3] = 1;
+MAP.arr[4][4] = 1;
+MAP.arr[3][4] = 1;
+MAP.arr[4][5] = 1;
+MAP.arr[5][5] = 1;
+MAP.arr[6][3] = 1;
+//MAP.arr[6][4] = 1;
+
+//draw rect
+for(var i = 0;i<grids.length;i++){
+	var g = grids[i];
+	for(var j=0;j<g.length;j++){
+		var next = g[j];
+		var div = drawRect(next,(j+1)>=g.length?true:false);
+		if(div!=null){
+			g[j].data = div;
+		}
+	}
+}
+
+//绘制障碍物
+for(var i = 0;i<MAP.arr.length;i++){
+	var g = MAP.arr[i];
+	for(var j=0;j<g.length;j++){
+		if(1==g[j]){
+			drawPoint(i,j,"blue");
+		}
+	}
+}
+
+//var drawIndex = 1;
+//改变格子的颜色 
+function drawPoint(index,cell,color){
+	//console.log(index+" , "+cell);
+	var g = grids[index][cell];
+	var style = "border:1px solid blue;background:green;";
+	if(color){
+		if(color=="red"){
+			style = "border:1px solid red;background:red;";
+		}else if(color=="gray"){
+			style = "border:1px solid gray;background:gray;";
+		}else if(color=="blue"){
+			style = "border:1px solid blue;background:blue;";
+		}
+	}
+	g.data.style= style;
+	//g.data.innerHTML=""+drawIndex;
+	//drawIndex++;
+}
+
+//draw start point and end point
+drawPoint(startIndex,startCell);
+drawPoint(endIndex,endCell);
+
+function drawRect(rect,isLast){
+	
+	var div = document.createElement("div");
+	div.className="grids"
+	//div.style="width:"+rect.width+"px;height:"+rect.height+"px";
+	document.getElementById("div").appendChild(div);
+	if(isLast){
+		//div.style="float:none;";
+		var br = document.createElement("div");
+		br.style="clear:both";
+		document.getElementById("div").appendChild(br)
+	}
+	return div;
+}
 
 
+//其中的MAP.arr是二维数组
+function searchRoad(start_x,start_y,end_x,end_y){
+    var openList=[],    //开启列表
+        closeList=[],   //关闭列表
+        result=[],      //结果数组
+        result_index;   //结果数组在开启列表中的序号
 
+    openList.push({x:start_x,y:start_y,G:0});//把当前点加入到开启列表中，并且G是0
 
+    do{
+        var currentPoint = openList.pop();
+        closeList.push(currentPoint);
+        var surroundPoint=SurroundPoint(currentPoint);
+        for(var i in surroundPoint) {
+            var item = surroundPoint[i];                //获得周围的八个点
+            if (
+                item.x>=0 &&                            //判断是否在地图上
+                item.y>=0 &&
+                item.x<MAP.rows &&
+                item.y<MAP.cols &&
+                MAP.arr[item.x][item.y] != 1 &&         //判断是否是障碍物
+                !existList(item, closeList) &&          //判断是否在关闭列表中
+                MAP.arr[item.x][currentPoint.y]!=1 &&   //判断之间是否有障碍物，如果有障碍物是过不去的
+                MAP.arr[currentPoint.x][item.y]!=1) {
+                //g 到父节点的位置
+                //如果是上下左右位置的则g等于10，斜对角的就是14
+                var g = currentPoint.G + ((currentPoint.x - item.x) * (currentPoint.y - item.y) == 0 ? 10 : 14);
+                if (!existList(item, openList)) {       //如果不在开启列表中
+                    //计算H，通过水平和垂直距离进行确定
+                    item['H'] = Math.abs(end_x - item.x) * 10 + Math.abs(end_y - item.y) * 10;
+                    item['G'] = g;
+                    item['F'] = item.H + item.G;
+                    item['parent'] = currentPoint;
+                    openList.push(item);
+                }
+                else {                                  //存在在开启列表中，比较目前的g值和之前的g的大小
+                    var index = existList(item, openList);
+                    //如果当前点的g更小
+                    if (g < openList[index].G) {
+                        openList[index].parent = currentPoint;
+                        openList[index].G = g;
+                        openList[index].F=g+openList[index].H;
+                    }
+
+                }
+            }
+        }
+        //如果开启列表空了，没有通路，结果为空
+        if(openList.length==0) {
+            break;
+        }
+        openList.sort(sortF);//这一步是为了循环回去的时候，找出 F 值最小的, 将它从 "开启列表" 中移掉
+    }while(!(result_index=existList({x:end_x,y:end_y},openList)));
+
+    //判断结果列表是否为空
+    if(!result_index) {
+        result=[];
+    }
+    else {
+        var currentObj=openList[result_index];
+        do{
+            //把路径节点添加到result当中
+            result.unshift({
+                x:currentObj.x,
+                y:currentObj.y
+            });
+            currentObj=currentObj.parent;
+        }while (currentObj.x!=start_x || currentObj.y!=start_y);
+
+    }
+    return result;
+
+}
+
+var result = searchRoad(startIndex,startCell,endIndex,endCell);
+
+console.log(result);
+
+for(var i in result){
+	var point = result[i];
+	drawPoint(point.x,point.y);
+}
+
+//用F值对数组排序
+function sortF(a,b){
+    return b.F- a.F;
+}
+//获取周围八个点的值
+function SurroundPoint(curPoint){
+    var x=curPoint.x,y=curPoint.y;
+    return [
+        {x:x-1,y:y-1},
+        {x:x,y:y-1},
+        {x:x+1,y:y-1},
+        {x:x+1,y:y},
+        {x:x+1,y:y+1},
+        {x:x,y:y+1},
+        {x:x-1,y:y+1},
+        {x:x-1,y:y}
+    ]
+}
+//判断点是否存在在列表中，是的话返回的是序列号
+function existList(point,list) {
+    for(var i in list) {
+        if(point.x==list[i].x && point.y==list[i].y) {
+            return i;
+        }
+    }
+    return false;
+}
+</script>
+<body>
+
+</body></body></html>
     
 
     
@@ -374,7 +550,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reiner.host/posts/d0c795f9.html" title="解决使用netty作为TCP服务端时设备接收消息连包问题" target="_blank">https://reiner.host/posts/d0c795f9.html</a>
+          <a href="https://reiner.host/路径规划-A-Star.html" title="" target="_blank">https://reiner.host/路径规划-A-Star.html</a>
         </li>
         
         <li>
@@ -391,33 +567,6 @@
   <div class="article-info article-info-index">
     
     
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">netty</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP服务端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP粘包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP半包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">16进制通信</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
     
 
     
@@ -468,7 +617,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/d0c795f9.html" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92-A-Star.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -480,25 +629,6 @@
   </div>
 </article>
 
-
-<nav id="article-nav">
-  
-    <a href="/posts/cfc5b0c5.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          左右值树形结构移动节点方法(modified preorder tree traversal move node)
-        
-      </div>
-    </a>
-  
-  
-    <a href="/posts/cc861966.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HTTP&amp;TCP/IP协议自我总结</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
 
 
 <aside class="wrap-side-operation">
@@ -521,7 +651,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -548,9 +678,9 @@
     <script src="/lib/gitment.js"></script>
   
   <script>
-    <!-- id: "解决使用netty作为TCP服务端时设备接收消息连包问题" -->
+    <!-- id: "" -->
     var gitment = new Gitment({
-      id: "20210611152821",
+      id: "20210702151032",
       owner: 'reinershir',
       repo: 'reinershir.github.io',
       oauth: {
@@ -604,7 +734,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

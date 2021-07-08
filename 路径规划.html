@@ -6,8 +6,8 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://reiner.host">
-  <link rel="canonical" href="https://reiner.host/posts/d0c795f9.html"/>
-  <title>解决使用netty作为TCP服务端时设备接收消息连包问题 | Reinerの个人博客</title>
+  <link rel="canonical" href="https://reiner.host/路径规划.html"/>
+  <title>Reinerの个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -17,21 +17,17 @@
   <meta name="msvalidate.01" content="2A23871076C32D9FEA46BE743DA8711C" />
   
   
-  <meta name="description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
-<meta property="og:type" content="article">
-<meta property="og:title" content="解决使用netty作为TCP服务端时设备接收消息连包问题">
-<meta property="og:url" content="https://reiner.host/posts/d0c795f9.html">
+  <meta name="description" content="地图路线规划 	 	.grids{border:1px solid white;width:70px;height:70px;float:left;margin:1px;background:gray;} 	           &#x2F;&#x2F;开始位置 var startIndex &#x3D; 6; &#x2F;&#x2F;第几行 var startCell &#x3D; 5;&#x2F;&#x2F;左数第几格 &#x2F;&#x2F;结束位置 var endIndex &#x3D;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reinerの个人博客">
+<meta property="og:url" content="https://reiner.host/%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92.html">
 <meta property="og:site_name" content="Reinerの个人博客">
-<meta property="og:description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
+<meta property="og:description" content="地图路线规划 	 	.grids{border:1px solid white;width:70px;height:70px;float:left;margin:1px;background:gray;} 	           &#x2F;&#x2F;开始位置 var startIndex &#x3D; 6; &#x2F;&#x2F;第几行 var startCell &#x3D; 5;&#x2F;&#x2F;左数第几格 &#x2F;&#x2F;结束位置 var endIndex &#x3D;">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-06-11T07:28:21.000Z">
-<meta property="article:modified_time" content="2021-06-11T08:47:39.369Z">
+<meta property="article:published_time" content="2021-07-02T06:17:48.261Z">
+<meta property="article:modified_time" content="2021-07-02T06:17:48.261Z">
 <meta property="article:author" content="reiner">
-<meta property="article:tag" content="netty">
-<meta property="article:tag" content="TCP服务端">
-<meta property="article:tag" content="TCP粘包">
-<meta property="article:tag" content="TCP半包">
-<meta property="article:tag" content="16进制通信">
+<meta property="article:tag" content="JAVA BLOGS WEB开发">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Reinerの个人博客" type="application/atom+xml">
@@ -287,80 +283,400 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-解决使用netty作为TCP服务端时设备接收消息连包问题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-  
-  
-    <h1 class="article-title" itemprop="name">
-      解决使用netty作为TCP服务端时设备接收消息连包问题
-    </h1>
-  
-
-
-  
-  
-        
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-<a href="/posts/d0c795f9.html" class="archive-article-date">
-        <time datetime="2021-06-11T07:28:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
-</a>
-
-  
-  
-    
-<div style="margin-top:10px;">
-  <span class="post-time">
-    <span class="post-meta-item-icon">
-      <!-- fonts.scss -->
-      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
-      <i class="icon-statistics"></i>
-      <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">553字</span>
-    </span>
-  </span>
-
-  <span class="post-time">
-    &nbsp; | &nbsp;
-    <span class="post-meta-item-icon">
-      <i class="icon-book icon"></i>
-      <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
-    </span>
-  </span>
-</div>
-
-
-  
-  </header>
-  
   <div class="article-entry" itemprop="articleBody">
     
-    <h1><span id="前言">前言</span></h1><p>在前一章记录了如何使用netty作为TCP通信的服务端：<a href="https://reiner.host/posts/94ca3821.html">点击前往</a> ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。</p>
-<h1><span id="问题描述">问题描述</span></h1><p>在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：<code>EEFF0103GGHH</code>,心跳包的回复是：<code>EEFF0201GGHH</code>。</p>
-<p>当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：<code>EEFF0103GGHHEEFF0201GGHH</code>。</p>
-<p>这是由于调用netty的<code>writeAndFlush()</code>方法时并不是马上将数据发送过去，而将它放在一个缓冲池当中，而由于硬件的一发一收通信机制客户端无法对连包的数据做分割，因此这个问题要由服务端解决。</p>
-<a id="more"></a>
+    <html>
+<head>
+	<meta charset="utf-8">
+	<title>地图路线规划</title>
+	<style type="text/css">
+	.grids{border:1px solid white;width:70px;height:70px;float:left;margin:1px;background:gray;}
+	</style>
+</head>
 
-<h1><span id="解决办法">解决办法</span></h1><p>找遍了谷歌、官方文档等资料就是没有说明连包问题的相关资料，大部分资料都是说明如何解决服务端接收TCP消息时产生的粘包、半包等问题。</p>
-<p>最终发现原来netty配置中有个<code>ChannelOption.TCP_NODELAY</code>选项，官网上没有任何介绍，根据名字可知意思为“无延迟TCP”，于是启动类代码修改为如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建线程组</span></span><br><span class="line">       EventLoopGroup bossGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       EventLoopGroup workerGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//创建启动类</span></span><br><span class="line">           ServerBootstrap b = <span class="keyword">new</span> ServerBootstrap(); </span><br><span class="line">           b.group(bossGroup, workerGroup)</span><br><span class="line">                   .channel(NioServerSocketChannel.class)</span><br><span class="line">                   .childHandler(<span class="keyword">new</span> ServerInitializer(deviceReportEvent))</span><br><span class="line">                   .option(ChannelOption.TCP_NODELAY, <span class="keyword">true</span>) <span class="comment">//无延时发送消息</span></span><br><span class="line">                   .option(ChannelOption.SO_BACKLOG, <span class="number">256</span>)</span><br><span class="line">                   .childOption(ChannelOption.SO_KEEPALIVE, <span class="keyword">true</span>);</span><br><span class="line">           <span class="comment">// 绑定端口，开始接收进来的连接</span></span><br><span class="line">           ChannelFuture f = b.bind(<span class="number">9000</span>).sync();</span><br><span class="line">           <span class="comment">// 等待服务器 socket 关闭 。</span></span><br><span class="line">           f.channel().closeFuture().sync();</span><br></pre></td></tr></table></figure>
+<body>
 
-
-
-<p>关键代码在于<code>.option(ChannelOption.TCP_NODELAY, true)</code>，最终通过抓包发现未在出现连包的情况。</p>
-<p>由于我这边的特殊情况，在发送消息时我还加了一层保障，防止心跳回复与指令冲突，示例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Title</span>: writeAndFlush</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>:   返回消息到客户端</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> reiner_shir</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> channel</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> respData</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeAndFlush</span><span class="params">(Channel channel,<span class="keyword">byte</span>[] respData)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">final</span> ByteBuf respBuf = channel.alloc().buffer(respData.length);</span><br><span class="line">		respBuf.writeBytes(respData);</span><br><span class="line">		<span class="keyword">synchronized</span> (channel) &#123;</span><br><span class="line">			ChannelFuture future = channel.writeAndFlush(respBuf);</span><br><span class="line">			<span class="keyword">if</span>(future!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					future.sync();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<div id="div">
 
 
+</div>
+
+<script>
+//开始位置
+var startIndex = 6; //第几行
+var startCell = 5;//左数第几格
+//结束位置
+var endIndex =  0;
+var endCell = 4;
+//地图格子的数量
+var rectCount = 7;
+
+//矩形
+function Rect(){
+	//var next;//下一个元素
+	//var pre; //上一个
+	var data;	//保存的内容
+	var width = 70;
+	var height = 70;
+	
+}
+
+//初始化格子数组
+var grids = new Array();
+//初始化障碍物数组
+var obstacle = new Array();
+//初始化足迹数组
+var marks = new Array();
+//可行走路线
+var allPlans = new Array();
+for(var i = 0;i<rectCount;i++){
+	grids[i] = new Array();
+	obstacle[i] = new Array();
+	marks[i] = new Array();
+	for(var j=0;j<rectCount;j++){
+		grids[i][j] = new Rect();
+		
+	}
+}
+//设置障碍物所在的格子
+obstacle[1][5]=1;
+obstacle[1][4]=1;
+obstacle[1][3]=1;
+obstacle[2][4]=1;
+obstacle[2][6] = 1;
+//obstacle[4][2] = 1;
+obstacle[4][3] = 1;
+obstacle[4][4] = 1;
+obstacle[3][4] = 1;
+obstacle[4][5] = 1;
+obstacle[5][5] = 1;
+obstacle[6][3] = 1;
+//obstacle[6][4] = 1;
+
+//draw rect
+for(var i = 0;i<grids.length;i++){
+	var g = grids[i];
+	for(var j=0;j<g.length;j++){
+		var next = g[j];
+		var div = drawRect(next,(j+1)>=g.length?true:false);
+		if(div!=null){
+			g[j].data = div;
+		}
+	}
+}
+
+//绘制障碍物
+for(var i = 0;i<obstacle.length;i++){
+	var g = obstacle[i];
+	for(var j=0;j<g.length;j++){
+		if(1==g[j]){
+			drawPoint(i,j,"blue");
+		}
+	}
+}
+
+//var drawIndex = 1;
+//改变格子的颜色 
+function drawPoint(index,cell,color){
+	//console.log(index+" , "+cell);
+	var g = grids[index][cell];
+	var style = "border:1px solid blue;background:green;";
+	if(color){
+		if(color=="red"){
+			style = "border:1px solid red;background:red;";
+		}else if(color=="gray"){
+			style = "border:1px solid gray;background:gray;";
+		}else if(color=="blue"){
+			style = "border:1px solid blue;background:blue;";
+		}
+	}
+	g.data.style= style;
+	//g.data.innerHTML=""+drawIndex;
+	//drawIndex++;
+}
+
+//draw start point and end point
+drawPoint(startIndex,startCell);
+drawPoint(endIndex,endCell);
+
+function drawRect(rect,isLast){
+	
+	var div = document.createElement("div");
+	div.className="grids"
+	//div.style="width:"+rect.width+"px;height:"+rect.height+"px";
+	document.getElementById("div").appendChild(div);
+	if(isLast){
+		//div.style="float:none;";
+		var br = document.createElement("div");
+		br.style="clear:both";
+		document.getElementById("div").appendChild(br)
+	}
+	return div;
+}
+
+function checkAnotherLine(){
+	ok:
+	//检查原点是否还有其它路可走，如果没有检查下一格
+	for(var i in marks){
+		currentIndex = i;
+		for(var o in marks[i]){
+			currentCell=marks[o];
+			if(isCanPass()){
+				break ok;
+			}
+		}
+		
+	}
+}
+
+//当前位置行
+var currentIndex = startIndex;
+//当前位置列
+var currentCell = startCell;
+//标记起点为已走过的格子，用于方便返回起点尝试其它路线
+marks[currentIndex][currentCell]=1;
+var moveIndex = 0;
 
 
+function finding(){
+	var tryIndex = -1;
+	var tryCell  = -1;
+	//用于保存当前行走路线
+	var plan = new Array();
+	for(var i = 0;i<rectCount;i++){
+		plan[i] = new Array();
+	}
+	while(currentIndex!=endIndex||currentCell!=endCell){
+		
+		//自动选择最佳路线并检查是否可以通过
+		if(isCanPass()){
+			// 记录走过的路线
+			plan[currentIndex][currentCell] = 1;
+			//如果是终点，则不保存为走过的格子以防无法走到终点
+			if(currentIndex!=endIndex||currentCell!=endCell){
+				marks[currentIndex][currentCell] = 1;
+			}
+			//drawPoint(currentIndex,currentCell);
+		}else{
+			console.log("死路了");
+			//不需要死路的行走路线
+			delete plan[currentIndex][currentCell];
+			currentIndex= 0;
+			currentCell=0;
+			//回到原点
+			ok:
+			//检查原点是否还有其它路可走，如果没有检查下一格
+			for(var i in marks){
+				currentIndex = i;
+				if(tryIndex==i){
+					continue;
+				}
+				tryIndex = i;
+				for(var o in marks[i]){
+					//console.log(marks);
+					currentCell=o;
+					if(tryCell ==o){
+						continue;
+					}
+					tryCell = o;
+					//alert("index:"+currentIndex+" cell:"+currentCell);
+					//return;
+					if(isCanPass()){
+						plan[i][o]=1;
+						break ok;
+					}
+				}
+				
+			}
+			//TODO 使用数组保存所有可行走路线
+			//console.log(plan);
+			//如果死路，清除可行走路线,只清除上一次的行走路线,使用数组保存所有可行走路线
+			//delete allPlans[moveIndex];
+			/*for(var o in plan){
+				plan[o].splice(0,plan[o].length);
+			}*/
+		}
+		
+	}
+	//如果成功到达终点，保存路线
+	allPlans[moveIndex] = plan;
+	moveIndex++;
+}
 
+function drawRoute(){
 
+	//绘制路线
+	if(currentIndex==endIndex&&currentCell==endCell){
+		
+		
+		var minIndex = 0;
+		var tempLen=-1;
+		//找出可行走路线中最短的路线
+		for(var p in allPlans){
+			var plan = allPlans[p];
+			var len = 0;
+			for(var i in plan){
+				len += getCount(plan[i]);
+			}
+			if(tempLen==-1){
+				tempLen = len;
+			}
+			console.log("now len:"+len+" tempLen:"+tempLen);
+			if(len<tempLen){
+				minIndex = p;
+				tempLen = len;
+			}
+		}
+		console.info("minIndex:"+minIndex+" ");
+		console.log(allPlans);
+		for(var index in allPlans[minIndex]){
+			var plan = allPlans[minIndex][index];
+			for(var cell in plan){
+				drawPoint(index,cell);
+			}
+		}
+	}
+}
+
+/**
+*检查是否可通行，并自动选择行走方向(会改变currentIndex、currentCell)
+*/
+function isCanPass(){
+	//方向 0=左 1=右 2=上 3=下
+	var direction = new Array();
+	//寻找没有走过的路
+	while(checkMarks(currentIndex,currentCell)){
+		//所有方向全试过了还是死路
+		if(1==direction[0]&&1==direction[1]&&1==direction[2]&&1==direction[3]){
+			return false;
+		}
+		//用于判断走左边近还是右边近
+		var isLeft = currentCell>=endCell?true:false;
+		var isTop = currentIndex >endIndex?true:false;
+		//用于判断走哪个方向最近
+		var result = isTop?currentIndex - endIndex :endIndex - currentIndex ;
+
+		//上下可行走格子数
+		result = getRectCountByIndex(currentIndex,currentCell,result,false);
+		
+		var cellResult = isLeft ? currentCell - endCell :endCell - currentCell ;
+
+		//左右可行走格子数
+		cellResult=getRectCountByIndex(currentIndex,currentCell,cellResult,true);
+		
+		//临时存档点
+		var tempSavePointIndex = currentIndex;
+		var tempSavePointCell = currentCell;
+		//先判断往左右走近，还是往上下走近,且没有试过左右走,或者上下走已经试过
+		if(result < cellResult&&(1!=direction[0]&&1!=direction[1])||(1==direction[2]&&1==direction[3])){
+			//已经试过走左边，则这次试试右边
+			if((isLeft&&1!=direction[0])||1==direction[1]){
+				currentCell--;
+				direction[0] = 1;
+			}else{
+				currentCell++;
+				direction[1] = 1;
+			}
+		}else{
+			//判断是否试过走上面,或者已经试过走下面
+			if((isTop&&1!=direction[2])||1==direction[3]){
+				currentIndex--;
+				direction[2]=1;
+			}else{
+				currentIndex++;
+				direction[3]=1;
+			}
+		}
+		//如果有障碍物，回到上一步
+		if(checkObstacle(currentIndex,currentCell)||checkMarks(currentIndex,currentCell)){
+			currentIndex = tempSavePointIndex;
+			currentCell = tempSavePointCell;
+		}
+	}
+	return true;
+}
+
+/**
+*获取数组的实际长度
+*/
+function getCount(obj){
+	var objType = typeof obj;
+	if(objType == "string"){
+		return obj.length;
+	}else if(objType == "object"){
+		var objLen = 0;
+		for(var i in obj){
+			objLen++;
+		}
+		return objLen;
+	}
+	return false;
+}
+
+/**
+* 获取可行走的格子数
+* @param currentIndex 当前行数
+* @param currentCell 当前列数
+* @param resultCount 在不计算障碍物的情况下可行走的格子数
+* @param isCheckLeft 要计算的方向，true=计算左右，false= 计算上下
+*/
+
+//* X  direction 在不计算障碍物的情况下走哪边近，true = 左边false=右边，当isCheckLeft=true时，表示左右 false=上下
+function getRectCountByIndex(currentIndex,currentCell,resultCount,isCheckLeft){
+	var checkIndex = currentIndex;
+	var checkCell = currentCell;
+	var isLeft = currentCell>=endCell?true:false;
+	var isTop = currentIndex >=endIndex?true:false;
+	var count= 0;
+	for(var i =0;i<resultCount;i++){
+		if(isCheckLeft){
+			//检查左边近还是右边近
+			if(isLeft){
+				checkCell--;
+			}else{
+				checkCell++;
+			}
+		}else{
+			//检查走上面近还是下面近
+			if(isTop){
+				checkIndex--;
+			}else{
+				checkIndex++;
+			}
+		}
+		//如果检查到有障碍物，可行走格数计数结束
+		if(checkObstacle(checkIndex,checkCell)){
+			break;
+		}
+		count++;
+	}
+	return count;
+}
+
+function checkMarks(index,cell){
+	return 1==marks[index][cell];
+}
+
+/**
+*有障碍物则返回true
+*/
+function checkObstacle(index,cell){
+	return index<0||index>=rectCount||cell<0||cell>=rectCount||1==obstacle[index][cell];
+}
+
+finding();
+
+currentIndex = startIndex;
+currentCell = startCell;
+finding();
+drawRoute();
+</script>
+<body>
+
+</body></body></html>
     
 
     
@@ -374,7 +690,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://reiner.host/posts/d0c795f9.html" title="解决使用netty作为TCP服务端时设备接收消息连包问题" target="_blank">https://reiner.host/posts/d0c795f9.html</a>
+          <a href="https://reiner.host/路径规划.html" title="" target="_blank">https://reiner.host/路径规划.html</a>
         </li>
         
         <li>
@@ -391,33 +707,6 @@
   <div class="article-info article-info-index">
     
     
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">netty</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP服务端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP粘包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">TCP半包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">16进制通信</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
     
 
     
@@ -468,7 +757,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/posts/d0c795f9.html" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://reiner.host/%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92.html" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -480,25 +769,6 @@
   </div>
 </article>
 
-
-<nav id="article-nav">
-  
-    <a href="/posts/cfc5b0c5.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          左右值树形结构移动节点方法(modified preorder tree traversal move node)
-        
-      </div>
-    </a>
-  
-  
-    <a href="/posts/cc861966.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HTTP&amp;TCP/IP协议自我总结</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
 
 
 <aside class="wrap-side-operation">
@@ -521,7 +791,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -548,9 +818,9 @@
     <script src="/lib/gitment.js"></script>
   
   <script>
-    <!-- id: "解决使用netty作为TCP服务端时设备接收消息连包问题" -->
+    <!-- id: "" -->
     var gitment = new Gitment({
-      id: "20210611152821",
+      id: "20210702141748",
       owner: 'reinershir',
       repo: 'reinershir.github.io',
       oauth: {
@@ -604,7 +874,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
