@@ -25,7 +25,7 @@
 <meta property="og:description" content="前言在前一章记录了如何使用netty作为TCP通信的服务端：点击前往 ，本章记录一下如何解决硬件设备在接收到服务端发送过来的消息时有连包的问题。 问题描述在通过监测硬件的收包信息时发现偶尔会出现心跳包和指令“粘”在一块的情况，例如指令的发送内容是：EEFF0103GGHH,心跳包的回复是：EEFF0201GGHH。 当心跳包返回信息的时候此时正好指令下发，那么设备端就会收到：EEFF0103GGH">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-06-11T07:28:21.000Z">
-<meta property="article:modified_time" content="2021-06-11T08:47:39.369Z">
+<meta property="article:modified_time" content="2021-07-13T08:26:19.048Z">
 <meta property="article:author" content="reiner">
 <meta property="article:tag" content="netty">
 <meta property="article:tag" content="TCP服务端">
@@ -419,6 +419,17 @@
 	</div>
 
     
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JAVA//" class="article-tag-list-link color5">JAVA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
     
 
